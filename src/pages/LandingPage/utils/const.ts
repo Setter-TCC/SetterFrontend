@@ -6,6 +6,7 @@ import clock from '../../../assets/icons/clock.svg';
 import presence from '../../../assets/icons/presence.svg';
 import uniform from '../../../assets/icons/uniform.svg';
 import { SetterFeature } from './interfaces';
+import { IButton } from '../../../components/utils/interfaces';
 
 export const topFeatures: SetterFeature[] = [
   {
@@ -52,3 +53,19 @@ export const setterCallContent = {
   title: 'Tenha seu time de voleibol em suas mãos',
   description: 'Com o Setter, é possível fazer o gerenciamento de todas as áreas do seu time em apenas um só lugar'
 };
+
+export const buttons: IButton[] = [
+  {
+    text: 'Criar Time',
+    textColor: 'var(--color-primary-blue)',
+    backgroundColor: 'var(--color-primary-white)',
+    isFull: false,
+  },
+  {
+    text: 'Entrar',
+    textColor: 'var(--color-primary-white)',
+    backgroundColor: 'var(--color-primary-blue)',
+    isFull: true,
+  },
+
+];

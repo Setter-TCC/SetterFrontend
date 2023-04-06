@@ -27,4 +27,8 @@ export const Global = createGlobalStyle`
     --color-primary-black: #242424;
     --color-background: #F5F5F5;
   }
+
+  select, button {
+    cursor: pointer;
+  }
 `;
