@@ -11,6 +11,7 @@ const SetterFeatures: React.FC = () => {
       <List>
         {topFeatures.map(feature => (
           <CustomFeature
+            key={feature.title}
             icon={feature.icon}
             title={feature.title}
             description={feature.description}
@@ -20,6 +21,7 @@ const SetterFeatures: React.FC = () => {
       <List>
         {bottomFeatures.map(feature => (
           <CustomFeature
+            key={feature.title}
             icon={feature.icon}
             title={feature.title}
             description={feature.description}
@@ -27,7 +29,7 @@ const SetterFeatures: React.FC = () => {
         ))}
       </List>
     </Container>
-  )
-}
+  );
+};
 
 export default SetterFeatures;

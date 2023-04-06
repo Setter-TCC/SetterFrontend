@@ -17,7 +17,7 @@ const SetterFeatures: React.FC = () => {
         <Button text='Entrar' backgroundColor='#046E8F' textColor='#FFFFFF' isFull={true} />
       </Buttons>
     </Container>
-  )
-}
+  );
+};
 
 export default SetterFeatures;
