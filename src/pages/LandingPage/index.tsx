@@ -16,7 +16,6 @@ const LandingPage: React.FC = () => {
           <SetterFeatures />
         </InfoBox>
         <img className='team-work' src={team} />
-
       </Body>
     </Container>
   )

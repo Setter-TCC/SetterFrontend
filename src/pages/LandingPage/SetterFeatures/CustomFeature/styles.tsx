@@ -16,7 +16,7 @@ export const Title = styled.h3`
   display: flex;
   align-items: center;
   text-align: center;
-  color: #046E8F;
+  color: var(--color-primary-blue);
   margin: 5px 0 0 0;
 `;
 
@@ -29,6 +29,6 @@ export const Description = styled.p`
   display: flex;
   align-items: center;
   text-align: center;
-  color: #242424;
+  color: var(--color-primary-black);
   margin: 0;
 `;

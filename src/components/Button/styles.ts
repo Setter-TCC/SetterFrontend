@@ -25,16 +25,13 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   ${({ isFull, backgoundColor }: ButtonContainerProps) => isFull && css`
     border: 2px solid ${backgoundColor};
   `}
-
-  
 `;
 
 export const Text = styled.h3<TextProps>`
   font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
-  line-height: 19px;
+  font-size: 120%;
   display: flex;
   align-items: center;
   text-align: center;

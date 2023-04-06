@@ -22,7 +22,7 @@ export const LogoName = styled.h1`
   line-height: 45px;
   display: flex;
   align-items: center;
-  color: #046E8F;
+  color: var(--color-primary-blue);
 `;
 
 export const Buttons = styled.div`

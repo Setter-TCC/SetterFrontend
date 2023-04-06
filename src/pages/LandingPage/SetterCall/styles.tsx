@@ -15,7 +15,7 @@ export const Title = styled.div`
   line-height: 45px;
   display: flex;
   align-items: center;
-  color: #242424;
+  color: var(--color-primary-black);
   max-width: 530px;
 `;
 
@@ -27,6 +27,6 @@ export const Description = styled.div`
   line-height: 27px;
   display: flex;
   align-items: center;
-  color: #242424;
+  color: var(--color-primary-black);
   max-width: 400px;
 `;
