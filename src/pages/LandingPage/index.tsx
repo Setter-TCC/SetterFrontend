@@ -1,12 +1,25 @@
 import React from 'react';
-import { Title } from './styles';
+import { Container, Body, InfoBox } from './styles';
+import team from '../../assets/images/team.svg'
+import SetterFeatures from './SetterFeatures';
+import Header from '../../components/Header';
+import SetterCall from './SetterCall';
 
 const LandingPage: React.FC = () => {
 
-    return (<Title>OI</Title>)
+  return (
+    <Container>
+      <Header />
+      <Body>
+        <InfoBox>
+          <SetterCall />
+          <SetterFeatures />
+        </InfoBox>
+        <img className='team-work' src={team} />
+
+      </Body>
+    </Container>
+  )
 }
 
-
-
-
-export default LandingPage
+export default LandingPage;
