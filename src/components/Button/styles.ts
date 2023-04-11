@@ -22,8 +22,8 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   border: 2px solid ${props => props.textColor};
   border-radius: 10px;
 
-  ${({ isFull, backgoundColor }: ButtonContainerProps) => isFull && css`
-    border: 2px solid ${backgoundColor};
+  ${({ isFull }: ButtonContainerProps) => isFull && css`
+    border: unset;
   `}
 `;
 

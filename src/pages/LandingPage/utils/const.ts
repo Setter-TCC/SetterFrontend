@@ -60,12 +60,13 @@ export const buttons: IButton[] = [
     textColor: 'var(--color-primary-blue)',
     backgroundColor: 'var(--color-primary-white)',
     isFull: false,
+    path: '/signup',
   },
   {
     text: 'Entrar',
     textColor: 'var(--color-primary-white)',
     backgroundColor: 'var(--color-primary-blue)',
     isFull: true,
+    path: '/signin',
   },
-
 ];

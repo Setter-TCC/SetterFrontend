@@ -26,6 +26,7 @@ export const Global = createGlobalStyle`
     --color-grey-soft-2: #C6C6C6;
     --color-primary-black: #242424;
     --color-background: #F5F5F5;
+    --color-blue-soft: #046e8f99;
   }
 
   select, button {
