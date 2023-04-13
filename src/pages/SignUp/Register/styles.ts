@@ -10,64 +10,49 @@ export const Container = styled.div`
   background-color: var(--color-grey-soft);
 `;
 
-export const Body = styled.div`
-  margin-top: 70px;
+export const BackButton = styled.button`
   display: flex;
-  flex-direction: column;
-  align-items: left;
-`;
+  justify-content: center;
+  width: 150px;
+  height: 40px;
+  background: #FFFFFF;
+  border: 1px solid #046E8F;
+  border-radius: 10px;
 
-export const Step = styled.h2`
-  margin-bottom: 60px;
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 36px;
-  display: flex;
-  align-items: center;
-  color: var(--color-primary-black);
-`;
-
-export const Title = styled.h1`
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 26px;
-  line-height: 39px;
-  display: flex;
-  align-items: center;
-  color: var(--color-primary-black);
-  margin-bottom: 45px;
-`;
-export const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: 470px;
-  width: 450px;
-  gap: 8px;
-  margin-bottom: 20px;
-`;
-
-export const InputTitle = styled.p`
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  display: flex;
-  color: var(--color-primary-black);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  align-items: center;
+  text-align: center;
+  color: #046E8F;
+
 `;
 
-export const Input = styled.input`
-  background: #FFFFFF;
-  border-radius: 4px;
-  border: 1px solid #FFFFFF;
-  height: 35px;
+export const NextButton = styled.button`
+  display: flex;
+  justify-content: center;
+  width: 150px;
+  height: 40px;
+  background: #046E8F;
+  border: none;
+  border-radius: 10px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  align-items: center;
+  text-align: center;
+  color: #FFFFFF;
+
 `;
 
 export const Buttons = styled.div`
   display: flex;
   margin-top: 50px;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
 `;

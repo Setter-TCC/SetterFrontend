@@ -9,8 +9,3 @@ export interface IButton {
     onClick?: MouseEventHandler,
     isDisabled?: boolean,
 }
-
-export interface IInputs {
-    title: string,
-    type: string,
-}

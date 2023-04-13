@@ -1,51 +1,43 @@
-import React, { useState } from 'react';
-import { Container, Buttons, InputWrapper, Input, Title, Body, Step } from './styles';
-import { IButton, IInputs } from '../../../components/utils/interfaces';
-import { registerSteps } from '../utils/const';
-import Button from '../../../components/Button';
+/* eslint-disable react/jsx-key */
+import React, { FormEvent, useState } from 'react';
+import { Container, Buttons, BackButton, NextButton } from './styles';
+import { useMultiStepForm } from '../../../hooks/useMultiStepForm';
+import { AdminForm } from './Forms/AdminForm';
+import { TeamForm } from './Forms/TeamForm';
+import { CoachForm } from './Forms/CoachForm';
+import { FormInputData } from '../utils/interfaces';
 
-export interface StepProps {
-  step: string,
-  title: string,
-  inputs: IInputs[],
-  buttons: {
-    back?: IButton,
-    next: IButton,
-  },
-  suits?: IButton[],
-}
 const Register: React.FC = () => {
-  const [actualStep, setActualStep] = useState<StepProps>(registerSteps[0]);
+  const [data, setData] = useState({} as FormInputData);
+  const { currentStepIndex, step, back, next, isLast } = useMultiStepForm([
+    <AdminForm {...data} updateFields={updateFields} />,
+    <TeamForm {...data} updateFields={updateFields} />,
+    <CoachForm {...data} updateFields={updateFields} />
+  ]);
+
+  function updateFields(fields: Partial<FormInputData>) {
+    setData(prev => {
+      return { ...prev, ...fields };
+    });
+  }
+
+  function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (!isLast) return next();
+    alert('Terminou forms');
+
+  }
   return (
     <Container>
-      <Body>
-        <Step>{actualStep.step}</Step>
-        <Title>{actualStep.title}</Title>
-        {actualStep.inputs.map(input => (
-          <InputWrapper key={input.title}>
-            <p>{input.title}</p>
-            <Input type={input.type} />
-          </InputWrapper>
-        ))}
+      <form onSubmit={onSubmit}>
+        {step}
         <Buttons>
-          {actualStep.buttons.back &&
-            <Button backgroundColor={actualStep.buttons.back.backgroundColor}
-              isFull={actualStep.buttons.back.isFull}
-              path={actualStep.buttons.back.path}
-              text={actualStep.buttons.back.text}
-              textColor={actualStep.buttons.back.textColor}
-              key={actualStep.buttons.back.text}
-            />
-          }
-          <Button backgroundColor={actualStep.buttons.next.backgroundColor}
-            isFull={actualStep.buttons.next.isFull}
-            path={actualStep.buttons.next.path}
-            text={actualStep.buttons.next.text}
-            textColor={actualStep.buttons.next.textColor}
-            key={actualStep.buttons.next.text}
-          />
+          {currentStepIndex !== 0 && <BackButton type="button" onClick={back}>Anterior</BackButton>}
+          <NextButton type="submit">{
+            !isLast ? 'Próxima Etapa' : 'Finalizar'
+          }</NextButton>
         </Buttons>
-      </Body>
+      </form>
     </Container>
   );
 };
