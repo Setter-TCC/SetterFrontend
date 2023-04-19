@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   max-height: 100vh;
   max-width:100vw;
-  margin: 50px 100px;
+  margin: 30px 50px;
 `;
 
 export const Body = styled.div`

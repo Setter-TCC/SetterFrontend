@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   max-height: 100vh;
   width:50%;
-  padding: 50px 40px;
+  padding: 30px 50px;
 `;
 
 export const CreateImage = styled.img`

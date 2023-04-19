@@ -6,7 +6,7 @@ import { IButton } from '../utils/interfaces';
 import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
-  buttons: IButton[];
+  buttons?: IButton[];
 }
 
 const Header: React.FC<HeaderProps> = ({ buttons }) => {
@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ buttons }) => {
         <LogoName>Setter</LogoName>
       </LogoBox>
       <Buttons>
-        {buttons.map(button => (
+        {buttons && buttons.map(button => (
           <Button
             key={button.text}
             text={button.text}
