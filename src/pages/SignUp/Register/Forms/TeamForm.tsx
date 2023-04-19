@@ -1,4 +1,5 @@
 import { FormWrapper } from './FormWrapper';
+import { suits } from '../../utils/const';
 type TeamData = {
   teamName: string,
   teamEmail: string,
@@ -11,7 +12,6 @@ type TeamFormProps = TeamData & {
 }
 
 export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields }: TeamFormProps) => {
-
   return <FormWrapper step="Etapa 2" title='Crie uma conta para seu time'>
     <label>Nome</label>
     <input
@@ -27,7 +27,7 @@ export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields
       value={teamCnpj}
       onChange={e => updateFields({ teamCnpj: e.target.value })}
     />
-      
+
     <label>Email</label>
     <input
       required
@@ -35,12 +35,13 @@ export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields
       value={teamEmail}
       onChange={e => updateFields({ teamEmail: e.target.value })}
     />
-    <label>Suit</label>
-    <input
-      required
-      type="text"
-      value={teamSuit}
-      onChange={e => updateFields({ teamSuit: e.target.value })}
-    />
+
+    <label>Naipe</label>
+    <select value={teamSuit} onChange={(e) => updateFields({ teamSuit: e.target.value })}>
+      {suits.map(suit => (
+        <option key={suit.type} value={suit.type}>{suit.name}</option>
+      ))}
+    </select>
+
   </FormWrapper>;
 };

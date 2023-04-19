@@ -1,4 +1,5 @@
 import { IButton } from '../../../components/utils/interfaces';
+import { Suit } from '../../../enums';
 
 export const buttons: IButton[] = [
   {
@@ -10,3 +11,17 @@ export const buttons: IButton[] = [
   },
 ];
 
+export const suits = [
+  {
+    name: 'Feminino',
+    type: Suit.women,
+  },
+  {
+    name: 'Masculino',
+    type: Suit.men,
+  },
+  {
+    name: 'Misto',
+    type: Suit.mixed,
+  }
+];

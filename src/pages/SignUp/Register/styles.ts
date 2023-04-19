@@ -47,7 +47,24 @@ export const NextButton = styled.button`
   align-items: center;
   text-align: center;
   color: #FFFFFF;
+`;
 
+export const SkipButton = styled.button`
+  margin-top: 15px;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--color-primary-blue);
+  text-align: right;
+
+  &:hover {
+    color: var(--color-blue-soft);
+  }
+`;
+
+export const Skip = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Buttons = styled.div`

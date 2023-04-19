@@ -54,6 +54,14 @@ export const InputWrapper = styled.div`
     border: 1px solid #FFFFFF;
     height: 35px;
   }
+
+  select {
+    height: 35px;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #FFFFFF;
+    background: #FFFFFF;
+  }
 `;
 
 export const InputTitle = styled.p`

@@ -38,7 +38,7 @@ export const AdminForm = ({ adminName, adminEmail, adminPhone, adminPassword, up
     <label>Senha</label>
     <input
       required
-      type="text"
+      type="password"
       value={adminPassword}
       onChange={e => updateFields({ adminPassword: e.target.value })}
     />
