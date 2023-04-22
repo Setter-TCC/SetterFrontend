@@ -9,3 +9,11 @@ export interface IButton {
     onClick?: MouseEventHandler,
     isDisabled?: boolean,
 }
+
+export interface ISidebarData {
+    title: string,
+    icon: string,
+    path: string,
+    navColor: string,
+    navFilter: string,
+}

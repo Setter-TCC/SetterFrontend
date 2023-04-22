@@ -6,6 +6,8 @@ export const Global = createGlobalStyle`
     margin:0;
     padding: 0;
     outline:0;
+    max-width: 100vw;
+    max-height: 100vh;
     box-sizing:border-box;
     ::-webkit-scrollbar {
       display: none;

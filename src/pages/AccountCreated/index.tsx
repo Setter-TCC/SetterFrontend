@@ -9,7 +9,7 @@ import { IButton } from '../../components/utils/interfaces';
 const accessButton: IButton = {
   backgroundColor: 'var(--color-primary-blue)',
   isFull: true,
-  path: '/team',
+  path: '/athletes',
   text: 'Acessar Equipe',
   textColor: 'var(--color-primary-white)'
 };

@@ -9,9 +9,8 @@ export const Container = styled.div`
 `;
 
 export const CreateImage = styled.img`
-
-  width: 470px;
-  height: 470px;
+  width: 450px;
+  height: 450px;
 `;
 
 export const Body = styled.div`
@@ -22,7 +21,6 @@ export const Body = styled.div`
 `;
 
 export const CallText = styled.p`
-  margin-top: 20px;
   max-width: 470px;
   font-family: 'Poppins';
   font-style: normal;

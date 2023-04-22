@@ -69,7 +69,7 @@ export const Skip = styled.div`
 
 export const Buttons = styled.div`
   display: flex;
-  margin-top: 50px;
+  margin-top: 30px;
   flex-direction: row;
   justify-content: space-between;
 `;
