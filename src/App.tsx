@@ -6,6 +6,7 @@ import AccountCreated from './pages/AccountCreated';
 import Athletes from './pages/Athletes';
 import Cash from './pages/Cash';
 import Settings from './pages/Settings';
+import SignIn from './pages/SignIn';
 
 export default function AppRouter() {
   return (
@@ -15,6 +16,7 @@ export default function AppRouter() {
         <Routes>
           <Route path='/' Component={LandingPage} />
           <Route path='/signup' Component={SignUp} />
+          <Route path='/signin' Component={SignIn} />
           <Route path='/success' Component={AccountCreated} />
           <Route path='/athletes' Component={Athletes} />
           <Route path='/cash' Component={Cash} />

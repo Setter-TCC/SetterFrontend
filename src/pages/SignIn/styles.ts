@@ -19,9 +19,3 @@ export const Body = styled.div`
     height: 35em;
   }
 `;
-
-export const InfoBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5em;
-`;

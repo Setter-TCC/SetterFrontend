@@ -15,7 +15,7 @@ export const BackButton = styled.button`
   justify-content: center;
   width: 150px;
   height: 40px;
-  background: #FFFFFF;
+  background: var(--color-primary-white);
   border: 1px solid #046E8F;
   border-radius: 10px;
 
@@ -46,7 +46,7 @@ export const NextButton = styled.button`
   line-height: 19px;
   align-items: center;
   text-align: center;
-  color: #FFFFFF;
+  color: var(--color-primary-white);
 `;
 
 export const SkipButton = styled.button`

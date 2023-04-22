@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 
+interface InputWrapperProps {
+  backgroundColor: string,
+}
+
 export const Body = styled.div`
-  margin-top: 70px;
+  margin-top: 3em;
   display: flex;
   flex-direction: column;
   align-items: left;
 `;
 
 export const Step = styled.h2`
-  margin-bottom: 60px;
+  margin-bottom: 2em;
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 400;
@@ -31,7 +35,7 @@ export const Title = styled.h1`
   margin-bottom: 45px;
 `;
 
-export const InputWrapper = styled.div`
+export const InputWrapper = styled.div<InputWrapperProps>`
   display: flex;
   flex-direction: column;
   max-width: 470px;
@@ -49,9 +53,9 @@ export const InputWrapper = styled.div`
   }
 
   input {
-    background: #FFFFFF;
+    background: ${props => props.backgroundColor};
     border-radius: 4px;
-    border: 1px solid #FFFFFF;
+    border: 1px solid var(--color-primary-white);
     height: 35px;
   }
 
@@ -59,8 +63,8 @@ export const InputWrapper = styled.div`
     height: 35px;
     width: 100%;
     border-radius: 4px;
-    border: 1px solid #FFFFFF;
-    background: #FFFFFF;
+    border: 1px solid var(--color-primary-white);
+    background: var(--color-primary-white);
   }
 `;
 

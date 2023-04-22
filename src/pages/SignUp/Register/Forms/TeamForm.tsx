@@ -1,4 +1,4 @@
-import { FormWrapper } from './FormWrapper';
+import { FormWrapper } from '../../../../components/FormWrapper/index';
 import { suits } from '../../utils/const';
 type TeamData = {
   teamName: string,
@@ -12,7 +12,7 @@ type TeamFormProps = TeamData & {
 }
 
 export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields }: TeamFormProps) => {
-  return <FormWrapper step="Etapa 2" title='Crie uma conta para seu time'>
+  return <FormWrapper step="Etapa 2" title='Crie uma conta para seu time' inputBackgroundColor='var(--color-primary-white)'>
     <label>Nome</label>
     <input
       autoFocus

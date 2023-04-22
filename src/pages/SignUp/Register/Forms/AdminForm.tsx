@@ -1,4 +1,4 @@
-import { FormWrapper } from './FormWrapper';
+import { FormWrapper } from '../../../../components/FormWrapper/index';
 
 type AdminData = {
   adminName: string,
@@ -13,7 +13,7 @@ type AdminFormProps = AdminData & {
 
 export const AdminForm = ({ adminName, adminEmail, adminPhone, adminPassword, updateFields }: AdminFormProps) => {
 
-  return <FormWrapper step="Etapa 1" title="Crie uma conta de administrador">
+  return <FormWrapper step="Etapa 1" title="Crie uma conta de administrador" inputBackgroundColor='var(--color-primary-white)'>
     <label>Nome</label>
     <input
       autoFocus

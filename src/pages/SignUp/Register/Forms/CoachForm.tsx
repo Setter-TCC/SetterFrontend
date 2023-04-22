@@ -1,4 +1,4 @@
-import { FormWrapper } from './FormWrapper';
+import { FormWrapper } from '../../../../components/FormWrapper/index';
 
 type CoachData = {
   coachName: string,
@@ -14,7 +14,7 @@ type CoachFormProps = CoachData & {
 
 export const CoachForm = ({ coachName, coachEmail, coachPhone, coachCref, updateFields, skipped }: CoachFormProps) => {
   return <>
-    {!skipped && <FormWrapper step="Etapa 3" title='Adicione um técnico para o time'>
+    {!skipped && <FormWrapper step="Etapa 3" title='Adicione um técnico para o time' inputBackgroundColor='var(--color-primary-white)'>
       <label>Nome</label>
       <input
         autoFocus
