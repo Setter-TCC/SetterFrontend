@@ -7,21 +7,24 @@ import Athletes from './pages/Athletes';
 import Cash from './pages/Cash';
 import Settings from './pages/Settings';
 import SignIn from './pages/SignIn';
+import { AuthProvider } from './auth/AuthContext';
 
 export default function AppRouter() {
   return (
     <>
       <Global />
       <Router>
-        <Routes>
-          <Route path='/' Component={LandingPage} />
-          <Route path='/signup' Component={SignUp} />
-          <Route path='/signin' Component={SignIn} />
-          <Route path='/success' Component={AccountCreated} />
-          <Route path='/athletes' Component={Athletes} />
-          <Route path='/cash' Component={Cash} />
-          <Route path='/settings' Component={Settings} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path='/' Component={LandingPage} />
+            <Route path='/signup' Component={SignUp} />
+            <Route path='/signin' Component={SignIn} />
+            <Route path='/success' Component={AccountCreated} />
+            <Route path='/athletes' Component={Athletes} />
+            <Route path='/cash' Component={Cash} />
+            <Route path='/settings' Component={Settings} />
+          </Routes>
+        </AuthProvider>
       </Router>
     </>
   );

@@ -2,17 +2,19 @@ import React, { FormEvent, useState } from 'react';
 import { FormWrapper } from '../../../components/FormWrapper/index';
 import { useNavigate } from 'react-router-dom';
 import { ButtonWrapper, Container, LoginButton } from './styles';
+import { useAuth } from '../../../auth/AuthContext';
 
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { logIn } = useAuth();
 
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
-    // Login account
+    logIn();
     navigate('/athletes');
   }
 
