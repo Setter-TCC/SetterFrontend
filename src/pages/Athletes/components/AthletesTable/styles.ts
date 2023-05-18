@@ -36,7 +36,7 @@ export const TableHead = styled.thead`
   }
 `;
 export const TableBody = styled.tbody`
-  /* Estilos para o corpo da tabela, se necessário */
+
 `;
 
 export const TableHeaderCell = styled.th`
@@ -50,12 +50,15 @@ export const TableHeaderCell = styled.th`
 `;
 
 export const TableCell = styled.td`
+   &.first-cell {
+    padding-left: 2em;
+    padding-right: 0em;
+  }
+
   text-align: left;
-  padding-right: 0.7em;
-  padding-left: 0.1em;
+  padding-right: 0.5em;
   padding-top: 1.2em;
   padding-bottom: 1.2em;
-  /* padding-top: 16px; */
   margin: 1em;
   max-width: 8em;
   overflow: hidden;
@@ -105,5 +108,14 @@ export const SearchBox = styled.div`
     width: 1.5em;
     height: 1.5em;
   }
-  
+`;
+
+export const MoreActionsButton = styled.button`
+  border: none;
+  background: none;
+
+  img {
+    width: 1em;
+    height: 2em; 
+  }
 `;
