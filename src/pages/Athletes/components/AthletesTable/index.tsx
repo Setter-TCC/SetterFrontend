@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, AthleteTable, TableHead, TableBody, TableHeaderCell, TableCell, RoundedImage, HeaderContent, TableWrapper, SearchBox, MoreActionsButton } from './styles';
 import img1 from '../../../../assets/athletes/img1.jpeg';
 import searchIcon from '../../../../assets/icons/search.svg';
 import Button from '../../../../components/Button';
 import moreActions from '../../../../assets/icons/moreActions.svg';
+import NewAthlete from '../NewAthlete';
 const atletas = [
   {
     imagemUrl: img1,
@@ -40,6 +41,7 @@ const atletas = [
 
 const AthletesTable: React.FC = () => {
   const [searchString, setSearchString] = useState('');
+  const [isNewAthleteDrawerOpen, setIsNewAthleteDrawerOpen] = useState(false);
 
   const handleSearchChange = (event: any) => {
     setSearchString(event.target.value);
@@ -48,8 +50,26 @@ const AthletesTable: React.FC = () => {
   const filteredAtletas = atletas.filter((atleta) =>
     atleta.nome.toLowerCase().includes(searchString.toLowerCase())
   );
+
+  // useEffect(() => {
+  //   function handleClickOutside(event: any) {
+  //     // Verifica se o clique foi fora do drawer
+  //     if (event.target.closest('.drawer') === null) {
+  //       setIsNewAthleteDrawerOpen(false);
+  //     }
+  //   }
+
+  //   document.addEventListener('click', handleClickOutside);
+
+  //   return () => {
+  //     document.removeEventListener('click', handleClickOutside);
+  //   };
+  // }, []);
   return (
     <Container>
+      {isNewAthleteDrawerOpen && (
+        <NewAthlete closeDrawer={() => setIsNewAthleteDrawerOpen(false)} />
+      )}
       <HeaderContent>
         <SearchBox>
           <input
@@ -66,7 +86,7 @@ const AthletesTable: React.FC = () => {
           textColor='var(--color-primary-white)'
           isFull
           path=""
-        // onClick={() => navigate(button.path)}
+          onClick={() => setIsNewAthleteDrawerOpen(true)}
         />
       </HeaderContent>
       <TableWrapper>

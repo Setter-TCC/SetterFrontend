@@ -1,5 +1,5 @@
 import InputMask from 'react-input-mask';
-import { FormWrapper } from '../../../../components/FormWrapper/index';
+import { FormWrapper } from '../../../../components/SignUpFormWrapper/index';
 
 type CoachData = {
   coachName: string,
