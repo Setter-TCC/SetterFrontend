@@ -5,6 +5,7 @@ import searchIcon from '../../../../assets/icons/search.svg';
 import Button from '../../../../components/Button';
 import moreActions from '../../../../assets/icons/moreActions.svg';
 import NewAthlete from '../NewAthlete';
+import InfoModal from '../../../../components/InfoModal';
 const atletas = [
   {
     imagemUrl: img1,
@@ -42,6 +43,7 @@ const atletas = [
 const AthletesTable: React.FC = () => {
   const [searchString, setSearchString] = useState('');
   const [isNewAthleteDrawerOpen, setIsNewAthleteDrawerOpen] = useState(false);
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
   const handleSearchChange = (event: any) => {
     setSearchString(event.target.value);
@@ -68,7 +70,12 @@ const AthletesTable: React.FC = () => {
   return (
     <Container>
       {isNewAthleteDrawerOpen && (
-        <NewAthlete closeDrawer={() => setIsNewAthleteDrawerOpen(false)} />
+        <NewAthlete
+          closeDrawer={() => setIsNewAthleteDrawerOpen(false)}
+          openInfoModal={() => setIsInfoModalOpen(true)} />
+      )}
+      {isInfoModalOpen && (
+        <InfoModal text='Atleta criado(a) com sucesso!' closeModal={() => setIsInfoModalOpen(false)} />
       )}
       <HeaderContent>
         <SearchBox>

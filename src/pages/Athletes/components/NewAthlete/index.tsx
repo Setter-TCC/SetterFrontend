@@ -24,10 +24,11 @@ type NewAthleteData = {
 
 type NewAthleteProps = {
   closeDrawer: () => void;
+  openInfoModal: () => void;
 }
 
 const NewAthlete: React.FC<NewAthleteProps> = ({
-  closeDrawer
+  closeDrawer, openInfoModal
 }) => {
   const [athleteData, setAthleteData] = useState<NewAthleteData>({} as NewAthleteData);
 
@@ -35,6 +36,7 @@ const NewAthlete: React.FC<NewAthleteProps> = ({
     e.preventDefault();
     // Criar atleta
     closeDrawer();
+    openInfoModal();
   };
 
   return (
