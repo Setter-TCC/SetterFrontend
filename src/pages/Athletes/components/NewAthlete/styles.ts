@@ -12,7 +12,7 @@ export const ContainerBackground = styled.div`
 
 export const Container = styled.div`
   width: 28em;
-  height: 100vh;
+  height: 100%;
   background-color: var(--color-primary-white);
   position: fixed;
   top: 0;
@@ -21,56 +21,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 2em;
-  padding-bottom: 2em;
+  justify-content: center;
+  padding-top: 1em;
+  padding-bottom: 1em;
 `;
 
-export const Title = styled.h1`
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1.6em;
-  line-height: 28px;
-  display: flex;
-  align-items: center;
-  color: #046E8F;
-  margin-bottom: 2em;
-
-`;
-
-export const FormWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  label {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1em;
-    line-height: 16px;
-    display: flex;
-    color: #4E3C3C;
-    margin-bottom: 0.5em;
-  }
-
-  input {
-    width: 23em;
-    height: 1.5em;
-    border: 1px solid #4E3C3C;
-    border-radius: 0.3em;
-    padding-left: 0.5em;
-    margin-bottom: 1em;
-  }
-
-  select {
-    width: 23em;
-    height: 1.8em;
-    border: 1px solid #4E3C3C;
-    border-radius: 0.3em;
-    padding-left: 0.5em;
-    margin-bottom: 1em;
-    background-color: var(--color-primary-white);
-  }
-`;
 
 export const ImgWrapper = styled.div`
   position: relative;
@@ -79,7 +34,7 @@ export const ImgWrapper = styled.div`
   justify-content: center;
 
   img {
-    width: 8em;
+    width: 7em;
     margin-bottom: 1.5em;
   }
 
@@ -98,6 +53,42 @@ export const Buttons = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 2em;
+  margin-top: 1em;
+`;
 
+export const AddButton = styled.button`
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  height: 40px;
+  background: #046E8F;
+  border: none;
+  border-radius: 10px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  align-items: center;
+  text-align: center;
+  color: var(--color-primary-white);
+`;
+
+export const BackButton = styled.button`
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  height: 40px;
+  background: var(--color-primary-white);
+  border: 1px solid var(--color-primary-blue);
+  border-radius: 10px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  align-items: center;
+  text-align: center;
+  color: var(--color-primary-blue);
 `;

@@ -17,7 +17,7 @@ const InfoModal: React.FC<InfoModalProps> = ({
         <Text>{text}</Text>
         <Button
           backgroundColor='var(--color-primary-blue)'
-          isFull={true}
+          isFull
           path=""
           text="Continuar"
           textColor="var(--color-primary-white)"

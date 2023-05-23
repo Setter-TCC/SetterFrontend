@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Container, Title, ContainerBackground, FormWrapper, ImgWrapper, Buttons } from './styles';
+import { Container, ContainerBackground, ImgWrapper, Buttons, AddButton, BackButton } from './styles';
 import addUser from '../../../../assets/icons/addUser.svg';
-import Button from '../../../../components/Button';
+import { FormDrawerWrapper } from '../../../../components/FormWrapper';
 
 const athletePositions = [
   { key: 'setter', value: 'Levantador(a)' },
@@ -42,10 +42,9 @@ const NewAthlete: React.FC<NewAthleteProps> = ({
   return (
     <ContainerBackground>
       <Container>
-        <Title>Adicionar Atleta</Title>
 
         <form onSubmit={onSubmit}>
-          <FormWrapper>
+          <FormDrawerWrapper title='Adicionar Atleta'>
             <ImgWrapper>
               <img src={addUser} />
               <input type="file" accept="image/*" name="imageInput" id="imageInput" />
@@ -98,24 +97,10 @@ const NewAthlete: React.FC<NewAthleteProps> = ({
               value={athleteData.email}
               onChange={e => setAthleteData({ ...athleteData, email: e.target.value })}
             />
-          </FormWrapper>
+          </FormDrawerWrapper>
           <Buttons>
-            <Button
-              backgroundColor='var(--color-primary-white)'
-              isFull={false}
-              textColor='var(--color-primary-blue)'
-              path=''
-              text='Voltar'
-              onClick={closeDrawer}
-            />
-            <Button
-              backgroundColor='var(--color-primary-blue)'
-              isFull={true}
-              textColor='var(--color-primary-white)'
-              path=''
-              text='Adicionar Atleta'
-              onClick={onSubmit}
-            />
+            <BackButton onClick={closeDrawer}>Voltar</BackButton>
+            <AddButton type="submit">Adicionar Atleta</AddButton>
           </Buttons>
         </form>
       </Container>
