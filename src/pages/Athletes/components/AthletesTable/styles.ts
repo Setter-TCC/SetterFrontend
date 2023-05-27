@@ -37,6 +37,11 @@ export const TableHead = styled.thead`
 `;
 export const TableBody = styled.tbody`
 
+  tr {
+    position: relative;
+    z-index: 1;
+  }
+
 `;
 
 export const TableHeaderCell = styled.th`
@@ -117,5 +122,42 @@ export const MoreActionsButton = styled.button`
   img {
     width: 1em;
     height: 2em; 
+  }
+`;
+
+export const AthleteButtons = styled.button`
+  position: absolute;
+  right: 1em;
+  top: 0;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  width: 160px;
+  height: 80px;
+  background: none;
+  border: none;
+
+  button {
+    width: 100%;
+    height: 50%;
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
+
+  .edit {
+    background-color: var(--color-primary-blue);
+    border-radius: 10px 10px 0px 0px;
+    border: var(--color-primary-blue);
+    color: var(--color-primary-white);
+  }
+
+  .deactivate {
+    background-color: #F89C50;
+    border-radius: 0px 0px 10px 10px;
+    border: #F89C50;
+    color: var(--color-primary-white);
   }
 `;

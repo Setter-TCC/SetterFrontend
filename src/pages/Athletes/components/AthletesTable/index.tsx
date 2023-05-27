@@ -1,81 +1,117 @@
 import React, { useEffect, useState } from 'react';
-import { Container, AthleteTable, TableHead, TableBody, TableHeaderCell, TableCell, RoundedImage, HeaderContent, TableWrapper, SearchBox, MoreActionsButton } from './styles';
+import { Container, AthleteTable, TableHead, TableBody, TableHeaderCell, TableCell, RoundedImage, HeaderContent, TableWrapper, SearchBox, MoreActionsButton, AthleteButtons } from './styles';
 import img1 from '../../../../assets/athletes/img1.jpeg';
 import searchIcon from '../../../../assets/icons/search.svg';
 import Button from '../../../../components/Button';
 import moreActions from '../../../../assets/icons/moreActions.svg';
 import NewAthlete from '../NewAthlete';
 import InfoModal from '../../../../components/InfoModal';
-const atletas = [
+import EditAthlete, { AthleteData } from '../EditAthlete';
+
+const athletes: AthleteData[] = [
   {
-    imagemUrl: img1,
-    nome: 'Atleta 1 Atleta 1 Atleta 1',
-    posicao: 'Posição 1',
-    telefone: '(11) 1234-5678',
+    id: '1',
+    img: img1,
+    name: 'Atleta Fulana de Tal',
+    position: 'Posição 1',
+    phone: '(11) 1234-5678',
     rg: '12345678',
     cpf: '123.456.789-00',
-    dataNascimento: '01/01/1990',
+    birth: '01/01/1990',
     email: 'atleta1@example.com',
   },
   {
-    imagemUrl: img1,
-    nome: 'Atleta 2 Atleta 2 Atleta 2 Atleta 2 Atleta 2',
-    posicao: 'Posição 2',
-    telefone: '(11) 2345-6789',
+    id: '2',
+    img: img1,
+    name: 'Atleta Cicrana Beltrana',
+    position: 'Posição 2',
+    phone: '(11) 2345-6789',
     rg: '87654321',
     cpf: '987.654.321-00',
-    dataNascimento: '02/02/1991',
+    birth: '02/02/1991',
     email: 'atleta2@example.com',
   },
   {
-    imagemUrl: img1,
-    nome: 'Atleta 3 Atleta 3 Atleta 3 Atleta 3 Atleta 3',
-    posicao: 'Posição 3',
-    telefone: '(11) 3456-7890',
+    id: '3',
+    img: img1,
+    name: 'Atleta Fulano de Tal Cicrana Beltrana',
+    position: 'Posição 3',
+    phone: '(11) 3456-7890',
     rg: '56781234',
     cpf: '456.789.123-00',
-    dataNascimento: '03/03/1992',
+    birth: '03/03/1992',
     email: 'atleta3@example.com',
 
   },
 ];
 
+interface RowButtonsState {
+  [key: string]: boolean;
+}
+
 const AthletesTable: React.FC = () => {
   const [searchString, setSearchString] = useState('');
   const [isNewAthleteDrawerOpen, setIsNewAthleteDrawerOpen] = useState(false);
-  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+  const [addAthleteModalOpen, setAddAthleteModalOpen] = useState(false);
+
+  const [isEditAthleteDrawerOpen, setIsEditAthleteDrawerOpen] = useState(false);
+  const [editAthleteModalOpen, setEdiAthleteModalOpen] = useState(false);
+  const [showMoreActions, setShowMoreActions] = useState({} as RowButtonsState);
+  const [selectedAthlete, setSelectedAthlete] = useState<AthleteData>();
+
+  const handleClick = (rowId: string) => {
+    setShowMoreActions((prevState) => ({
+      ...Object.fromEntries(Object.entries(prevState).map(([key]) => [key, false])),
+      [rowId]: true,
+    }));
+  };
+
+  const handleRowClick = (rowId: string) => {
+    if (showMoreActions[rowId]) {
+      // Se os botões de edição e desativação estiverem visíveis na linha clicada,
+      // definimos o estado para ocultá-los novamente.
+      setShowMoreActions((prevState) => ({
+        ...prevState,
+        [rowId]: false,
+      }));
+    } else {
+      // Caso contrário, definimos o estado para ocultar todos os botões e
+      // exibir apenas o botão "Mais ações" na linha clicada.
+      setShowMoreActions((prevState) => ({
+        ...Object.fromEntries(Object.entries(prevState).map(([key]) => [key, false])),
+        [rowId]: true,
+      }));
+    }
+  };
 
   const handleSearchChange = (event: any) => {
     setSearchString(event.target.value);
   };
 
-  const filteredAtletas = atletas.filter((atleta) =>
-    atleta.nome.toLowerCase().includes(searchString.toLowerCase())
+  const filteredAtletas = athletes.filter((atleta) =>
+    atleta.name.toLowerCase().includes(searchString.toLowerCase())
   );
 
-  // useEffect(() => {
-  //   function handleClickOutside(event: any) {
-  //     // Verifica se o clique foi fora do drawer
-  //     if (event.target.closest('.drawer') === null) {
-  //       setIsNewAthleteDrawerOpen(false);
-  //     }
-  //   }
-
-  //   document.addEventListener('click', handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener('click', handleClickOutside);
-  //   };
-  // }, []);
   return (
     <Container>
       {isNewAthleteDrawerOpen && (
         <NewAthlete
           closeDrawer={() => setIsNewAthleteDrawerOpen(false)}
-          openInfoModal={() => setIsInfoModalOpen(true)} />
+          openInfoModal={() => setAddAthleteModalOpen(true)} />
       )}
-      {isInfoModalOpen && (
-        <InfoModal text='Atleta criado(a) com sucesso!' closeModal={() => setIsInfoModalOpen(false)} />
+      {addAthleteModalOpen && (
+        <InfoModal text='Atleta criado(a) com sucesso!' closeModal={() => setAddAthleteModalOpen(false)} />
+      )}
+
+      {isEditAthleteDrawerOpen && selectedAthlete && (
+        <EditAthlete
+          closeDrawer={() => setIsEditAthleteDrawerOpen(false)}
+          openInfoModal={() => setEdiAthleteModalOpen(true)}
+          athleteData={selectedAthlete}
+        />
+      )}
+      {editAthleteModalOpen && (
+        <InfoModal text='Atleta editado(a) com sucesso!' closeModal={() => setEdiAthleteModalOpen(false)} />
       )}
       <HeaderContent>
         <SearchBox>
@@ -112,18 +148,27 @@ const AthletesTable: React.FC = () => {
             </tr>
           </TableHead>
           <TableBody>
-            {atletas.map(atleta => (
-              <tr key={atleta.email}>
-                <TableCell className='first-cell'><RoundedImage src={atleta.imagemUrl} alt={atleta.nome} /></TableCell>
-                <TableCell>{atleta.nome}</TableCell>
-                <TableCell>{atleta.posicao}</TableCell>
-                <TableCell>{atleta.telefone}</TableCell>
-                <TableCell>{atleta.rg}</TableCell>
-                <TableCell>{atleta.cpf}</TableCell>
-                <TableCell>{atleta.dataNascimento}</TableCell>
-                <TableCell >{atleta.email}</TableCell>
+            {athletes.map(athlete => (
+              <tr key={athlete.id}
+                onClick={() => handleRowClick(athlete.id)}
+              >
+                <TableCell className='first-cell'><RoundedImage src={athlete.img} alt={athlete.name} /></TableCell>
+                <TableCell>{athlete.name}</TableCell>
+                <TableCell>{athlete.position}</TableCell>
+                <TableCell>{athlete.phone}</TableCell>
+                <TableCell>{athlete.rg}</TableCell>
+                <TableCell>{athlete.cpf}</TableCell>
+                <TableCell>{athlete.birth}</TableCell>
+                <TableCell>{athlete.email}</TableCell>
                 <TableCell>
-                  <MoreActionsButton><img src={moreActions} /></MoreActionsButton>
+                  {showMoreActions[athlete.id] ? (
+                    <AthleteButtons>
+                      <button className='edit' onClick={() => { setIsEditAthleteDrawerOpen(true); setSelectedAthlete(athlete); }}>Editar</button>
+                      <button className='deactivate'>Desativar</button>
+                    </AthleteButtons>
+                  ) : (
+                    <MoreActionsButton onClick={() => handleClick(athlete.id)}><img src={moreActions} /></MoreActionsButton>
+                  )}
                 </TableCell>
               </tr>
             ))}
