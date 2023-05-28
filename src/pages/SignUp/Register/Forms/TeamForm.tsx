@@ -21,7 +21,7 @@ export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields
       value={teamName}
       onChange={e => updateFields({ teamName: e.target.value })}
     />
-    <label>CNPJ da Equipe (opcional)</label>
+    <label>CNPJ do Time (opcional)</label>
     <input
       type="text"
       value={teamCnpj}

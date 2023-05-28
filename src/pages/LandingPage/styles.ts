@@ -4,24 +4,24 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   max-height: 100vh;
-  margin: 30px 50px;
+  margin: 2em 3em;
 `;
 
 export const Body = styled.div`
-  margin-top: 70px;
+  margin-top: 3.5em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 103%;
 
   .team-work {
-    width: 35em;
-    height: 35em;
+    width: 30em;
+    height: 30em;
   }
 `;
 
 export const InfoBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5em;
+  gap: 3em;
 `;

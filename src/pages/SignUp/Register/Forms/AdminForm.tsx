@@ -4,6 +4,7 @@ type AdminData = {
   adminName: string,
   adminEmail: string,
   adminPhone: string,
+  adminUsername: string,
   adminPassword: string,
 }
 
@@ -11,7 +12,7 @@ type AdminFormProps = AdminData & {
   updateFields: (fields: Partial<AdminData>) => void,
 }
 
-export const AdminForm = ({ adminName, adminEmail, adminPhone, adminPassword, updateFields }: AdminFormProps) => {
+export const AdminForm = ({ adminName, adminEmail, adminPhone, adminUsername, adminPassword, updateFields }: AdminFormProps) => {
 
   return <FormWrapper step="Etapa 1" title="Crie uma conta de administrador" inputBackgroundColor='var(--color-primary-white)'>
     <label>Nome</label>
@@ -35,6 +36,13 @@ export const AdminForm = ({ adminName, adminEmail, adminPhone, adminPassword, up
       value={adminPhone}
       onChange={e => updateFields({ adminPhone: e.target.value })}
     />
+    <label>Nome do usuário</label>
+    <input
+      autoFocus
+      required
+      type="text"
+      value={adminUsername}
+      onChange={e => updateFields({ adminUsername: e.target.value })} />
     <label>Senha</label>
     <input
       required

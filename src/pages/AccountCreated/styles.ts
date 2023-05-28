@@ -4,15 +4,15 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   max-height: 100vh;
-  margin: 30px 50px;
+  margin: 2em 3em;
 `;
 
 export const Body = styled.div`
-  margin-top: 20px;
+  margin-top: 1em;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2em;
+  gap: 1.5em;
 `;
 
 export const Title = styled.h1`

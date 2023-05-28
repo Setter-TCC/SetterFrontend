@@ -3,21 +3,22 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  max-height: 100vh;
+  margin-top: 2em;
+  margin-left: 3em;
   width:50%;
-  padding: 30px 50px;
 `;
 
 export const CreateImage = styled.img`
-  width: 450px;
-  height: 450px;
+  width: 25em;
+  height: 25em;
+  margin-bottom: 2em;
 `;
 
 export const Body = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-top: 70px;
+  margin-top: 2em;
 `;
 
 export const CallText = styled.p`
@@ -25,7 +26,7 @@ export const CallText = styled.p`
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 400;
-  font-size: 26px;
+  font-size: 24px;
   line-height: 39px;
   display: flex;
   text-align: center;

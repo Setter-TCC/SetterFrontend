@@ -13,7 +13,7 @@ const SignUpCall: React.FC = () => {
       />
       <Body>
         <CreateImage src={createAccount} />
-        <CallText>Tenha sua equipe de voleibol no seu controle</CallText>
+        <CallText>Tenha seu time de voleibol no seu controle</CallText>
       </Body>
     </Container>
   );

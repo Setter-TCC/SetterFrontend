@@ -2,6 +2,7 @@ export interface FormInputData {
     adminName: string,
     adminEmail: string,
     adminPhone: string,
+    adminUsername: string,
     adminPassword: string,
     teamName: string,
     teamCnpj: string,

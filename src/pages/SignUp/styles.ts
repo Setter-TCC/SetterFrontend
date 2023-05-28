@@ -3,6 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
-  max-height: 100vh;
-  gap: 30px;
+  height: 100vh;
+  gap: 2em;
 `;

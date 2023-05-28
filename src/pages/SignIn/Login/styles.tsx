@@ -2,11 +2,35 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  width: 32.5%;
   flex-direction: column;
   align-items: left; 
-  margin-top: -1em;
+  justify-content: center;
   margin-left: 5em;
+`;
+
+export const LoginWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    display: flex;
+    color: var(--color-primary-black);
+    margin-bottom: 0.5em;
+  }
+
+  input {
+    width: 28em;
+    background-color: var(--color-background);
+    border-radius: 4px;
+    border: 1px solid var(--color-primary-white);
+    height: 2.5em;
+    margin-bottom: 1.5em;
+  }
+
 `;
 
 export const ButtonWrapper = styled.div`
@@ -30,4 +54,9 @@ export const LoginButton = styled.button`
   align-items: center;
   text-align: center;
   color: var(--color-primary-white);
+  align-self: flex-end;
+
+  &:hover {
+    font-weight: 600;
+  }
 `;

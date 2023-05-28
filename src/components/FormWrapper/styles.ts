@@ -5,18 +5,18 @@ interface InputWrapperProps {
 }
 
 export const Body = styled.div`
-  margin-top: 3em;
+  margin-top: 1em;
   display: flex;
   flex-direction: column;
   align-items: left;
 `;
 
 export const Step = styled.h2`
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 36px;
   display: flex;
   align-items: center;
@@ -27,12 +27,12 @@ export const Title = styled.h1`
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 600;
-  font-size: 26px;
+  font-size: 24px;
   line-height: 39px;
   display: flex;
   align-items: center;
   color: var(--color-primary-black);
-  margin-bottom: 45px;
+  margin-bottom: 1.5em;
 `;
 
 export const InputWrapper = styled.div<InputWrapperProps>`
@@ -46,7 +46,7 @@ export const InputWrapper = styled.div<InputWrapperProps>`
   label {
     font-family: 'Inter';
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 14px;
     display: flex;
     color: var(--color-primary-black);
@@ -56,11 +56,11 @@ export const InputWrapper = styled.div<InputWrapperProps>`
     background: ${props => props.backgroundColor};
     border-radius: 4px;
     border: 1px solid var(--color-primary-white);
-    height: 35px;
+    height: 2.5em;
   }
 
   select {
-    height: 35px;
+    height: 2.5em;
     width: 100%;
     border-radius: 4px;
     border: 1px solid var(--color-primary-white);
@@ -71,7 +71,7 @@ export const InputWrapper = styled.div<InputWrapperProps>`
 export const InputTitle = styled.p`
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 14px;
   display: flex;
   color: var(--color-primary-black);

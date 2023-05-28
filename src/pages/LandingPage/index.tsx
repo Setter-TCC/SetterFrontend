@@ -10,7 +10,7 @@ const LandingPage: React.FC = () => {
 
   return (
     <Container>
-      <Header buttons={buttons}/>
+      <Header buttons={buttons} />
       <Body>
         <InfoBox>
           <SetterCall />
