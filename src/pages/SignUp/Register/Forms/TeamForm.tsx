@@ -1,3 +1,4 @@
+import InputMask from 'react-input-mask';
 import { FormWrapper } from '../../../../components/FormWrapper/index';
 import { suits } from '../../utils/const';
 type TeamData = {
@@ -21,8 +22,11 @@ export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields
       value={teamName}
       onChange={e => updateFields({ teamName: e.target.value })}
     />
+
     <label>CNPJ do Time (opcional)</label>
-    <input
+    <InputMask
+      mask="99.999.999/9999-99"
+      id="cnpj"
       type="text"
       value={teamCnpj}
       onChange={e => updateFields({ teamCnpj: e.target.value })}

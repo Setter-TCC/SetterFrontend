@@ -40,7 +40,6 @@ export const InputWrapper = styled.div<InputWrapperProps>`
   flex-direction: column;
   max-width: 470px;
   width: 450px;
-  gap: 15px;
   margin-bottom: 20px;
 
   label {
@@ -50,6 +49,7 @@ export const InputWrapper = styled.div<InputWrapperProps>`
     font-size: 14px;
     display: flex;
     color: var(--color-primary-black);
+    margin-bottom: 0.5em;
   }
 
   input {
@@ -57,6 +57,7 @@ export const InputWrapper = styled.div<InputWrapperProps>`
     border-radius: 4px;
     border: 1px solid var(--color-primary-white);
     height: 2.5em;
+    margin-bottom: 1.5em;
   }
 
   select {

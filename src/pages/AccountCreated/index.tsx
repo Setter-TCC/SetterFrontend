@@ -10,7 +10,7 @@ const accessButton: IButton = {
   backgroundColor: 'var(--color-primary-blue)',
   isFull: true,
   path: '/athletes',
-  text: 'Acessar Equipe',
+  text: 'Acessar Time',
   textColor: 'var(--color-primary-white)'
 };
 

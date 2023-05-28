@@ -1,3 +1,4 @@
+import InputMask from 'react-input-mask';
 import { FormWrapper } from '../../../../components/FormWrapper/index';
 
 type CoachData = {
@@ -31,9 +32,10 @@ export const CoachForm = ({ coachName, coachEmail, coachPhone, coachCref, update
         onChange={e => updateFields({ coachEmail: e.target.value })}
       />
       <label>Telefone</label>
-      <input
-        required
-        type="number"
+      <InputMask
+        mask="(99) 99999-9999"
+        id="phone"
+        type="text"
         value={coachPhone}
         onChange={e => updateFields({ coachPhone: e.target.value })}
       />
