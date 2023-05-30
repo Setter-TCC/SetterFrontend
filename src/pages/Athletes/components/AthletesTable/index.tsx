@@ -6,6 +6,8 @@ import EditAthlete from '../EditAthlete';
 import AthletesTableHeader from './AthleteTableHeader';
 import AthletesTableBody from './AthleteTableBody';
 import { useAthlete } from '../../../../hooks/Athlete';
+import DeactivateAthlete from '../DeactivateAthlete';
+import ReactivateAthlete from '../ReactivateAthlete';
 
 interface RenderConfigOptions {
   [key: string]: React.ReactElement;
@@ -15,7 +17,9 @@ const AthletesTable: React.FC = () => {
   const { athleteAction, actionModalInfo } = useAthlete();
   const renderConfigs: RenderConfigOptions = {
     addAthlete: <NewAthlete />,
-    editAthlete: <EditAthlete />
+    editAthlete: <EditAthlete />,
+    deactivateAthlete: <DeactivateAthlete />,
+    reactivateAthlete: <ReactivateAthlete />,
   };
 
   return (

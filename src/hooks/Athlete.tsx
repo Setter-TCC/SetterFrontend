@@ -24,7 +24,7 @@ export enum AthleteActionType {
 
 interface AthleteAction {
   showAction: string,
-  selectedAthlete: AthleteData | undefined
+  selectedAthlete: AthleteData | null
 }
 
 interface ActionModalInfo {
@@ -33,7 +33,7 @@ interface ActionModalInfo {
 
 const athleteActionInitialState: AthleteAction = {
   showAction: '',
-  selectedAthlete: undefined,
+  selectedAthlete: null,
 };
 
 const athleteReducer = (state: AthleteAction, action: any) => {
@@ -65,7 +65,7 @@ const athleteReducer = (state: AthleteAction, action: any) => {
   case AthleteActionType.RESET_ACTION:
     return {
       showAction: '',
-      selectedAthlete: undefined,
+      selectedAthlete: null,
     };
   default:
     return state;

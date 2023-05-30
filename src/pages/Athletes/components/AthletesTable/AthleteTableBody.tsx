@@ -48,7 +48,7 @@ interface RowButtonsState {
 
 const AthletesTableBody: React.FC = () => {
   const [showMoreActions, setShowMoreActions] = useState({} as RowButtonsState);
-  const { setEditAthlete } = useAthlete();
+  const { setEditAthlete, setDeactivateAthlete } = useAthlete();
 
   const handleClick = (rowId: string) => {
     setShowMoreActions((prevState) => ({
@@ -107,8 +107,12 @@ const AthletesTableBody: React.FC = () => {
               <TableCell>
                 {showMoreActions[athlete.id] ? (
                   <AthleteButtons>
-                    <button className='edit' onClick={() => setEditAthlete(athlete)}>Editar</button>
-                    <button className='deactivate'>Desativar</button>
+                    <button
+                      className='edit'
+                      onClick={() => setEditAthlete(athlete)}>Editar</button>
+                    <button
+                      className='deactivate'
+                      onClick={() => setDeactivateAthlete(athlete)}>Desativar</button>
                   </AthleteButtons>
                 ) : (
                   <MoreActionsButton onClick={() => handleClick(athlete.id)}><img src={moreActions} /></MoreActionsButton>
