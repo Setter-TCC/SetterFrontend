@@ -1,7 +1,6 @@
 import React from 'react';
-import { Container, AthleteContainer, AthleteHeader, HeaderContent, HeaderTitle } from './styles';
+import { Container, AthleteContainer, AthleteHeader, HeaderTitle } from './styles';
 import Sidebar from '../../components/Sidebar';
-import Button from '../../components/Button';
 import AthletesTable from './components/AthletesTable';
 
 

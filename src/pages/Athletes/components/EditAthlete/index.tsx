@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, ContainerBackground, ImgWrapper, Buttons, AddButton, BackButton, RoundedImage } from './styles';
 import { FormDrawerWrapper } from '../../../../components/FormWrapper';
+import { useAthlete } from '../../../../hooks/Athlete';
 
 const athletePositions = [
   { key: 'setter', value: 'Levantador(a)' },
@@ -22,22 +23,15 @@ export interface AthleteData {
   email: string,
 }
 
-type AthleteProps = {
-  closeDrawer: () => void;
-  openInfoModal: () => void;
-  athleteData: AthleteData;
-}
-
-const EditAthlete: React.FC<AthleteProps> = ({
-  closeDrawer, openInfoModal, athleteData
-}) => {
+const EditAthlete: React.FC = () => {
   const [newAthleteData, setNewAthleteData] = useState<AthleteData>({} as AthleteData);
+  const { athleteAction, setResetActions, setActionModalInfo } = useAthlete();
 
+  const { selectedAthlete } = athleteAction;
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Editar atleta
-    closeDrawer();
-    openInfoModal();
+    setActionModalInfo({ text: 'Atleta editado(a) com sucesso!' });
   };
 
   return (
@@ -47,19 +41,19 @@ const EditAthlete: React.FC<AthleteProps> = ({
         <form onSubmit={onSubmit}>
           <FormDrawerWrapper title='Editar Atleta'>
             <ImgWrapper>
-              <RoundedImage src={athleteData.img} />
+              <RoundedImage src={selectedAthlete?.img} />
               <input type="file" accept="image/*" name="imageInput" id="imageInput" />
             </ImgWrapper>
             <label>Nome</label>
             <input
               required
-              defaultValue={athleteData.name}
+              defaultValue={selectedAthlete?.name}
               type="text"
               value={newAthleteData.name}
               onChange={e => setNewAthleteData({ ...newAthleteData, name: e.target.value })}
             />
             <label>Posição</label>
-            <select defaultValue={athleteData.position}
+            <select defaultValue={selectedAthlete?.position}
               value={newAthleteData.position} onChange={e => setNewAthleteData({ ...newAthleteData, position: e.target.value })}>
               {athletePositions.map(position => (
                 <option key={position.key} value={position.key}>{position.value}</option>
@@ -69,7 +63,7 @@ const EditAthlete: React.FC<AthleteProps> = ({
             <input
               required
               type="string"
-              defaultValue={athleteData.phone}
+              defaultValue={selectedAthlete?.phone}
               value={newAthleteData.phone}
               onChange={e => setNewAthleteData({ ...newAthleteData, phone: e.target.value })}
             />
@@ -77,7 +71,7 @@ const EditAthlete: React.FC<AthleteProps> = ({
             <input
               required
               type="string"
-              defaultValue={athleteData.rg}
+              defaultValue={selectedAthlete?.rg}
               value={newAthleteData.rg}
               onChange={e => setNewAthleteData({ ...newAthleteData, rg: e.target.value })}
             />
@@ -85,7 +79,7 @@ const EditAthlete: React.FC<AthleteProps> = ({
             <input
               required
               type="string"
-              defaultValue={athleteData.cpf}
+              defaultValue={selectedAthlete?.cpf}
               value={newAthleteData.cpf}
               onChange={e => setNewAthleteData({ ...newAthleteData, cpf: e.target.value })}
             />
@@ -93,7 +87,7 @@ const EditAthlete: React.FC<AthleteProps> = ({
             <input
               required
               type="datetime"
-              defaultValue={athleteData.birth}
+              defaultValue={selectedAthlete?.birth}
               value={newAthleteData.birth}
               onChange={e => setNewAthleteData({ ...newAthleteData, birth: e.target.value })}
             />
@@ -101,13 +95,13 @@ const EditAthlete: React.FC<AthleteProps> = ({
             <input
               required
               type="email"
-              defaultValue={athleteData.email}
+              defaultValue={selectedAthlete?.email}
               value={newAthleteData.email}
               onChange={e => setNewAthleteData({ ...newAthleteData, email: e.target.value })}
             />
           </FormDrawerWrapper>
           <Buttons>
-            <BackButton onClick={closeDrawer}>Voltar</BackButton>
+            <BackButton onClick={setResetActions}>Voltar</BackButton>
             <AddButton type="submit">Editar Atleta</AddButton>
           </Buttons>
         </form>

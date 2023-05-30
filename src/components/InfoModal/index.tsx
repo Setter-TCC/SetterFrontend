@@ -1,15 +1,21 @@
 import React from 'react';
 import Button from '../Button';
 import { Container, ContainerBackground, Text } from './styles';
+import { useAthlete } from '../../hooks/Athlete';
 
 interface InfoModalProps {
   text: string;
-  closeModal: () => void;
 }
 
 const InfoModal: React.FC<InfoModalProps> = ({
-  text, closeModal
+  text
 }) => {
+  const { setActionModalInfo, setResetActions } = useAthlete();
+
+  const handleClick = () => {
+    setActionModalInfo(null);
+    setResetActions();
+  };
 
   return (
     <ContainerBackground>
@@ -21,7 +27,7 @@ const InfoModal: React.FC<InfoModalProps> = ({
           path=""
           text="Continuar"
           textColor="var(--color-primary-white)"
-          onClick={closeModal}
+          onClick={handleClick}
         />
       </Container>
     </ContainerBackground>

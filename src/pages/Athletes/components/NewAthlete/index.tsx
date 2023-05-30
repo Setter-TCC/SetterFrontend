@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, ContainerBackground, ImgWrapper, Buttons, AddButton, BackButton } from './styles';
 import addUser from '../../../../assets/icons/addUser.svg';
 import { FormDrawerWrapper } from '../../../../components/FormWrapper';
+import { useAthlete } from '../../../../hooks/Athlete';
 
 const athletePositions = [
   { key: 'setter', value: 'Levantador(a)' },
@@ -22,21 +23,13 @@ type NewAthleteData = {
   email: string,
 }
 
-type NewAthleteProps = {
-  closeDrawer: () => void;
-  openInfoModal: () => void;
-}
-
-const NewAthlete: React.FC<NewAthleteProps> = ({
-  closeDrawer, openInfoModal
-}) => {
+const NewAthlete: React.FC = () => {
   const [athleteData, setAthleteData] = useState<NewAthleteData>({} as NewAthleteData);
-
+  const { setResetActions, setActionModalInfo } = useAthlete();
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Criar atleta
-    closeDrawer();
-    openInfoModal();
+    setActionModalInfo({ text: 'Atleta criada com sucesso' });
   };
 
   return (
@@ -99,7 +92,7 @@ const NewAthlete: React.FC<NewAthleteProps> = ({
             />
           </FormDrawerWrapper>
           <Buttons>
-            <BackButton onClick={closeDrawer}>Voltar</BackButton>
+            <BackButton onClick={() => setResetActions()}>Voltar</BackButton>
             <AddButton type="submit">Adicionar Atleta</AddButton>
           </Buttons>
         </form>
