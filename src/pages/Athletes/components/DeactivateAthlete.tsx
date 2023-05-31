@@ -4,10 +4,11 @@ import { useAthlete } from '../../../hooks/Athlete';
 
 
 const DeactivateAthlete: React.FC = () => {
-  const { setResetActions } = useAthlete();
+  const { setResetActions, setActionModalInfo } = useAthlete();
 
   const handleDeactivateAthlete = () => {
     // Desativar atleta
+    setActionModalInfo({ text: 'Atleta desativado(a) com sucesso!' });
     setResetActions();
   };
 

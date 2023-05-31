@@ -1,4 +1,8 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+interface RowProps {
+  isActive: boolean;
+}
 
 export const Container = styled.div`
   background: #FAFAFA;
@@ -35,14 +39,6 @@ export const TableHead = styled.thead`
     border-bottom: 1px solid #C6C6C6
   }
 `;
-export const TableBody = styled.tbody`
-
-  tr {
-    position: relative;
-    z-index: 1;
-  }
-
-`;
 
 export const TableHeaderCell = styled.th`
   max-width: 80px;
@@ -54,8 +50,15 @@ export const TableHeaderCell = styled.th`
   line-height: 19px;
 `;
 
-export const TableCell = styled.td`
-   &.first-cell {
+export const TableBody = styled.tbody``;
+
+export const TableBodyRow = styled.tr<RowProps>`
+  position: relative;
+  z-index: 1;
+  color: ${props => (props.isActive ? '#4D4D4D' : 'rgba(77, 77, 77, 0.5)')};
+ 
+ td {
+  &.first-cell {
     padding-left: 2em;
     padding-right: 0em;
   }
@@ -76,19 +79,24 @@ export const TableCell = styled.td`
   font-size: 14px;
   line-height: 17px;
 
-  color: #4D4D4D;
-
   &:hover {
     white-space: normal;
     overflow: visible;
   }
+ }
 `;
 
-export const RoundedImage = styled.img`
+export const RoundedImage = styled.img<RowProps>`
   width: 4em;
   height: 4em;
   border-radius: 50%;
   object-fit: cover;
+
+  ${props =>
+    !props.isActive &&
+    css`
+      filter: grayscale(100%);
+    `}
 `;
 
 export const SearchBox = styled.div`
@@ -157,6 +165,14 @@ export const AthleteButtons = styled.button`
   .deactivate {
     background-color: #F89C50;
     border-radius: 0px 0px 10px 10px;
+    border: #F89C50;
+    color: var(--color-primary-white);
+  }
+
+  .reactivate {
+    margin-top: 15%;
+    background-color: var(--color-primary-green);
+    border-radius: 10px;
     border: #F89C50;
     color: var(--color-primary-white);
   }

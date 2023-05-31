@@ -3,10 +3,11 @@ import WarningModal from '../../../components/WarningModal';
 import { useAthlete } from '../../../hooks/Athlete';
 
 const ReactivateAthlete: React.FC = () => {
-  const { setResetActions } = useAthlete();
+  const { setResetActions, setActionModalInfo } = useAthlete();
 
   const handleReactivateAthlete = () => {
     // Reativar atleta
+    setActionModalInfo({ text: 'Atleta reativado(a) com sucesso!' });
     setResetActions();
   };
 

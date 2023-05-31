@@ -2,26 +2,9 @@ import React, { useState } from 'react';
 import { Container, ContainerBackground, ImgWrapper, Buttons, AddButton, BackButton, RoundedImage } from './styles';
 import { FormDrawerWrapper } from '../../../../components/FormWrapper';
 import { useAthlete } from '../../../../hooks/Athlete';
+import { AthleteData } from '../../utils/interfaces';
+import { athletePositions } from '../../utils/const';
 
-const athletePositions = [
-  { key: 'setter', value: 'Levantador(a)' },
-  { key: 'outsideHitter', value: 'Ponteiro(a)' },
-  { key: 'opposite', value: 'Oposto(a)' },
-  { key: 'middleBlocker', value: 'Central' },
-  { key: 'libero', value: 'Líbero' }
-];
-
-export interface AthleteData {
-  id: string,
-  img: string,
-  name: string,
-  position: string,
-  phone: string,
-  rg: string,
-  cpf: string,
-  birth: string,
-  email: string,
-}
 
 const EditAthlete: React.FC = () => {
   const [newAthleteData, setNewAthleteData] = useState<AthleteData>({} as AthleteData);

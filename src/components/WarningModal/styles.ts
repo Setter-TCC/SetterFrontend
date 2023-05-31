@@ -19,7 +19,7 @@ export const Container = styled.div`
   width: 470px;
   height: 270px;
   background-color: white;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 999;
 
@@ -29,6 +29,7 @@ export const Container = styled.div`
   align-items: center;
 
   h4 {
+    max-width: 80%;
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
@@ -43,6 +44,7 @@ export const Container = styled.div`
 `;
 
 export const Text = styled.h3`
+  max-width: 70%;
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 700;

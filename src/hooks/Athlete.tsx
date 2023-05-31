@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useContext, useReducer, useState } from 'react';
-import { AthleteData } from '../pages/Athletes/components/EditAthlete';
+import { AthleteData } from '../pages/Athletes/utils/interfaces';
 
 interface AthleteContextData {
   athleteAction: AthleteAction,
