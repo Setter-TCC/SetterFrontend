@@ -1,3 +1,5 @@
+import { removeSymbols } from '../../../utils/format';
+
 export interface FormInputData {
   adminName: string,
   adminEmail: string,
@@ -41,14 +43,14 @@ export function translateFormData(formData: FormInputData): BackendData {
     administrador: {
       nome: formData.adminName,
       email: formData.adminEmail,
-      telefone: formData.adminPhone,
+      telefone: removeSymbols(formData.adminPhone),
       nome_usuario: formData.adminUsername,
       senha: formData.adminPassword,
     },
     time: {
       nome: formData.teamName,
       naipe: Number(formData.teamSuit) || 1,
-      cnpj: formData.teamCnpj || '',
+      cnpj: removeSymbols(formData.teamCnpj) || '',
       email: formData.teamEmail,
     },
   };
@@ -59,10 +61,11 @@ export function translateFormData(formData: FormInputData): BackendData {
       treinador: {
         nome: formData.coachName,
         email: formData.coachEmail,
-        telefone: formData.coachPhone,
-        cref: formData.coachCref || '',
+        telefone: removeSymbols(formData.coachPhone),
+        cref: formData.coachCref ? removeSymbols(formData.coachCref) : '',
       },
     };
   }
+
   return translatedData;
 }

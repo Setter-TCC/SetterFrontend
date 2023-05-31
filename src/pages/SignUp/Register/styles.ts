@@ -80,3 +80,10 @@ export const Buttons = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `;
+
+export const Loading = styled.div`
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
