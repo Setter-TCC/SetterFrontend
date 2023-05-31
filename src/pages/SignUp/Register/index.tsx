@@ -5,31 +5,45 @@ import { useMultiStepForm } from '../../../hooks/useMultiStepForm';
 import { AdminForm } from './Forms/AdminForm';
 import { TeamForm } from './Forms/TeamForm';
 import { CoachForm } from './Forms/CoachForm';
-import { FormInputData } from '../utils/interfaces';
+import { BackendData, FormInputData, translateFormData } from '../utils/interfaces';
 import { useNavigate } from 'react-router-dom';
+import api from '../../../services/api';
 
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
-  const [data, setData] = useState({} as FormInputData);
+  const [formData, setFormData] = useState<FormInputData>({} as FormInputData);
   const [skipCoach, setSkipCoach] = useState(false);
   const { currentStepIndex, step, back, next, isLast } = useMultiStepForm([
-    <AdminForm {...data} updateFields={updateFields} />,
-    <TeamForm {...data} updateFields={updateFields} />,
-    <CoachForm {...data} updateFields={updateFields} skipped={skipCoach} />
+    <AdminForm {...formData} updateFields={updateFields} />,
+    <TeamForm {...formData} updateFields={updateFields} />,
+    <CoachForm {...formData} updateFields={updateFields} skipped={skipCoach} />
   ]);
 
   function updateFields(fields: Partial<FormInputData>) {
-    setData(prev => {
+    setFormData(prev => {
       return { ...prev, ...fields };
     });
   }
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!isLast) return next();
-    navigate('/success');
 
+    const backFormData: BackendData = translateFormData(formData);
+
+    console.log(backFormData);
+
+    try {
+      await api.post('/api/account', backFormData);
+      // signin backFormData.email backFormData.password 
+
+      navigate('/success');
+
+
+    } catch (err) {
+      console.log(err);
+    }
   }
   return (
     <Container>

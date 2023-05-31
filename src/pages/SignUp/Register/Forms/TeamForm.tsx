@@ -5,7 +5,7 @@ type TeamData = {
   teamName: string,
   teamEmail: string,
   teamCnpj: string,
-  teamSuit: string,
+  teamSuit: number,
 }
 
 type TeamFormProps = TeamData & {
@@ -41,7 +41,7 @@ export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields
     />
 
     <label>Naipe</label>
-    <select value={teamSuit} onChange={(e) => updateFields({ teamSuit: e.target.value })}>
+    <select value={teamSuit} onChange={(e) => updateFields({ teamSuit: Number(e.target.value) })}>
       {suits.map(suit => (
         <option key={suit.type} value={suit.type}>{suit.name}</option>
       ))}

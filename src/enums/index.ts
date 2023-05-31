@@ -1,5 +1,5 @@
 export enum Suit {
-    women = 'FEM',
-    men = 'MAS',
-    mixed = 'MIS',
+    women = 1,
+    men = 2,
+    mixed = 3,
 }
