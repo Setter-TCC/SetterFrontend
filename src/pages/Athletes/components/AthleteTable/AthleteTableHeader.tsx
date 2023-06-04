@@ -8,7 +8,7 @@ const AthletesTableHeader: React.FC = () => {
   const [searchString, setSearchString] = useState('');
   const { setAddAthlete } = useAthlete();
 
-  const handleSearchChange = (event: any) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchString(event.target.value);
   };
 

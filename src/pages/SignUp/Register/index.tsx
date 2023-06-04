@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React, { FormEvent, useState } from 'react';
 import { Container, Buttons, BackButton, NextButton, SkipButton, Skip, Loading } from './styles';
-import { useMultiStepForm } from '../../../hooks/useMultiStepForm';
+import { useMultiStepForm } from '../../../hooks/MultiStepForm';
 import { AdminForm } from './Forms/AdminForm';
 import { TeamForm } from './Forms/TeamForm';
 import { CoachForm } from './Forms/CoachForm';

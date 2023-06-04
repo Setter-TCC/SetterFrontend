@@ -26,7 +26,6 @@ export const Container = styled.div`
   padding-bottom: 1em;
 `;
 
-
 export const ImgWrapper = styled.div`
   position: relative;
   display: inline-block;

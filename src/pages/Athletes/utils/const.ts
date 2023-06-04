@@ -10,7 +10,7 @@ export const tableColumns = [
   'CPF',
   'Data de Nascimento',
   'Email',
-  '',
+  ' ',
 ];
 
 export const athletePositions = [

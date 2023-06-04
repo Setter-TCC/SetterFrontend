@@ -1,6 +1,6 @@
 import React from 'react';
-import WarningModal from '../../../components/WarningModal';
-import { useAthlete } from '../../../hooks/Athlete';
+import WarningModal from '../../../../components/WarningModal';
+import { useAthlete } from '../../../../hooks/Athlete';
 
 const ReactivateAthlete: React.FC = () => {
   const { setResetActions, setActionModalInfo } = useAthlete();

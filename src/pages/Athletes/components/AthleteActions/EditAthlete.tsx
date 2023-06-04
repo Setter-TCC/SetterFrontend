@@ -20,7 +20,6 @@ const EditAthlete: React.FC = () => {
   return (
     <ContainerBackground>
       <Container>
-
         <form onSubmit={onSubmit}>
           <FormDrawerWrapper title='Editar Atleta'>
             <ImgWrapper>

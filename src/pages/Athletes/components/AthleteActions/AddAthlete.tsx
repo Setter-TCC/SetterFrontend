@@ -23,7 +23,7 @@ type NewAthleteData = {
   email: string,
 }
 
-const NewAthlete: React.FC = () => {
+const AddAthlete: React.FC = () => {
   const [athleteData, setAthleteData] = useState<NewAthleteData>({} as NewAthleteData);
   const { setResetActions, setActionModalInfo } = useAthlete();
   const onSubmit = (e: React.FormEvent) => {
@@ -35,7 +35,6 @@ const NewAthlete: React.FC = () => {
   return (
     <ContainerBackground>
       <Container>
-
         <form onSubmit={onSubmit}>
           <FormDrawerWrapper title='Adicionar Atleta'>
             <ImgWrapper>
@@ -102,4 +101,4 @@ const NewAthlete: React.FC = () => {
 
 };
 
-export default NewAthlete;
+export default AddAthlete;
