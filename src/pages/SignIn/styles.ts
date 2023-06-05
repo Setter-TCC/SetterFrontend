@@ -8,20 +8,15 @@ export const Container = styled.div`
 `;
 
 export const Body = styled.div`
-  margin-top: 3.5em;
+  /* margin-top: 3.5em; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 103%;
 
   .team-work {
+    margin-top: 3.5em;
     width: 30em;
     height: 30em;
   }
-`;
-
-export const InfoBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 3em;
 `;
