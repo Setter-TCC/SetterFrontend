@@ -24,7 +24,7 @@ const LoginForm: React.FC = () => {
       logIn(data.token);
       navigate('/athletes');
     } catch (err) {
-      alert('Erro ao realizar login, tente novamente');
+      alert('Usuário ou senha incorretos!');
       navigate('/');
     }
   }

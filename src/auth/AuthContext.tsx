@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { createContext, useContext, useState, useEffect } from 'react';
 import api from '../services/api';
 
 interface TokenProps {
