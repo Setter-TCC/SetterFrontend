@@ -9,13 +9,12 @@ import { BackendData, FormInputData, translateFormData } from '../utils/interfac
 import { useNavigate } from 'react-router-dom';
 import api from '../../../services/api';
 import loading from '../../../assets/icons/loading.svg';
-// import { useAuth } from '../../../auth/AuthContext';
+import { useAuth } from '../../../auth/AuthContext';
 
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
-  // TODO: ver como funciona o token ao criar a conta
-  // const { logIn } = useAuth();
+  const { logIn } = useAuth();
   const [formData, setFormData] = useState<FormInputData>({} as FormInputData);
   const [skipCoach, setSkipCoach] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,11 +37,8 @@ const Register: React.FC = () => {
     const backFormData: BackendData = translateFormData(formData);
     try {
       setIsSubmitting(true);
-      const { data } = await api.post('/api/account', backFormData);
-      console.log(data);
-      // logIn(data.token);
-
-      // signin backFormData.email backFormData.password 
+      const { data } = await api.post('/api/account/register', backFormData);
+      logIn(data.token);
       navigate('/success');
     } catch (err) {
       alert('Erro ao cadastrar, tente novamente');

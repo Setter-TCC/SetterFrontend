@@ -1,7 +1,8 @@
 import { BrowserRouter as Router } from 'react-router-dom';
+import RenderRoutes from './routes/Routes';
+import RefreshTokenHandler from './auth/RefreshTokenHandler';
 import { Global } from './styles/global';
 import { AuthProvider } from './auth/AuthContext';
-import { RenderRoutes } from './routes/Routes';
 
 export default function AppRouter() {
   return (
@@ -9,7 +10,9 @@ export default function AppRouter() {
       <Global />
       <Router>
         <AuthProvider>
-          <RenderRoutes />
+          <RefreshTokenHandler>
+            <RenderRoutes />
+          </RefreshTokenHandler>
         </AuthProvider>
       </Router>
     </>

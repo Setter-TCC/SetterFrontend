@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { navigation } from './navigation';
 
-export const RenderRoutes = () => {
+const RenderRoutes = () => {
   const { isAuthenticated } = useAuth();
 
   return (
@@ -24,3 +24,5 @@ export const RenderRoutes = () => {
   );
 
 };
+
+export default RenderRoutes;
