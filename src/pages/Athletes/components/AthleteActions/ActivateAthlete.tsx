@@ -4,15 +4,14 @@ import { useAthlete } from '../../../../hooks/Athlete';
 import { useAuth } from '../../../../auth/AuthContext';
 import api from '../../../../services/api';
 
-
-const DeactivateAthlete: React.FC = () => {
+const ActivateAthlete: React.FC = () => {
   const { setResetActions, setActionModalInfo } = useAthlete();
   const { selectedAthlete } = useAthlete().athleteAction;
   const { admin } = useAuth();
 
-  const handleDeactivateAthlete = async () => {
+  const handleActivateAthlete = async () => {
     try {
-      await api.post('/api/athlete/deactivate', {
+      await api.post('/api/athlete/activate', {
         atleta_id: selectedAthlete?.id,
         time_id: admin.teamId,
       }, {
@@ -21,25 +20,25 @@ const DeactivateAthlete: React.FC = () => {
           'Content-Type': 'application/json',
         },
       });
-      setActionModalInfo({ text: 'Atleta desativado(a) com sucesso!' });
+      setActionModalInfo({ text: 'Atleta reativado(a) com sucesso!' });
       setResetActions();
     } catch (err) {
       console.log(err);
-      setActionModalInfo({ text: 'Erro ao desativar atleta!' });
+      setActionModalInfo({ text: 'Erro ao ativar atleta!' });
     }
   };
 
   return (
     <WarningModal
-      text='Tem certeza que deseja desativar este atleta?'
-      description='Os registros antigos serão mantidos, mas o atleta não será mais contabilizado para novos registros ou mensalidades.'
-      observation='É possível reativar o atleta posteriormente'
+      text='Tem certeza que deseja resativar este atleta?'
+      description='A partir da reativação, este atleta será considerado para listagens e eventos futuros do time'
       backOnClick={setResetActions}
-      continueOnClick={handleDeactivateAthlete}
-      mainColor='var(--color-primary-orange)'
-      buttonText='Desativar'
+      continueOnClick={handleActivateAthlete}
+      mainColor='var(--color-primary-green)'
+      buttonText='Reativar'
     />
   );
+
 };
 
-export default DeactivateAthlete;
+export default ActivateAthlete;

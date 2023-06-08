@@ -170,7 +170,7 @@ export const AthleteButtons = styled.button`
     color: var(--color-primary-white);
   }
 
-  .reactivate {
+  .activate {
     margin-top: 15%;
     background-color: var(--color-primary-green);
     border-radius: 10px;

@@ -3,10 +3,10 @@ import { AthleteTable, TableHead, TableBody, TableHeaderCell, RoundedImage, Tabl
 import moreActions from '../../../../assets/icons/moreActions.svg';
 import { useAthlete } from '../../../../hooks/Athlete';
 import { tableColumns } from '../../utils/const';
-import userImg from '../../../../assets/icons/user.svg';
+import userImg from '../../../../assets/icons/ball.svg';
 import api from '../../../../services/api';
 import { useAuth } from '../../../../auth/AuthContext';
-import { AthleteData, translateAthleteFrontData } from '../utils/interfaces';
+import { AthleteData, getPositionText, translateAthleteFrontData } from '../utils/interfaces';
 
 interface RowButtonsState {
   [key: string]: boolean;
@@ -15,7 +15,7 @@ interface RowButtonsState {
 const AthletesTableBody: React.FC = () => {
   const [showMoreActions, setShowMoreActions] = useState({} as RowButtonsState);
   const [athletes, setAthletes] = useState<AthleteData[]>([] as AthleteData[]);
-  const { setEditAthlete, setDeactivateAthlete, setReactivateAthlete } = useAthlete();
+  const { setEditAthlete, setDeactivateAthlete, setActivateAthlete } = useAthlete();
   const { admin } = useAuth();
 
   const getListAthletes = async () => {
@@ -79,7 +79,7 @@ const AthletesTableBody: React.FC = () => {
                     src={userImg} isActive={athlete.isActive} />
                   </td>
                   <td>{athlete.name}</td>
-                  <td>{athlete.position}</td>
+                  <td>{getPositionText(athlete.position)}</td>
                   <td>{athlete.phone}</td>
                   <td>{athlete.rg}</td>
                   <td>{athlete.cpf}</td>
@@ -99,8 +99,8 @@ const AthletesTableBody: React.FC = () => {
                           </>
                         ) : (
                           <button
-                            className='reactivate'
-                            onClick={() => setReactivateAthlete(athlete)}>Reativar</button>
+                            className='activate'
+                            onClick={() => setActivateAthlete(athlete)}>Reativar</button>
                         )}
 
                       </AthleteButtons>

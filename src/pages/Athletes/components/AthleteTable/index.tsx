@@ -4,7 +4,7 @@ import InfoModal from '../../../../components/InfoModal';
 import AthletesTableHeader from './AthleteTableHeader';
 import AthletesTableBody from './AthleteTableBody';
 import { useAthlete } from '../../../../hooks/Athlete';
-import { AddAthlete, EditAthlete, DeactivateAthlete, ReactivateAthlete } from '../AthleteActions';
+import { AddAthlete, EditAthlete, DeactivateAthlete, ActivateAthlete } from '../AthleteActions';
 
 interface RenderConfigOptions {
   [key: string]: React.ReactElement;
@@ -16,7 +16,7 @@ const AthletesTable: React.FC = () => {
     addAthlete: <AddAthlete />,
     editAthlete: <EditAthlete />,
     deactivateAthlete: <DeactivateAthlete />,
-    reactivateAthlete: <ReactivateAthlete />,
+    activateAthlete: <ActivateAthlete />,
   };
 
   return (

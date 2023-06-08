@@ -1,20 +1,36 @@
 import React, { useState } from 'react';
+import InputMask from 'react-input-mask';
+import { useAuth } from '../../../../auth/AuthContext';
+import { useAthlete } from '../../../../hooks/Athlete';
 import { Container, ContainerBackground, Buttons, AddButton, BackButton } from './styles';
 import { FormDrawerWrapper } from '../../../../components/FormWrapper';
-import { useAthlete } from '../../../../hooks/Athlete';
-import { athletePositions } from '../../utils/const';
-import { AthleteData } from '../utils/interfaces';
+import { AthleteData, athletePositions, translateEditAthleteData } from '../utils/interfaces';
+import api from '../../../../services/api';
+import { convertToISODate } from '../../../../utils/format';
 
 
 const EditAthlete: React.FC = () => {
   const [newAthleteData, setNewAthleteData] = useState<AthleteData>({} as AthleteData);
   const { athleteAction, setResetActions, setActionModalInfo } = useAthlete();
+  const { admin } = useAuth();
 
   const { selectedAthlete } = athleteAction;
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Editar atleta
-    setActionModalInfo({ text: 'Atleta editado(a) com sucesso!' });
+    if (!selectedAthlete) return;
+
+    try {
+      const backEditAthleteData = translateEditAthleteData({ ...selectedAthlete, teamId: admin.teamId }, newAthleteData);
+      api.put('/api/athlete/update', backEditAthleteData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      setActionModalInfo({ text: 'Atleta editado(a) com sucesso!' });
+    } catch (err) {
+      console.log(err);
+      setActionModalInfo({ text: 'Erro ao editar atleta!' });
+    }
   };
 
   return (
@@ -38,38 +54,41 @@ const EditAthlete: React.FC = () => {
             <select defaultValue={selectedAthlete?.position}
               value={newAthleteData.position} onChange={e => setNewAthleteData({ ...newAthleteData, position: e.target.value })}>
               {athletePositions.map(position => (
-                <option key={position.key} value={position.key}>{position.value}</option>
+                <option key={position.type} value={position.type}>{position.value}</option>
               ))}
             </select>
             <label>Telefone</label>
-            <input
-              required
-              type="string"
-              defaultValue={selectedAthlete?.phone}
+            <InputMask
+              mask="(99) 99999-9999"
+              id="phone"
+              type="text"
               value={newAthleteData.phone}
+              defaultValue={selectedAthlete?.phone}
               onChange={e => setNewAthleteData({ ...newAthleteData, phone: e.target.value })}
             />
             <label>RG</label>
-            <input
-              required
-              type="string"
-              defaultValue={selectedAthlete?.rg}
+            <InputMask
+              mask="9.99.99-9"
+              id="rg"
+              type="text"
               value={newAthleteData.rg}
+              defaultValue={selectedAthlete?.rg}
               onChange={e => setNewAthleteData({ ...newAthleteData, rg: e.target.value })}
             />
             <label>CPF</label>
-            <input
-              required
-              type="string"
-              defaultValue={selectedAthlete?.cpf}
+            <InputMask
+              mask="999.999.999-99"
+              id="cpf"
+              type="text"
               value={newAthleteData.cpf}
+              defaultValue={selectedAthlete?.cpf}
               onChange={e => setNewAthleteData({ ...newAthleteData, cpf: e.target.value })}
             />
             <label>Data de Nascimento</label>
             <input
               required
-              type="datetime"
-              defaultValue={selectedAthlete?.birth}
+              type="date"
+              defaultValue={convertToISODate(selectedAthlete?.birth || '')}
               value={newAthleteData.birth}
               onChange={e => setNewAthleteData({ ...newAthleteData, birth: e.target.value })}
             />

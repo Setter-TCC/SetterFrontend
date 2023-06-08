@@ -12,8 +12,10 @@ const RefreshTokenHandler: React.FC<RefreshTokenHandlerProps> = ({ children }) =
 
   const refreshTokens = async () => {
     try {
+      // console.log('Entrando no refresh');
       if (!localStorage.getItem('refresh')) return;
       const { data } = await api.get(`/api/token/refresh?refresh=${localStorage.getItem('refresh')}`);
+      // console.log('Refreshed tokens:', data);
       logIn(data.token);
     } catch (error) {
       console.error('Failed to refresh tokens:', error);
@@ -21,7 +23,7 @@ const RefreshTokenHandler: React.FC<RefreshTokenHandlerProps> = ({ children }) =
   };
 
   useEffect(() => {
-    const refreshTokenInterval = setInterval(refreshTokens, 30 * 60 * 1000);
+    const refreshTokenInterval = setInterval(refreshTokens, 29 * 60 * 1000);
     return () => clearInterval(refreshTokenInterval); // TODO: ver se isso funciona
   }, []);
 

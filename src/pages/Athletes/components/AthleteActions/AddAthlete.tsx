@@ -15,7 +15,7 @@ const AddAthlete: React.FC = () => {
     e.preventDefault();
     // Criar atleta
     const backAddAtheleteData = translateAthleteBackData({ ...athleteData, teamId: admin.teamId });
-    console.log(backAddAtheleteData);
+
     try {
       await api.post('/api/athlete/create', backAddAtheleteData, {
         headers: {
@@ -62,10 +62,9 @@ const AddAthlete: React.FC = () => {
               value={athleteData.phone}
               onChange={e => setAthleteData({ ...athleteData, phone: e.target.value })}
             />
-
             <label>RG</label>
             <InputMask
-              mask="99.999.999-9"
+              mask="9.99.99-9"
               id="rg"
               type="text"
               value={athleteData.rg}

@@ -40,6 +40,11 @@ enum AthletePositionEnum {
   oppositeHitter = 5,
 }
 
+export function getPositionText(positionNumber: string) {
+  const position = athletePositions.find((pos) => pos.type === Number(positionNumber));
+  return position ? position.value : 'Posição não encontrada';
+}
+
 export const athletePositions: AthletePosition[] = [
   { type: AthletePositionEnum.outsideHitter, value: 'Ponteiro(a)' },
   { type: AthletePositionEnum.setter, value: 'Levantador(a)' },
@@ -47,6 +52,23 @@ export const athletePositions: AthletePosition[] = [
   { type: AthletePositionEnum.libero, value: 'Líbero' },
   { type: AthletePositionEnum.oppositeHitter, value: 'Oposto(a)' },
 ];
+
+export const translateEditAthleteData = (data: AthleteData, newData: AthleteData): AthleteBackData => {
+
+  const editAthleteData = {
+    id: data.id,
+    nome: newData.name ? newData.name : data.name,
+    email: newData.email ? newData.email : data.email,
+    cpf: newData.cpf ? removeSymbols(newData.cpf) : data.cpf,
+    rg: newData.rg ? removeSymbols(newData.rg) : data.rg,
+    data_nascimento: newData.birth ? format(new Date(newData.birth), 'yyyy-MM-dd\'T\'HH:mm:ss') : format(new Date(data.birth), 'yyyy-MM-dd\'T\'HH:mm:ss'),
+    telefone: newData.phone ? removeSymbols(newData.phone) : data.phone,
+    posicao: newData.position ? newData.position : data.position,
+    time_id: newData.teamId ? newData.teamId : data.teamId,
+  };
+
+  return editAthleteData;
+};
 
 export const translateAthleteBackData = (data: AthleteData): AthleteBackData => {
   const translatedData: AthleteBackData = {

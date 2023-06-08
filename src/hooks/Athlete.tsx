@@ -7,7 +7,7 @@ interface AthleteContextData {
   setAddAthlete(): void,
   setEditAthlete(athlete: AthleteData): void,
   setDeactivateAthlete(athlete: AthleteData): void,
-  setReactivateAthlete(athlete: AthleteData): void,
+  setActivateAthlete(athlete: AthleteData): void,
   setResetActions(): void,
   actionModalInfo: ActionModalInfo | null,
   setActionModalInfo(info: ActionModalInfo | null): void,
@@ -18,7 +18,7 @@ export enum AthleteActionType {
   ADD_ATHLETE = 'ADD_ATHLETE',
   EDIT_ATHLETE = 'EDIT_ATHLETE',
   DEACTIVATE_ATHLETE = 'DEACTIVATE_ATHLETE',
-  REACTIVATE_ATHLETE = 'REACTIVATE_ATHLETE',
+  ACTIVATE_ATHLETE = 'ACTIVATE_ATHLETE',
   RESET_ACTION = 'RESET_ACTION',
 }
 
@@ -57,10 +57,10 @@ const athleteReducer = (state: AthleteAction, action: any) => {
       showAction: 'deactivateAthlete',
       selectedAthlete: action.payload.athlete
     };
-  case AthleteActionType.REACTIVATE_ATHLETE:
+  case AthleteActionType.ACTIVATE_ATHLETE:
     return {
       ...state,
-      showAction: 'reactivateAthlete',
+      showAction: 'activateAthlete',
       selectedAthlete: action.payload.athlete
     };
   case AthleteActionType.RESET_ACTION:
@@ -106,9 +106,9 @@ const AthleteProvider = ({ children }: any): JSX.Element => {
   };
 
 
-  const setReactivateAthlete = (athlete: AthleteData) => {
+  const setActivateAthlete = (athlete: AthleteData) => {
     setAthleteAction({
-      type: AthleteActionType.REACTIVATE_ATHLETE,
+      type: AthleteActionType.ACTIVATE_ATHLETE,
       payload: { athlete },
     });
   };
@@ -126,7 +126,7 @@ const AthleteProvider = ({ children }: any): JSX.Element => {
     setAddAthlete,
     setEditAthlete,
     setDeactivateAthlete,
-    setReactivateAthlete,
+    setActivateAthlete,
     setResetActions,
     actionModalInfo,
     setActionModalInfo
