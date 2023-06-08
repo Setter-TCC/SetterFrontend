@@ -2,20 +2,31 @@ import React, { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ButtonWrapper, Container, LoginButton, LoginWrapper } from './styles';
 import { useAuth } from '../../../auth/AuthContext';
+import { LoginData, translateLoginData } from '../utils/interfaces';
+import api from '../../../services/api';
 
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [loginData, setLoginData] = useState({} as LoginData);
   const { logIn } = useAuth();
 
-
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    logIn();
-    // TODO: context de user logado
-    navigate('/athletes');
+    const backLoginData: string = translateLoginData(loginData);
+
+    try {
+      const { data } = await api.post('/api/account/login', backLoginData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      });
+      logIn(data.token);
+      navigate('/athletes');
+    } catch (err) {
+      alert('Usuário ou senha incorretos!');
+      navigate('/');
+    }
   }
 
   return (
@@ -26,15 +37,15 @@ const LoginForm: React.FC = () => {
           <input
             required
             type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
+            value={loginData.username}
+            onChange={e => setLoginData({ username: e.target.value, password: loginData.password })}
           />
           <label>Senha</label>
           <input
             required
             type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
+            value={loginData.password}
+            onChange={e => setLoginData({ username: loginData.username, password: e.target.value })}
           />
         </LoginWrapper>
         <ButtonWrapper>

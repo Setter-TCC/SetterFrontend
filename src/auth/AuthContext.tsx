@@ -1,8 +1,15 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { createContext, useContext, useState, useEffect } from 'react';
+// import api from '../services/api';
 
+interface TokenProps {
+  token: string,
+  refresh: string,
+  expire: Date,
+}
 interface AuthContextData {
   isAuthenticated: boolean,
-  logIn(): void,
+  logIn(token: TokenProps): void,
   logOut(): void,
 }
 
@@ -18,17 +25,18 @@ const AuthProvider = ({ children }: any) => {
     const token = localStorage.getItem('token');
 
     if (token) {
-      // api.defaults.headers.Authorization = `Bearer ${token}`
+      // api.defaults.headers.Authorization = `Bearer ${token}`;
       setIsAuthenticated(true);
     }
     setLoading(false);
   }, []);
 
-  const logIn = () => {
+  const logIn = ({ token, expire, refresh }: TokenProps) => {
     //chamada da api para autenticar o token
-    const token = 'mock-token';
     localStorage.setItem('token', token);
-    // api.defaults.headers.Authorization = `Bearer ${token}`
+    localStorage.setItem('refresh', refresh);
+    localStorage.setItem('token_expire_time', expire.toString());
+    // api.defaults.headers.Authorization = `Bearer ${token}`;
     setIsAuthenticated(true);
 
   };
@@ -36,7 +44,9 @@ const AuthProvider = ({ children }: any) => {
     //chamada da api para deletar o token
     setIsAuthenticated(false);
     localStorage.removeItem('token');
-    // api.defaults.headers.Authorization = undefined
+    localStorage.removeItem('refresh');
+    localStorage.removeItem('token_expire_time');
+    // api.defaults.headers.Authorization = '';
   };
 
   if (loading) {
