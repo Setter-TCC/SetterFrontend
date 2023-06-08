@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, ContainerBackground, ImgWrapper, Buttons, AddButton, BackButton, RoundedImage } from './styles';
+import { Container, ContainerBackground, Buttons, AddButton, BackButton } from './styles';
 import { FormDrawerWrapper } from '../../../../components/FormWrapper';
 import { useAthlete } from '../../../../hooks/Athlete';
 import { AthleteData } from '../../utils/interfaces';
@@ -22,10 +22,10 @@ const EditAthlete: React.FC = () => {
       <Container>
         <form onSubmit={onSubmit}>
           <FormDrawerWrapper title='Editar Atleta'>
-            <ImgWrapper>
+            {/* <ImgWrapper>
               <RoundedImage src={selectedAthlete?.img} />
               <input type="file" accept="image/*" name="imageInput" id="imageInput" />
-            </ImgWrapper>
+            </ImgWrapper> */}
             <label>Nome</label>
             <input
               required

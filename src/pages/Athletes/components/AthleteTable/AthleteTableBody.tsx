@@ -3,6 +3,7 @@ import { AthleteTable, TableHead, TableBody, TableHeaderCell, RoundedImage, Tabl
 import moreActions from '../../../../assets/icons/moreActions.svg';
 import { useAthlete } from '../../../../hooks/Athlete';
 import { athletes, tableColumns } from '../../utils/const';
+import userImg from '../../../../assets/icons/user.svg';
 
 interface RowButtonsState {
   [key: string]: boolean;
@@ -50,7 +51,7 @@ const AthletesTableBody: React.FC = () => {
               isActive={athlete.isActive}
             >
               <td className='first-cell'><RoundedImage
-                src={athlete.img} isActive={athlete.isActive} />
+                src={userImg} isActive={athlete.isActive} />
               </td>
               <td>{athlete.name}</td>
               <td>{athlete.position}</td>

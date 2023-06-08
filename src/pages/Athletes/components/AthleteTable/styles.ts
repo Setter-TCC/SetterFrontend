@@ -95,7 +95,8 @@ export const RoundedImage = styled.img<RowProps>`
   ${props =>
     !props.isActive &&
     css`
-      filter: grayscale(100%);
+      /* filter: grayscale(100%); */
+      opacity: 0.5;
     `}
 `;
 

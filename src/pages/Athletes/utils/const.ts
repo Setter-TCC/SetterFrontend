@@ -1,5 +1,4 @@
 import { AthleteData } from './interfaces';
-import img1 from '../../../assets/athletes/img1.jpeg';
 
 export const tableColumns = [
   '',
@@ -24,7 +23,6 @@ export const athletePositions = [
 export const athletes: AthleteData[] = [
   {
     id: '1',
-    img: img1,
     name: 'Atleta Fulana de Tal',
     position: 'Posição 1',
     phone: '(11) 1234-5678',
@@ -36,7 +34,6 @@ export const athletes: AthleteData[] = [
   },
   {
     id: '2',
-    img: img1,
     name: 'Atleta Cicrana Beltrana',
     position: 'Posição 2',
     phone: '(11) 2345-6789',
@@ -48,7 +45,6 @@ export const athletes: AthleteData[] = [
   },
   {
     id: '3',
-    img: img1,
     name: 'Atleta Fulano de Tal Cicrana Beltrana',
     position: 'Posição 3',
     phone: '(11) 3456-7890',

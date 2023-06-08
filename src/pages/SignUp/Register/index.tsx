@@ -9,10 +9,7 @@ import { BackendData, FormInputData, translateFormData } from '../utils/interfac
 import { useNavigate } from 'react-router-dom';
 import api from '../../../services/api';
 import loading from '../../../assets/icons/loading.svg';
-<<<<<<< HEAD
 import { useAuth } from '../../../auth/AuthContext';
-=======
->>>>>>> a0d9427 ([01] treat account error, set loading page, add removeSymbols)
 
 
 const Register: React.FC = () => {

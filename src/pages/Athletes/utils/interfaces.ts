@@ -1,6 +1,5 @@
 export interface AthleteData {
   id: string,
-  img: string,
   name: string,
   position: string,
   phone: string,

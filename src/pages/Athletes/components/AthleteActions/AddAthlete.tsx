@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Container, ContainerBackground, ImgWrapper, Buttons, AddButton, BackButton } from './styles';
-import addUser from '../../../../assets/icons/addUser.svg';
+import { Container, ContainerBackground, Buttons, AddButton, BackButton } from './styles';
 import { FormDrawerWrapper } from '../../../../components/FormWrapper';
 import { useAthlete } from '../../../../hooks/Athlete';
 
@@ -37,10 +36,10 @@ const AddAthlete: React.FC = () => {
       <Container>
         <form onSubmit={onSubmit}>
           <FormDrawerWrapper title='Adicionar Atleta'>
-            <ImgWrapper>
+            {/* <ImgWrapper>
               <img src={addUser} />
               <input type="file" accept="image/*" name="imageInput" id="imageInput" />
-            </ImgWrapper>
+            </ImgWrapper> */}
             <label>Nome</label>
             <input
               required
