@@ -13,7 +13,7 @@ const RefreshTokenHandler: React.FC<RefreshTokenHandlerProps> = ({ children }) =
   const refreshTokens = async () => {
     try {
       if (!localStorage.getItem('refresh')) return;
-      const { data } = await api.get(`/api/token/refresh?token=${localStorage.getItem('refresh')}`);
+      const { data } = await api.get(`/api/token/refresh?refresh=${localStorage.getItem('refresh')}`);
       logIn(data.token);
     } catch (error) {
       console.error('Failed to refresh tokens:', error);

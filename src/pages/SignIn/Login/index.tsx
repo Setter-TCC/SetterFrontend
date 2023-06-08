@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ButtonWrapper, Container, LoginButton, LoginWrapper } from './styles';
 import { useAuth } from '../../../auth/AuthContext';
+import { ButtonWrapper, Container, LoginButton, LoginWrapper } from './styles';
 import { LoginData, translateLoginData } from '../utils/interfaces';
 import api from '../../../services/api';
 
@@ -21,7 +21,7 @@ const LoginForm: React.FC = () => {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       });
-      logIn(data.token);
+      logIn(data.auth);
       navigate('/athletes');
     } catch (err) {
       alert('Usuário ou senha incorretos!');

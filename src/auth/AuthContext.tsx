@@ -1,41 +1,41 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 // import api from '../services/api';
 
-interface TokenProps {
+interface AdminProps {
+  teamId: string,
+}
+interface AuthProps {
   token: string,
   refresh: string,
   expire: Date,
+  team_id?: string,
 }
 interface AuthContextData {
+  admin: AdminProps,
+  setAdmin(admin: AdminProps): void,
   isAuthenticated: boolean,
-  logIn(token: TokenProps): void,
+  logIn(auth: AuthProps): void,
   logOut(): void,
 }
-
 
 const AuthContext = createContext({} as AuthContextData);
 const { Provider } = AuthContext;
 
 const AuthProvider = ({ children }: any) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [admin, setAdmin] = useState({} as AdminProps);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      // api.defaults.headers.Authorization = `Bearer ${token}`;
-      setIsAuthenticated(true);
-    }
-    setLoading(false);
-  }, []);
-
-  const logIn = ({ token, expire, refresh }: TokenProps) => {
+  const logIn = ({ token, expire, refresh, team_id }: AuthProps) => {
     //chamada da api para autenticar o token
     localStorage.setItem('token', token);
     localStorage.setItem('refresh', refresh);
     localStorage.setItem('token_expire_time', expire.toString());
+
+    if (team_id) {
+      localStorage.setItem('teamId', team_id);
+      setAdmin({ teamId: team_id });
+    }
     // api.defaults.headers.Authorization = `Bearer ${token}`;
     setIsAuthenticated(true);
 
@@ -46,19 +46,18 @@ const AuthProvider = ({ children }: any) => {
     localStorage.removeItem('token');
     localStorage.removeItem('refresh');
     localStorage.removeItem('token_expire_time');
+    localStorage.removeItem('teamId');
+
+    setAdmin({} as AdminProps);
     // api.defaults.headers.Authorization = '';
   };
-
-  if (loading) {
-    // TODO: desenhar tela de loading
-    <h1>Loading...</h1>;
-  }
-
 
   const contextValues = {
     isAuthenticated,
     logIn,
-    logOut
+    logOut,
+    setAdmin,
+    admin,
   };
 
   return (
@@ -66,10 +65,10 @@ const AuthProvider = ({ children }: any) => {
       {children}
     </Provider>
   );
-
 };
 
 function useAuth(): AuthContextData {
   return useContext(AuthContext);
 }
+
 export { AuthContext, AuthProvider, useAuth };
