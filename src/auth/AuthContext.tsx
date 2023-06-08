@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 // import api from '../services/api';
 
 interface AdminProps {
@@ -25,6 +25,19 @@ const { Provider } = AuthContext;
 const AuthProvider = ({ children }: any) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [admin, setAdmin] = useState({} as AdminProps);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const teamId = localStorage.getItem('teamId');
+
+    if (token && teamId) {
+      // api.defaults.headers.Authorization = `Bearer ${token}`;
+      setIsAuthenticated(true);
+      setAdmin({ teamId });
+    }
+    setLoading(false);
+  }, []);
 
   const logIn = ({ token, expire, refresh, team_id }: AuthProps) => {
     //chamada da api para autenticar o token
@@ -51,6 +64,11 @@ const AuthProvider = ({ children }: any) => {
     setAdmin({} as AdminProps);
     // api.defaults.headers.Authorization = '';
   };
+
+  if (loading) {
+    // TODO: desenhar tela de loading
+    <h1>Loading...</h1>;
+  }
 
   const contextValues = {
     isAuthenticated,

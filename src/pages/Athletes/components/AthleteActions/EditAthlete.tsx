@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Container, ContainerBackground, Buttons, AddButton, BackButton } from './styles';
 import { FormDrawerWrapper } from '../../../../components/FormWrapper';
 import { useAthlete } from '../../../../hooks/Athlete';
-import { AthleteData } from '../../utils/interfaces';
 import { athletePositions } from '../../utils/const';
+import { AthleteData } from '../utils/interfaces';
 
 
 const EditAthlete: React.FC = () => {

@@ -1,34 +1,35 @@
 import React, { useState } from 'react';
+import InputMask from 'react-input-mask';
+import { useAuth } from '../../../../auth/AuthContext';
+import { useAthlete } from '../../../../hooks/Athlete';
+import { AthleteData, athletePositions, translateAthleteBackData } from '../utils/interfaces';
 import { Container, ContainerBackground, Buttons, AddButton, BackButton } from './styles';
 import { FormDrawerWrapper } from '../../../../components/FormWrapper';
-import { useAthlete } from '../../../../hooks/Athlete';
-
-const athletePositions = [
-  { key: 'setter', value: 'Levantador(a)' },
-  { key: 'outsideHitter', value: 'Ponteiro(a)' },
-  { key: 'opposite', value: 'Oposto(a)' },
-  { key: 'middleBlocker', value: 'Central' },
-  { key: 'libero', value: 'Líbero' }
-];
-
-type NewAthleteData = {
-  img: string,
-  name: string,
-  position: string,
-  phone: string,
-  rg: string,
-  cpf: string,
-  birth: string,
-  email: string,
-}
+import api from '../../../../services/api';
 
 const AddAthlete: React.FC = () => {
-  const [athleteData, setAthleteData] = useState<NewAthleteData>({} as NewAthleteData);
+  const [athleteData, setAthleteData] = useState<AthleteData>({} as AthleteData);
   const { setResetActions, setActionModalInfo } = useAthlete();
-  const onSubmit = (e: React.FormEvent) => {
+  const { admin } = useAuth();
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Criar atleta
-    setActionModalInfo({ text: 'Atleta criada com sucesso' });
+    const backAddAtheleteData = translateAthleteBackData({ ...athleteData, teamId: admin.teamId });
+    console.log(backAddAtheleteData);
+    try {
+      await api.post('/api/athlete/create', backAddAtheleteData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      setActionModalInfo({ text: 'Atleta criada com sucesso' });
+      // TODO: renderizar pagina de novo
+      // setResetActions();
+    } catch (err) {
+      setActionModalInfo({ text: 'Erro ao criar atleta' });
+      setResetActions();
+    }
   };
 
   return (
@@ -48,36 +49,40 @@ const AddAthlete: React.FC = () => {
               onChange={e => setAthleteData({ ...athleteData, name: e.target.value })}
             />
             <label>Posição</label>
-            <select value={athleteData.position} onChange={e => setAthleteData({ ...athleteData, position: e.target.value })}>
+            <select value={athleteData.position} onChange={e => setAthleteData({ ...athleteData, position: e.target.value.toString() })}>
               {athletePositions.map(position => (
-                <option key={position.key} value={position.key}>{position.value}</option>
+                <option key={position.type} value={position.type}>{position.value}</option>
               ))}
             </select>
             <label>Telefone</label>
-            <input
-              required
-              type="number"
+            <InputMask
+              mask="(99) 99999-9999"
+              id="phone"
+              type="text"
               value={athleteData.phone}
               onChange={e => setAthleteData({ ...athleteData, phone: e.target.value })}
             />
+
             <label>RG</label>
-            <input
-              required
-              type="number"
+            <InputMask
+              mask="99.999.999-9"
+              id="rg"
+              type="text"
               value={athleteData.rg}
               onChange={e => setAthleteData({ ...athleteData, rg: e.target.value })}
             />
             <label>CPF</label>
-            <input
-              required
-              type="number"
+            <InputMask
+              mask="999.999.999-99"
+              id="cpf"
+              type="text"
               value={athleteData.cpf}
               onChange={e => setAthleteData({ ...athleteData, cpf: e.target.value })}
             />
             <label>Data de Nascimento</label>
             <input
               required
-              type="datetime"
+              type="date"
               value={athleteData.birth}
               onChange={e => setAthleteData({ ...athleteData, birth: e.target.value })}
             />
