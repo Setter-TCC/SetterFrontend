@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useContext, useState, useEffect } from 'react';
-import api from '../services/api';
+// import api from '../services/api';
 
 interface TokenProps {
   token: string,
+  refresh: string,
   expire: Date,
 }
 interface AuthContextData {
@@ -24,17 +25,18 @@ const AuthProvider = ({ children }: any) => {
     const token = localStorage.getItem('token');
 
     if (token) {
-      api.defaults.headers.Authorization = `Bearer ${token}`;
+      // api.defaults.headers.Authorization = `Bearer ${token}`;
       setIsAuthenticated(true);
     }
     setLoading(false);
   }, []);
 
-  const logIn = ({ token, expire }: TokenProps) => {
+  const logIn = ({ token, expire, refresh }: TokenProps) => {
     //chamada da api para autenticar o token
     localStorage.setItem('token', token);
+    localStorage.setItem('refresh', refresh);
     localStorage.setItem('token_expire_time', expire.toString());
-    api.defaults.headers.Authorization = `Bearer ${token}`;
+    // api.defaults.headers.Authorization = `Bearer ${token}`;
     setIsAuthenticated(true);
 
   };
@@ -42,8 +44,9 @@ const AuthProvider = ({ children }: any) => {
     //chamada da api para deletar o token
     setIsAuthenticated(false);
     localStorage.removeItem('token');
+    localStorage.removeItem('refresh');
     localStorage.removeItem('token_expire_time');
-    api.defaults.headers.Authorization = '';
+    // api.defaults.headers.Authorization = '';
   };
 
   if (loading) {
