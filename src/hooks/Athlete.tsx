@@ -3,6 +3,10 @@ import { createContext, useContext, useReducer, useState } from 'react';
 import { AthleteData } from '../pages/Athletes/components/utils/interfaces';
 
 interface AthleteContextData {
+  athletes: AthleteData[],
+  setAthletes(athletes: AthleteData[]): void,
+  searchValue: string,
+  setSearchValue(searchValue: string): void,
   athleteAction: AthleteAction,
   setAddAthlete(): void,
   setEditAthlete(athlete: AthleteData): void,
@@ -77,6 +81,9 @@ const AthleteContext = createContext({} as AthleteContextData);
 const { Provider } = AthleteContext;
 const AthleteProvider = ({ children }: any): JSX.Element => {
 
+  const [athletes, setAthletes] = useState<AthleteData[]>([]);
+  const [searchValue, setSearchValue] = useState('');
+
   const [athleteAction, setAthleteAction] = useReducer(
     athleteReducer,
     athleteActionInitialState,
@@ -129,7 +136,11 @@ const AthleteProvider = ({ children }: any): JSX.Element => {
     setActivateAthlete,
     setResetActions,
     actionModalInfo,
-    setActionModalInfo
+    setActionModalInfo,
+    setAthletes,
+    athletes,
+    searchValue,
+    setSearchValue,
   };
 
   return <Provider value={contextValues}>{children}</Provider>;

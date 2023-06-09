@@ -68,7 +68,7 @@ const EditAthlete: React.FC = () => {
             />
             <label>RG</label>
             <InputMask
-              mask="9.99.99-9"
+              mask="99.999.999-9"
               id="rg"
               type="text"
               value={newAthleteData.rg}

@@ -13,7 +13,6 @@ const AddAthlete: React.FC = () => {
   const { admin } = useAuth();
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Criar atleta
     const backAddAtheleteData = translateAthleteBackData({ ...athleteData, teamId: admin.teamId });
 
     try {
@@ -64,7 +63,7 @@ const AddAthlete: React.FC = () => {
             />
             <label>RG</label>
             <InputMask
-              mask="9.99.99-9"
+              mask="99.999.999-9"
               id="rg"
               type="text"
               value={athleteData.rg}

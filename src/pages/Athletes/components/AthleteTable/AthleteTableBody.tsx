@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { AthleteTable, TableHead, TableBody, TableHeaderCell, RoundedImage, TableWrapper, MoreActionsButton, AthleteButtons, TableBodyRow } from './styles';
+import React, { useEffect, useState } from 'react';
+import { AthleteTable, TableHead, TableBody, TableHeaderCell, RoundedImage, TableWrapper, MoreActionsButton, AthleteButtons, TableBodyRow, EmptyTable } from './styles';
 import moreActions from '../../../../assets/icons/moreActions.svg';
 import { useAthlete } from '../../../../hooks/Athlete';
 import { tableColumns } from '../../utils/const';
@@ -7,6 +7,7 @@ import userImg from '../../../../assets/icons/ball.svg';
 import api from '../../../../services/api';
 import { useAuth } from '../../../../auth/AuthContext';
 import { AthleteData, getPositionText, translateAthleteFrontData } from '../utils/interfaces';
+import { formatCPF, formatPhone, formatRG } from '../../../../utils/format';
 
 interface RowButtonsState {
   [key: string]: boolean;
@@ -14,24 +15,33 @@ interface RowButtonsState {
 
 const AthletesTableBody: React.FC = () => {
   const [showMoreActions, setShowMoreActions] = useState({} as RowButtonsState);
-  const [athletes, setAthletes] = useState<AthleteData[]>([] as AthleteData[]);
-  const { setEditAthlete, setDeactivateAthlete, setActivateAthlete } = useAthlete();
+  const { searchValue, athletes, setAthletes, athleteAction, setEditAthlete, setDeactivateAthlete, setActivateAthlete } = useAthlete();
   const { admin } = useAuth();
 
-  const getListAthletes = async () => {
+  const filteredAthletes = athletes.filter((athlete) =>
+    athlete.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  function loadAthletes() {
     try {
-      const { data } = await api.get(`/api/athlete?team_id=${admin.teamId}`, {
+      api.get(`/api/athlete?team_id=${admin.teamId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-      });
-      console.log(data.value);
-      const frontAthletes: AthleteData[] = translateAthleteFrontData(data.value);
-      setAthletes(frontAthletes);
+      })
+        .then(({ data }) => {
+          const frontAthletes: AthleteData[] = translateAthleteFrontData(data.value);
+          setAthletes(frontAthletes);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert('Erro ao carregar lista de atletas');
+        });
     } catch (err) {
+      console.log(err);
       alert('Erro ao carregar lista de atletas');
     }
-  };
+  }
 
   const handleClick = (rowId: string) => {
     setShowMoreActions((prevState) => ({
@@ -54,8 +64,9 @@ const AthletesTableBody: React.FC = () => {
     }
   };
 
-  // TODO: ver como renderizar so qd tiver alteração na listagem de atletas
-  useMemo(getListAthletes, []);
+  useEffect(() => {
+    loadAthletes();
+  }, [athleteAction]);
 
   return (
     <TableWrapper>
@@ -70,7 +81,7 @@ const AthletesTableBody: React.FC = () => {
               </tr>
             </TableHead>
             <TableBody>
-              {athletes.map(athlete => (
+              {filteredAthletes.map(athlete => (
                 <TableBodyRow key={athlete.id}
                   onClick={() => handleRowClick(athlete.id)}
                   isActive={athlete.isActive}
@@ -80,9 +91,9 @@ const AthletesTableBody: React.FC = () => {
                   </td>
                   <td>{athlete.name}</td>
                   <td>{getPositionText(athlete.position)}</td>
-                  <td>{athlete.phone}</td>
-                  <td>{athlete.rg}</td>
-                  <td>{athlete.cpf}</td>
+                  <td>{formatPhone(athlete.phone)}</td>
+                  <td>{formatRG(athlete.rg)}</td>
+                  <td>{formatCPF(athlete.cpf)}</td>
                   <td>{athlete.birth}</td>
                   <td>{athlete.email}</td>
                   <td>
@@ -113,8 +124,9 @@ const AthletesTableBody: React.FC = () => {
             </TableBody>
           </AthleteTable>
         ) : (
-          // TODO: renderizar uma mensagem melhor com uma imagem fofinha
-          <h4>Não há atletas registados</h4>
+          <EmptyTable>
+            <h4>Não há atletas registados</h4>
+          </EmptyTable>
         )
       }
     </TableWrapper>

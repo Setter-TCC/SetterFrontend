@@ -19,7 +19,9 @@ export const HeaderContent = styled.div`
 `;
 
 export const TableWrapper = styled.div`
-  height: 100%; 
+  height: 100%;
+  max-height: 70vh;
+  overflow: auto;
   background: #FAFAFA;
 `;
 
@@ -87,8 +89,8 @@ export const TableBodyRow = styled.tr<RowProps>`
 `;
 
 export const RoundedImage = styled.img<RowProps>`
-  width: 4em;
-  height: 4em;
+  width: 3em;
+  height: 3em;
   border-radius: 50%;
   object-fit: cover;
 
@@ -177,4 +179,18 @@ export const AthleteButtons = styled.button`
     border: #F89C50;
     color: var(--color-primary-white);
   }
+`;
+
+export const EmptyTable = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 2em;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #4D4D4D;
 `;
