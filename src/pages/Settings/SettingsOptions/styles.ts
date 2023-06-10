@@ -30,6 +30,7 @@ export const Column = styled.div`
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   gap: 1em;
 
   label {
