@@ -4,7 +4,7 @@ interface SettingsProps {
   isSelected: boolean;
 }
 export const Container = styled.div`
-  max-height: 100vh;
+  /* max-height: 100vh; */
   display: flex;
   padding-left: 2em;
   margin-top: 3em;

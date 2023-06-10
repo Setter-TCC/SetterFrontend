@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { removeSymbols } from '../../../../utils/format';
+import { formatBirth, removeSymbols } from '../../../../utils/format';
 
 export interface AthleteData {
   id: string,
@@ -61,7 +61,7 @@ export const translateEditAthleteData = (data: AthleteData, newData: AthleteData
     email: newData.email ? newData.email : data.email,
     cpf: newData.cpf ? removeSymbols(newData.cpf) : data.cpf,
     rg: newData.rg ? removeSymbols(newData.rg) : data.rg,
-    data_nascimento: newData.birth ? format(new Date(newData.birth), 'yyyy-MM-dd\'T\'HH:mm:ss') : format(new Date(data.birth), 'yyyy-MM-dd\'T\'HH:mm:ss'),
+    data_nascimento: newData.birth ? format(new Date(newData.birth), 'yyyy-MM-dd\'T\'HH:mm:ss') : formatBirth(data.birth),
     telefone: newData.phone ? removeSymbols(newData.phone) : data.phone,
     posicao: newData.position ? newData.position : data.position,
     time_id: newData.teamId ? newData.teamId : data.teamId,

@@ -23,6 +23,7 @@ export const CoachForm = ({ coachName, coachEmail, coachPhone, coachCref, update
         required
         type="text"
         value={coachName}
+        defaultValue=''
         onChange={e => updateFields({ coachName: e.target.value })}
       />
       <label>Email</label>
@@ -30,6 +31,7 @@ export const CoachForm = ({ coachName, coachEmail, coachPhone, coachCref, update
         required
         type="email"
         value={coachEmail}
+        defaultValue=''
         onChange={e => updateFields({ coachEmail: e.target.value })}
       />
       <label>Telefone</label>
@@ -38,12 +40,14 @@ export const CoachForm = ({ coachName, coachEmail, coachPhone, coachCref, update
         id="phone"
         type="text"
         value={coachPhone}
+        defaultValue=''
         onChange={e => updateFields({ coachPhone: e.target.value })}
       />
       <label>CREF (opcional)</label>
       <input
         type="text"
         value={coachCref}
+        defaultValue=''
         onChange={e => updateFields({ coachCref: e.target.value })}
       />
     </FormWrapper>}

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 80%;
+  /* height: 80%; */
   display: flex;
-  padding: 4em 10em 4em 4em;
+  padding: 4em 8em 4em 4em;
   margin-top: 2em;
   flex-direction: row;
   border: 1px solid #E5E5E5;
@@ -15,7 +15,7 @@ export const SettingsForm = styled.form`
   flex-direction: column;
 `;
 
-export const SettingsFormBox = styled.form`
+export const SettingsFormBox = styled.div`
   display: flex;
   flex-direction: row;
   gap: 5em;
@@ -49,6 +49,7 @@ export const InputWrapper = styled.div`
     height: 2.5em;
     border: 1px solid #5D5D5D;
     border-radius: 5px;
+    padding-left: 1em;
   }
 
   select {

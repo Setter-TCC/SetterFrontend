@@ -15,13 +15,12 @@ interface RowButtonsState {
 
 const AthletesTableBody: React.FC = () => {
   const [showMoreActions, setShowMoreActions] = useState({} as RowButtonsState);
-  const { searchValue, athletes, setAthletes, athleteAction, setEditAthlete, setDeactivateAthlete, setActivateAthlete } = useAthlete();
+  const { actionModalInfo, searchValue, athletes, setAthletes, setEditAthlete, setDeactivateAthlete, setActivateAthlete } = useAthlete();
   const { admin } = useAuth();
 
   const filteredAthletes = athletes.filter((athlete) =>
     athlete.name.toLowerCase().includes(searchValue.toLowerCase())
   );
-
   function loadAthletes() {
     try {
       api.get(`/api/athlete?team_id=${admin.teamId}`, {
@@ -65,8 +64,9 @@ const AthletesTableBody: React.FC = () => {
   };
 
   useEffect(() => {
+    // A lista de atletas é carregada novamente toda vez que o modal de ação é fechado
     loadAthletes();
-  }, [athleteAction]);
+  }, [actionModalInfo]);
 
   return (
     <TableWrapper>

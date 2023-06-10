@@ -45,6 +45,7 @@ const AddAthlete: React.FC = () => {
               required
               type="text"
               value={athleteData.name}
+              defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, name: e.target.value })}
             />
             <label>Posição</label>
@@ -59,6 +60,7 @@ const AddAthlete: React.FC = () => {
               id="phone"
               type="text"
               value={athleteData.phone}
+              defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, phone: e.target.value })}
             />
             <label>RG</label>
@@ -67,6 +69,7 @@ const AddAthlete: React.FC = () => {
               id="rg"
               type="text"
               value={athleteData.rg}
+              defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, rg: e.target.value })}
             />
             <label>CPF</label>
@@ -75,6 +78,7 @@ const AddAthlete: React.FC = () => {
               id="cpf"
               type="text"
               value={athleteData.cpf}
+              defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, cpf: e.target.value })}
             />
             <label>Data de Nascimento</label>
@@ -82,6 +86,7 @@ const AddAthlete: React.FC = () => {
               required
               type="date"
               value={athleteData.birth}
+              defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, birth: e.target.value })}
             />
             <label>Email</label>
@@ -89,6 +94,7 @@ const AddAthlete: React.FC = () => {
               required
               type="email"
               value={athleteData.email}
+              defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, email: e.target.value })}
             />
           </FormDrawerWrapper>

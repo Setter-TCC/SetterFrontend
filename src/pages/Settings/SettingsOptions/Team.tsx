@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { createRef, RefObject } from 'react';
 import InputMask from 'react-input-mask';
 import { Container, Column, InputWrapper, SettingsForm, Buttons, SettingsFormBox } from './styles';
 import { suits } from '../../SignUp/utils/const';
 
 
 const TeamSettings: React.FC = () => {
+  const inputRef: RefObject<HTMLInputElement> = createRef();
   return (
     <Container>
       <SettingsForm>
@@ -15,6 +16,7 @@ const TeamSettings: React.FC = () => {
               <input
                 type="text"
                 id="name"
+                ref={inputRef}
               // value={name}
               // onChange={(e) => setName(e.target.value)}
               />
@@ -24,6 +26,7 @@ const TeamSettings: React.FC = () => {
               <input
                 type="email"
                 id="email"
+                ref={inputRef}
               // value={name}
               // onChange={(e) => setName(e.target.value)}
               />
@@ -37,6 +40,7 @@ const TeamSettings: React.FC = () => {
                 mask="99.999.999/9999-99"
                 id="cnpj"
                 type="text"
+              // ref={inputRefMask}
               // value={teamCnpj}
               // onChange={e => updateFields({ teamCnpj: e.target.value })}
               />

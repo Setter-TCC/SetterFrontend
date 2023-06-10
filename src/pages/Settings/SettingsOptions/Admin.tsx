@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { createRef, RefObject } from 'react';
 import { Container, Column, InputWrapper, SettingsForm, Buttons, SettingsFormBox } from './styles';
 
 const AdminSettings: React.FC = () => {
+  const inputRef: RefObject<HTMLInputElement> = createRef();
   return (
     <Container>
       <SettingsForm>
@@ -12,6 +13,7 @@ const AdminSettings: React.FC = () => {
               <input
                 type="text"
                 id="name"
+                ref={inputRef}
               // value={name}
               // onChange={(e) => setName(e.target.value)}
               />
@@ -21,6 +23,7 @@ const AdminSettings: React.FC = () => {
               <input
                 type="email"
                 id="email"
+                ref={inputRef}
               // value={name}
               // onChange={(e) => setName(e.target.value)}
               />
@@ -33,6 +36,7 @@ const AdminSettings: React.FC = () => {
               <input
                 type="password"
                 id="oldPassword"
+                ref={inputRef}
               // value={name}
               // onChange={(e) => setName(e.target.value)}
               />
@@ -42,6 +46,7 @@ const AdminSettings: React.FC = () => {
               <input
                 type="password"
                 id="newPassword"
+                ref={inputRef}
               // value={name}
               // onChange={(e) => setName(e.target.value)}
               />

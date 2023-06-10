@@ -19,8 +19,7 @@ export const HeaderContent = styled.div`
 `;
 
 export const TableWrapper = styled.div`
-  height: 100%;
-  max-height: 70vh;
+  max-height: 75vh;
   overflow: auto;
   background: #FAFAFA;
 `;
@@ -115,7 +114,6 @@ export const SearchBox = styled.div`
   border: none;
 
   input {
-    width: 100%;
     border: none;
     background: none;
   }
@@ -136,7 +134,7 @@ export const MoreActionsButton = styled.button`
   }
 `;
 
-export const AthleteButtons = styled.button`
+export const AthleteButtons = styled.div`
   position: absolute;
   right: 1em;
   top: 0;
@@ -185,7 +183,6 @@ export const EmptyTable = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
   padding: 2em;
   font-family: 'Inter';
   font-style: normal;

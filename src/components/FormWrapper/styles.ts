@@ -38,7 +38,7 @@ export const InputWrapper = styled.div`
     height: 1.5em;
     border: 1px solid #4E3C3C;
     border-radius: 0.3em;
-    padding-left: 0.5em;
+    padding-left: 1em;
     margin-bottom: 1em;
   }
 
