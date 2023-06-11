@@ -59,7 +59,6 @@ const TeamSettings: React.FC = () => {
           </Column>
         </SettingsFormBox>
         <Buttons>
-          <button className="restore" type="button">Restaurar</button>
           <button className="save" type="submit">Salvar Alterações</button>
         </Buttons>
       </SettingsForm>

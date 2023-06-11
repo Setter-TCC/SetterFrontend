@@ -24,13 +24,13 @@ export function formatPhone(phone: string) {
   return phone.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
 }
 
-export function formatBirth(birth: string) {
-  const partesData = birth.split('/');
+export function formatEditDate(date: string) {
+  const partesData = date.split('/');
   const day = parseInt(partesData[0], 10);
   const month = parseInt(partesData[1], 10) - 1;
   const year = parseInt(partesData[2], 10);
 
-  const date = format(new Date(year, month, day), 'yyyy-MM-dd\'T\'HH:mm:ss');
+  const formattedDate = format(new Date(year, month, day), 'yyyy-MM-dd\'T\'HH:mm:ss');
 
-  return date;
+  return formattedDate;
 }

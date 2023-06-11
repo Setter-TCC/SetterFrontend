@@ -4,13 +4,10 @@ interface SettingsProps {
   isSelected: boolean;
 }
 export const Container = styled.div`
-  /* max-height: 100vh; */
   display: flex;
-  padding-left: 2em;
-  margin-top: 3em;
+  padding: 2em 10em 2em 2em;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
 `;
 
 export const SettingsSelect = styled.div`

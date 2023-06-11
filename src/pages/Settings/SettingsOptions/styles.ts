@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   /* height: 80%; */
   display: flex;
-  padding: 4em 8em 4em 4em;
+  padding: 4em;
   margin-top: 2em;
   flex-direction: row;
   border: 1px solid #E5E5E5;
@@ -107,5 +107,48 @@ export const Buttons = styled.div`
     &:hover {
       font-weight: 600;
     }
+  }
+`;
+
+export const NotFoundContainer = styled.div`
+  display: flex;
+  padding: 6em;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  img {
+    margin-bottom: 1em;
+    width: 10em;
+    height: 10em;
+  }
+`;
+
+export const NotFoundText = styled.h3`
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: var(--color-primary-grey);
+`;
+
+export const AddCoachButton = styled.button`
+  width: 10em;
+  height: 3em;
+  background: var(--color-primary-blue);
+  border: none;
+  border-radius: 10px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  align-items: center;
+  text-align: center;
+  color: var(--color-primary-white);
+
+  &:hover {
+    font-weight: 600;
   }
 `;

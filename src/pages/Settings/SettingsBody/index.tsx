@@ -3,28 +3,51 @@ import { Container, SettingsOption, SettingsSelect } from './styles';
 import TeamSettings from '../SettingsOptions/Team';
 import AdminSettings from '../SettingsOptions/Admin';
 import CoachSettings from '../SettingsOptions/Coach';
+import DeactivateCoach from '../SettingsOptions/DeactivateCoach';
+import { useSettings } from '../../../hooks/Settings';
+import SettingsInfoModal from '../../../components/SettingsInfoModal';
 
 interface RenderConfigOptions {
   [key: string]: React.ReactElement;
 }
 
 const renderConfigs: RenderConfigOptions = {
-  teamSettings: <TeamSettings />,
-  adminSettings: <AdminSettings />,
-  coachSettings: <CoachSettings />,
+  editTeam: <TeamSettings />,
+  editAdmin: <AdminSettings />,
+  editCoach: <CoachSettings />,
+  deactivateCoach: <DeactivateCoach />,
 };
 
 const SettingsBody: React.FC = () => {
-  const [selected, setSelected] = useState('teamSettings');
+  const {
+    settingsAction,
+    actionModalInfo,
+    setEditAdmin,
+    setEditCoach,
+    setEditTeam,
+  } = useSettings();
 
-  const handleOptionClick = (key: string) => {
+  const [selected, setSelected] = useState('editTeam');
+
+  const handleClick = (key: string) => {
     setSelected(key);
+
+    const actionMapping: { [key: string]: () => void } = {
+      editTeam: setEditTeam,
+      editAdmin: setEditAdmin,
+      editCoach: setEditCoach,
+    };
+
+    const selectedAction = actionMapping[key];
+    if (selectedAction) {
+      selectedAction();
+    }
   };
 
   const settingsOptions = [
-    { label: 'Conta do Time', key: 'teamSettings' },
-    { label: 'Meu Perfil', key: 'adminSettings' },
-    { label: 'Técnico', key: 'coachSettings' },
+    { label: 'Conta do Time', key: 'editTeam' },
+    { label: 'Meu Perfil', key: 'editAdmin' },
+    { label: 'Técnico', key: 'editCoach' },
   ];
 
   return (
@@ -34,14 +57,14 @@ const SettingsBody: React.FC = () => {
           <SettingsOption
             key={option.key}
             isSelected={selected === option.key}
-            onClick={() => handleOptionClick(option.key)}
+            onClick={() => handleClick(option.key)}
           >
             {option.label}
           </SettingsOption>
         ))}
       </SettingsSelect>
-
-      {renderConfigs[selected]}
+      {actionModalInfo && <SettingsInfoModal text={actionModalInfo.text} setResetActions={actionModalInfo.setResetActions} />}
+      {!actionModalInfo && settingsAction && renderConfigs[settingsAction.showAction]}
     </Container>
   );
 };
