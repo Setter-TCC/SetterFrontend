@@ -1,4 +1,35 @@
-import { CoachBackData, translateAthleteFrontData } from './interfaces';
+import { Suit } from '../../../enums';
+import { AdminBackData, AdminData, CoachBackData, CoachData, TeamBackData, TeamData, translateAdminFrontData, translateCoachFrontData, translateTeamFrontData } from './interfaces';
+
+export const coachDataDefault: CoachData = {
+  id: '',
+  name: '',
+  email: '',
+  cpf: '',
+  rg: '',
+  cref: '',
+  phone: '',
+  teamId: '',
+  isActive: false,
+  startDate: '',
+  endDate: '',
+};
+
+export const adminDataDefault: AdminData = {
+  id: '',
+  name: '',
+  email: '',
+  oldPassword: '',
+  newPassword: '',
+};
+
+export const teamDataDefault: TeamData = {
+  id: '',
+  name: '',
+  email: '',
+  cnpj: '',
+  suit: 1,
+};
 
 export const coachDataTemplate: CoachBackData = {
   id: '1',
@@ -14,4 +45,25 @@ export const coachDataTemplate: CoachBackData = {
 };
 
 
-export const translatedCoachTemplate = translateAthleteFrontData(coachDataTemplate);
+export const translatedCoachTemplate = translateCoachFrontData(coachDataTemplate);
+
+export const adminDataTemplate: AdminBackData = {
+  id: '1',
+  nome: 'Teste',
+  email: 'teste@email.com',
+  senha_antiga: 'pass',
+  senha_nova: '',
+};
+
+export const translatedAdminTemplate = translateAdminFrontData(adminDataTemplate);
+
+export const teamDataTemplate: TeamBackData = {
+  id: '1',
+  nome: 'Teste',
+  email: 'time@time.com',
+  cnpj: '',
+  naipe: Suit.men,
+};
+
+export const tranlatedTeamTemplate = translateTeamFrontData(teamDataTemplate);
+

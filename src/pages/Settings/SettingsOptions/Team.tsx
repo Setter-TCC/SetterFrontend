@@ -1,14 +1,34 @@
-import React, { createRef, RefObject } from 'react';
+import React, { useState } from 'react';
 import InputMask from 'react-input-mask';
 import { Container, Column, InputWrapper, SettingsForm, Buttons, SettingsFormBox } from './styles';
 import { suits } from '../../SignUp/utils/const';
+import { TeamData, translateEditTeamData } from '../utils/interfaces';
+import { tranlatedTeamTemplate, teamDataTemplate } from '../utils/const';
+import { useSettings } from '../../../hooks/Settings';
 
 
 const TeamSettings: React.FC = () => {
-  const inputRef: RefObject<HTMLInputElement> = createRef();
+  const { setActionModalInfo, setResetToEditTeam } = useSettings();
+  const [teamData, setTeamData] = useState<TeamData>({} as TeamData);
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const teamDataBack = translateEditTeamData(teamDataTemplate, teamData);
+      console.log(teamDataBack);
+      setActionModalInfo({
+        text: 'Time alterado com sucesso!',
+        setResetActions: setResetToEditTeam
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Container>
-      <SettingsForm>
+      <SettingsForm onSubmit={onSubmit}>
         <SettingsFormBox>
           <Column>
             <InputWrapper>
@@ -16,40 +36,41 @@ const TeamSettings: React.FC = () => {
               <input
                 type="text"
                 id="name"
-                ref={inputRef}
-              // value={name}
-              // onChange={(e) => setName(e.target.value)}
+                defaultValue={tranlatedTeamTemplate.name || ''}
+                value={teamData.name}
+                onChange={(e) => setTeamData({ ...teamData, name: e.target.value })}
               />
             </InputWrapper>
             <InputWrapper>
-              <label htmlFor="name">Email do Time</label>
+              <label htmlFor="email">Email do Time</label>
               <input
                 type="email"
                 id="email"
-                ref={inputRef}
-              // value={name}
-              // onChange={(e) => setName(e.target.value)}
+                defaultValue={tranlatedTeamTemplate.email || ''}
+                value={teamData.email}
+                onChange={(e) => setTeamData({ ...teamData, email: e.target.value })}
               />
             </InputWrapper>
 
           </Column>
           <Column>
             <InputWrapper>
-              <label htmlFor="name">CNPJ do Time</label>
+              <label htmlFor="cnpj">CNPJ do Time</label>
               <InputMask
                 mask="99.999.999/9999-99"
                 id="cnpj"
                 type="text"
-              // ref={inputRefMask}
-              // value={teamCnpj}
-              // onChange={e => updateFields({ teamCnpj: e.target.value })}
+                defaultValue={tranlatedTeamTemplate.cnpj || ''}
+                value={teamData.cnpj}
+                onChange={(e) => setTeamData({ ...teamData, cnpj: e.target.value })}
               />
             </InputWrapper>
             <InputWrapper>
-              <label htmlFor="name">Naipe do Time</label>
+              <label htmlFor="suit">Naipe do Time</label>
               <select
-              // value={""}
-              // onChange={(e) => updateFields({ teamSuit: Number(e.target.value) })}
+                defaultValue={tranlatedTeamTemplate.suit || 1}
+                value={teamData.suit}
+                onChange={(e) => setTeamData({ ...teamData, suit: Number(e.target.value) })}
               >
                 {suits.map(suit => (
                   <option key={suit.type} value={suit.type}>{suit.name}</option>

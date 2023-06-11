@@ -18,11 +18,11 @@ export interface TeamBackData {
 }
 
 export interface AdminData {
-  id: string,
+  id?: string,
   name: string,
   email: string,
   oldPassword: string,
-  password: string,
+  newPassword: string,
 }
 
 export interface AdminBackData {
@@ -30,7 +30,7 @@ export interface AdminBackData {
   nome: string,
   email: string,
   senha_antiga: string,
-  senha: string,
+  senha_nova: string,
 }
 
 export interface CoachData {
@@ -99,7 +99,7 @@ export const translateCoachBackData = (data: CoachData): CoachBackData => {
 };
 
 
-export const translateAthleteFrontData = (data: CoachBackData): CoachData => {
+export const translateCoachFrontData = (data: CoachBackData): CoachData => {
   const translatedData: CoachData = {
     id: data.id || '',
     name: data.nome,
@@ -115,4 +115,53 @@ export const translateAthleteFrontData = (data: CoachBackData): CoachData => {
   };
 
   return translatedData;
+};
+
+export const translateAdminFrontData = (data: AdminBackData): AdminData => {
+  const translatedData: AdminData = {
+    id: data.id || '',
+    name: data.nome,
+    email: data.email,
+    oldPassword: data.senha_antiga,
+    newPassword: '',
+  };
+  console.log(translatedData);
+  return translatedData;
+};
+
+
+export const translateTeamFrontData = (data: TeamBackData): TeamData => {
+  const translatedData: TeamData = {
+    id: data.id || '',
+    name: data.nome,
+    email: data.email,
+    cnpj: data.cnpj || '',
+    suit: data.naipe,
+  };
+
+  return translatedData;
+};
+
+export const translateEditAdminData = (data: AdminBackData, newData: AdminData): AdminBackData => {
+  const editAdminData = {
+    id: data.id,
+    nome: newData.name ? newData.name : data.nome,
+    email: newData.email ? newData.email : data.email,
+    senha_antiga: newData.oldPassword ? newData.oldPassword : data.senha_antiga,
+    senha_nova: newData.newPassword ? newData.newPassword : data.senha_nova,
+  };
+
+  return editAdminData;
+};
+
+export const translateEditTeamData = (data: TeamBackData, newData: TeamData): TeamBackData => {
+  const editTeamData = {
+    id: data.id,
+    nome: newData.name ? newData.name : data.nome,
+    email: newData.email ? newData.email : data.email,
+    cnpj: newData.cnpj ? removeSymbols(newData.cnpj) : data.cnpj,
+    naipe: newData.suit ? newData.suit : data.naipe,
+  };
+
+  return editTeamData;
 };
