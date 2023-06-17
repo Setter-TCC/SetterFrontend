@@ -24,7 +24,7 @@ export const SettingsFormBox = styled.div`
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 3em;
+  gap: 2em;
 `;
 
 export const InputWrapper = styled.div`
@@ -34,6 +34,7 @@ export const InputWrapper = styled.div`
   gap: 1em;
 
   label {
+    min-width: 8em;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;

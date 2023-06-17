@@ -51,7 +51,7 @@ export const adminDataTemplate: AdminBackData = {
   id: '1',
   nome: 'Teste',
   email: 'teste@email.com',
-  senha_antiga: 'pass',
+  senha_antiga: '',
   senha_nova: '',
 };
 

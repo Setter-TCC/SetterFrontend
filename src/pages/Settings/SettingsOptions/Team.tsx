@@ -46,6 +46,7 @@ const TeamSettings: React.FC = () => {
               <input
                 type="email"
                 id="email"
+                disabled={true}
                 defaultValue={tranlatedTeamTemplate.email || ''}
                 value={teamData.email}
                 onChange={(e) => setTeamData({ ...teamData, email: e.target.value })}

@@ -54,6 +54,7 @@ const AdminSettings: React.FC = () => {
               <input
                 type="email"
                 id="email"
+                disabled={true}
                 defaultValue={translatedAdminTemplate.email || ''}
                 value={adminData.email}
                 onChange={(e) => setAdminData({ ...adminData, email: e.target.value })}

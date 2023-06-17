@@ -6,7 +6,7 @@ interface RowProps {
 
 export const Container = styled.div`
   background: #FAFAFA;
-  min-height: 85vh;
+  min-height: 87vh;
 `;
 
 export const HeaderContent = styled.div`
@@ -28,7 +28,6 @@ export const AthleteTable = styled.table`
   border-collapse: collapse;
   width: 100%;
   border-top: 1px solid #C6C6C6;
-
 `;
 
 export const TableHead = styled.thead`

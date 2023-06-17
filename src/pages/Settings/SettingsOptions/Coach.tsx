@@ -11,14 +11,13 @@ const CoachSettings: React.FC = () => {
   const { setDeactivateCoach } = useSettings();
   const [showForm, setShowForm] = useState(false);
   const [coachData, setCoachData] = useState<CoachData>({} as CoachData);
-
+  const today = new Date().toISOString().split('T')[0];
   // O coach.template vai ser uma chamada da api para saber se tem algum técnico ativo no time
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // TODO: verificar se Dt de saída está preenchida, 
-    // Não deixar selecionar uma data de saída menor que o dia de hoje
     // const coachBackData = 
     const isEndDateFilled = coachData.endDate !== undefined;
 
@@ -44,7 +43,6 @@ const CoachSettings: React.FC = () => {
                   required
                   type="text"
                   id="name"
-                  ref={inputRef}
                   defaultValue={translatedCoachTemplate.name}
                   value={coachData.name}
                   onChange={(e) => setCoachData({ ...coachData, name: e.target.value })}
@@ -90,6 +88,7 @@ const CoachSettings: React.FC = () => {
                   type="email"
                   ref={inputRef}
                   required
+                  disabled={true}
                   defaultValue={translatedCoachTemplate.email}
                   value={coachData.email}
                   onChange={(e) => setCoachData({ ...coachData, email: e.target.value })}
@@ -122,6 +121,7 @@ const CoachSettings: React.FC = () => {
                   type="date"
                   defaultValue={translatedCoachTemplate?.endDate}
                   value={coachData.endDate}
+                  max={today}
                   onChange={(e) => setCoachData({ ...coachData, endDate: e.target.value })}
                 />
               </InputWrapper>
