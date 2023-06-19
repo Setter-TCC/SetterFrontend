@@ -1,20 +1,17 @@
 import { ReactNode } from 'react';
-import { Body, Step, Title, InputWrapper } from './styles';
+import { Title, InputWrapper, Container } from './styles';
 
 type FormProps = {
-  step?: string,
   title: string,
-  inputBackgroundColor: string,
   children: ReactNode
 }
 
-export function FormWrapper({ step, title, inputBackgroundColor, children }: FormProps) {
+export function FormDrawerWrapper({ title, children }: FormProps) {
 
   return (
-    <Body>
-      <Step>{step}</Step>
+    <Container>
       <Title>{title}</Title>
-      <InputWrapper backgroundColor={inputBackgroundColor}>{children}</InputWrapper>
-    </Body>
+      <InputWrapper>{children}</InputWrapper>
+    </Container>
   );
 }

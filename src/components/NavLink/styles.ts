@@ -19,13 +19,15 @@ export const NavBox = styled.div<NavBoxProps>`
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 24px;
     color: ${props => props.navColor};
   }
 
   img {
     filter: ${props => props.navFilter};
+    width: 2em;
+    height: 2em;
   }
 
   &:hover {

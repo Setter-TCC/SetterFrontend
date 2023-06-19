@@ -1,6 +1,7 @@
 import InputMask from 'react-input-mask';
-import { FormWrapper } from '../../../../components/FormWrapper/index';
+import { FormWrapper } from '../../../../components/SignUpFormWrapper/index';
 import { suits } from '../../utils/const';
+
 type TeamData = {
   teamName: string,
   teamEmail: string,

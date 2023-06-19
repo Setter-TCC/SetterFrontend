@@ -1,15 +1,15 @@
 /* eslint-disable react/jsx-key */
 import React, { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../auth/AuthContext';
 import { Container, Buttons, BackButton, NextButton, SkipButton, Skip, Loading } from './styles';
-import { useMultiStepForm } from '../../../hooks/useMultiStepForm';
+import { useMultiStepForm } from '../../../hooks/MultiStepForm';
 import { AdminForm } from './Forms/AdminForm';
 import { TeamForm } from './Forms/TeamForm';
 import { CoachForm } from './Forms/CoachForm';
 import { BackendData, FormInputData, translateFormData } from '../utils/interfaces';
-import { useNavigate } from 'react-router-dom';
 import api from '../../../services/api';
 import loading from '../../../assets/icons/loading.svg';
-import { useAuth } from '../../../auth/AuthContext';
 
 
 const Register: React.FC = () => {
@@ -38,7 +38,7 @@ const Register: React.FC = () => {
     try {
       setIsSubmitting(true);
       const { data } = await api.post('/api/account/register', backFormData);
-      logIn(data.token);
+      logIn(data.auth);
       navigate('/success');
     } catch (err) {
       alert('Erro ao cadastrar, tente novamente');

@@ -1,5 +1,5 @@
 import InputMask from 'react-input-mask';
-import { FormWrapper } from '../../../../components/FormWrapper/index';
+import { FormWrapper } from '../../../../components/SignUpFormWrapper/index';
 
 type CoachData = {
   coachName: string,
@@ -13,6 +13,7 @@ type CoachFormProps = CoachData & {
   skipped?: boolean,
 }
 
+// TODO: quando o usuário pular essa etapa, devo criar uma tela de loading até ele ser logado, ou der algum problema na criação da conta
 export const CoachForm = ({ coachName, coachEmail, coachPhone, coachCref, updateFields, skipped }: CoachFormProps) => {
   return <>
     {!skipped && <FormWrapper step="Etapa 3" title='Adicione um técnico para o time' inputBackgroundColor='var(--color-primary-white)'>

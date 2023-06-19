@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   position: relative;
   height: 100vh;
-  width: 250px;
+  width: 260px;
   background-color: var(--color-background);
   display: flex;
   flex-direction: column;
@@ -12,8 +12,8 @@ export const Container = styled.div`
 `;
 
 export const LogoImage = styled.img`
-  width: 5.5em;
-  height: 5.5em;
+  width: 5em;
+  height: 5em;
   margin-bottom: 3em;
 `;
 
