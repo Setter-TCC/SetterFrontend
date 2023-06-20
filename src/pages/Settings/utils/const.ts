@@ -1,5 +1,5 @@
 import { Suit } from '../../../enums';
-import { AdminBackData, AdminData, CoachBackData, CoachData, TeamBackData, TeamData, translateAdminFrontData, translateCoachFrontData, translateTeamFrontData } from './interfaces';
+import { AdminBackData, AdminData, CoachBackData, CoachData, TeamBackData, TeamData, translateAdminFrontData, translateTeamFrontData } from './interfaces';
 
 export const coachDataDefault: CoachData = {
   id: '',
@@ -44,8 +44,6 @@ export const coachDataTemplate: CoachBackData = {
   data_inicio: '2021-01-01',
 };
 
-
-export const translatedCoachTemplate = translateCoachFrontData(coachDataTemplate);
 
 export const adminDataTemplate: AdminBackData = {
   id: '1',

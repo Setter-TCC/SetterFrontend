@@ -1,5 +1,4 @@
-import format from 'date-fns/format';
-import { formatEditDate, removeSymbols } from '../../../utils/format';
+import { convertToISODate, formatDateTimezone, removeSymbols } from '../../../utils/format';
 
 export interface TeamData {
   id: string,
@@ -42,11 +41,10 @@ export interface CoachData {
   cref?: string,
   phone: string,
   teamId?: string,
-  isActive: boolean,
+  isActive?: boolean,
   startDate: string,
   endDate?: string,
 }
-
 
 export interface CoachBackData {
   id?: string
@@ -63,43 +61,54 @@ export interface CoachBackData {
 }
 
 
-export const translateEditCoachData = (data: CoachBackData, newData: CoachData): CoachBackData => {
-
-  const editCoachData = {
-    id: data.id,
-    nome: newData.name ? newData.name : data.nome,
+export const transformCoachData = (data: CoachData, newData: CoachData, teamId: string): CoachData => {
+  // Pega o coach selecionado e os novos dados e une os dois
+  const transformedCoachData = {
+    id: data.id || '',
+    name: newData.name ? newData.name : data.name,
     email: newData.email ? newData.email : data.email,
-    cpf: newData.cpf ? removeSymbols(newData.cpf) : data.cpf,
-    rg: newData.rg ? removeSymbols(newData.rg) : data.rg,
-    cref: newData.cref ? newData.cref : data.cref,
-    telefone: newData.phone ? removeSymbols(newData.phone) : data.telefone,
-    time_id: newData.teamId ? newData.teamId : data.time_id,
-    ativo: newData.isActive ? newData.isActive : data.ativo,
-    data_inicio: newData.startDate ? format(new Date(newData.startDate), 'yyyy-MM-dd\'T\'HH:mm:ss') : formatEditDate(data.data_inicio),
-    data_fim: newData.endDate ? newData.endDate : data.data_fim,
+    cpf: newData.cpf ? removeSymbols(newData.cpf) : removeSymbols(data.cpf ? data.cpf : ''),
+    rg: newData.rg ? removeSymbols(newData.rg) : removeSymbols(data.rg ? data.rg : ''),
+    cref: newData.cref ? newData.cref : (data.cref ? data.cref : ''),
+    phone: newData.phone ? removeSymbols(newData.phone) : data.phone,
+    teamId,
+    startDate: newData.startDate ? formatDateTimezone(newData.startDate) : formatDateTimezone(data.startDate),
+    endDate: newData.endDate ? formatDateTimezone(newData.endDate) : '',
   };
 
-  return editCoachData;
+  return transformedCoachData;
 };
 
 export const translateCoachBackData = (data: CoachData): CoachBackData => {
-  const translatedData: CoachBackData = {
+  // Como o tratamento já foi feito na função anterior, só preciso alterar o nome das chaves
+  let translatedData: CoachBackData = {
     nome: data.name,
     email: data.email,
-    cpf: data.cpf ? removeSymbols(data.cpf) : '',
-    rg: data.rg ? removeSymbols(data.rg) : '',
-    cref: data.cref ? data.cref : '',
-    telefone: removeSymbols(data.phone) || '',
+    cpf: data.cpf || '',
+    rg: data.rg || '',
+    cref: data.cref || '',
+    telefone: data.phone || '',
     time_id: data.teamId || '',
-    ativo: true,
-    data_inicio: format(new Date(data.startDate), 'yyyy-MM-dd\'T\'HH:mm:ss'),
+    data_inicio: data.startDate,
   };
 
+  if (data.id) {
+    translatedData = {
+      ...translatedData,
+      id: data.id,
+    };
+  }
+  if (data.endDate) {
+    translatedData = {
+      ...translatedData,
+      data_fim: data.endDate,
+    };
+  }
   return translatedData;
 };
 
 
-export const translateCoachFrontData = (data: CoachBackData): CoachData => {
+export const translateCoachFrontData = (data: CoachBackData, teamId: string): CoachData => {
   const translatedData: CoachData = {
     id: data.id || '',
     name: data.nome,
@@ -108,9 +117,9 @@ export const translateCoachFrontData = (data: CoachBackData): CoachData => {
     rg: data.rg || '',
     cref: data.cref || '',
     phone: data.telefone || '',
-    teamId: data.time_id || '',
-    isActive: data.ativo || false,
-    startDate: data.data_inicio || '',
+    teamId: data.time_id || teamId,
+    isActive: true,
+    startDate: convertToISODate(data.data_inicio) || '',
     endDate: data.data_fim || '',
   };
 

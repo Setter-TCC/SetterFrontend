@@ -1,4 +1,11 @@
-import format from 'date-fns/format';
+import { zonedTimeToUtc, format } from 'date-fns-tz';
+const timeZone = 'America/Sao_Paulo';
+
+export const formatDateTimezone = (date: string) => {
+  const utcDate = zonedTimeToUtc(date, timeZone);
+  const formattedDate = format(utcDate, 'yyyy-MM-dd\'T\'HH:mm:ss', { timeZone });
+  return formattedDate;
+};
 
 export function removeSymbols(str: string): string {
   return str.replace(/\D/g, '');
@@ -25,12 +32,5 @@ export function formatPhone(phone: string) {
 }
 
 export function formatEditDate(date: string) {
-  const partesData = date.split('/');
-  const day = parseInt(partesData[0], 10);
-  const month = parseInt(partesData[1], 10) - 1;
-  const year = parseInt(partesData[2], 10);
-
-  const formattedDate = format(new Date(year, month, day), 'yyyy-MM-dd\'T\'HH:mm:ss');
-
-  return formattedDate;
+  return formatDateTimezone(convertToISODate(date));
 }

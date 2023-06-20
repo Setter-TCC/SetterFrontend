@@ -23,8 +23,6 @@ const AddAthlete: React.FC = () => {
       });
 
       setActionModalInfo({ text: 'Atleta criada com sucesso' });
-      // TODO: renderizar pagina de novo
-      // setResetActions();
     } catch (err) {
       setActionModalInfo({ text: 'Erro ao criar atleta' });
       setResetActions();

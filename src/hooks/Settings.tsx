@@ -28,6 +28,7 @@ export enum SettingActionType {
 
 interface SettingsAction {
   showAction: string,
+  selectedCoach?: CoachData
 }
 
 interface ActionModalInfo {
@@ -62,6 +63,7 @@ const athleteReducer = (state: SettingsAction, action: any) => {
     return {
       ...state,
       showAction: 'deactivateCoach',
+      selectedCoach: action.payload.coach
     };
   case SettingActionType.RESET_TO_EDIT_COACH:
     return {
@@ -114,10 +116,10 @@ const SettingsProvider = ({ children }: any): JSX.Element => {
       payload: {},
     });
   };
-  const setDeactivateCoach = () => {
+  const setDeactivateCoach = (coach: CoachData) => {
     setSettingsAction({
       type: SettingActionType.DEACTIVATE_COACH,
-      payload: {},
+      payload: { coach },
     });
   };
 

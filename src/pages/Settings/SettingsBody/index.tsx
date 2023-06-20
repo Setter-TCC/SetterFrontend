@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, SettingsOption, SettingsSelect } from './styles';
 import TeamSettings from '../SettingsOptions/Team';
 import AdminSettings from '../SettingsOptions/Admin';
@@ -49,6 +49,10 @@ const SettingsBody: React.FC = () => {
     { label: 'Meu Perfil', key: 'editAdmin' },
     { label: 'Técnico', key: 'editCoach' },
   ];
+
+  useEffect(() => {
+    setEditTeam();
+  }, []);
 
   return (
     <Container>

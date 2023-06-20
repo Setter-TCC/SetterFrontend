@@ -19,8 +19,6 @@ const AdminSettings: React.FC = () => {
     e.preventDefault();
 
     try {
-
-      // TODO: verificar onde vai ficar a lógica de verificar se a senha antiga é valida para poder alterar a senha
       const adminDataBack = translateEditAdminData(adminDataTemplate, adminData);
       verifyPassword(adminDataBack);
       console.log(adminDataBack);
@@ -40,7 +38,7 @@ const AdminSettings: React.FC = () => {
         <SettingsFormBox>
           <Column>
             <InputWrapper>
-              <label htmlFor="name">Nome</label>
+              <label htmlFor="name">Nome*</label>
               <input
                 type="text"
                 id="name"
@@ -50,7 +48,7 @@ const AdminSettings: React.FC = () => {
               />
             </InputWrapper>
             <InputWrapper>
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email*</label>
               <input
                 type="email"
                 id="email"

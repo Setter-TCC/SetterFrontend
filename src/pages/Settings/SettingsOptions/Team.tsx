@@ -32,7 +32,7 @@ const TeamSettings: React.FC = () => {
         <SettingsFormBox>
           <Column>
             <InputWrapper>
-              <label htmlFor="name">Nome do Time</label>
+              <label htmlFor="name">Nome do Time*</label>
               <input
                 type="text"
                 id="name"
@@ -42,7 +42,7 @@ const TeamSettings: React.FC = () => {
               />
             </InputWrapper>
             <InputWrapper>
-              <label htmlFor="email">Email do Time</label>
+              <label htmlFor="email">Email do Time*</label>
               <input
                 type="email"
                 id="email"
@@ -67,7 +67,7 @@ const TeamSettings: React.FC = () => {
               />
             </InputWrapper>
             <InputWrapper>
-              <label htmlFor="suit">Naipe do Time</label>
+              <label htmlFor="suit">Naipe do Time*</label>
               <select
                 defaultValue={tranlatedTeamTemplate.suit || 1}
                 value={teamData.suit}
