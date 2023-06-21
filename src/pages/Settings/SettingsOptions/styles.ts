@@ -129,7 +129,7 @@ export const NotFoundText = styled.h3`
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 29px;
   text-align: center;
   color: var(--color-primary-grey);
