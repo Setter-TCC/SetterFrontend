@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import InputMask from 'react-input-mask';
 import { Container, Column, InputWrapper, SettingsForm, Buttons, SettingsFormBox } from './styles';
-import { AdminBackData, AdminData, transformAdminData, translateAdminFrontData, translateAdminBackData } from '../utils/interfaces';
+import { AdminData, transformAdminData, translateAdminFrontData, translateAdminBackData } from '../utils/interfaces';
 import { useSettings } from '../../../hooks/Settings';
 import api from '../../../services/api';
 

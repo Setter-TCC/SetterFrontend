@@ -1,90 +1,126 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import InputMask from 'react-input-mask';
-import { Container, Column, InputWrapper, SettingsForm, Buttons, SettingsFormBox } from './styles';
-import { suits } from '../../SignUp/utils/const';
-import { TeamData, translateEditTeamData } from '../utils/interfaces';
-import { tranlatedTeamTemplate, teamDataTemplate } from '../utils/const';
 import { useSettings } from '../../../hooks/Settings';
-
+import { useAuth } from '../../../auth/AuthContext';
+import { Container, Column, InputWrapper, SettingsForm, Buttons, SettingsFormBox } from './styles';
+import { TeamData, transformTeamData, translateEditTeamData, translateTeamFrontData } from '../utils/interfaces';
+import { suits } from '../../SignUp/utils/const';
+import api from '../../../services/api';
 
 const TeamSettings: React.FC = () => {
   const { setActionModalInfo, setResetToEditTeam } = useSettings();
-  const [teamData, setTeamData] = useState<TeamData>({} as TeamData);
+  const [selectedTeamData, setSelectedTeamData] = useState<TeamData>({} as TeamData);
+  const [newTeamData, setNewTeamData] = useState<TeamData>({} as TeamData);
+  const { admin } = useAuth();
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const getTeam = async () => {
+    const { data } = await api.get(`/api/team?team_id=${admin.teamId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const teamData = translateTeamFrontData(data.value);
+    setSelectedTeamData(teamData);
+  };
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const teamDataBack = translateEditTeamData(teamDataTemplate, teamData);
+      const teamData = transformTeamData(selectedTeamData, newTeamData);
+      const teamDataBack = translateEditTeamData(teamData);
       console.log(teamDataBack);
+
+      await api.put('/api/team/update', teamDataBack, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
       setActionModalInfo({
         text: 'Time alterado com sucesso!',
         setResetActions: setResetToEditTeam
       });
     } catch (err) {
       console.log(err);
+      setActionModalInfo({
+        text: 'Erro ao editar time!',
+        setResetActions: setResetToEditTeam
+      });
     }
   };
 
-  return (
-    <Container>
-      <SettingsForm onSubmit={onSubmit}>
-        <SettingsFormBox>
-          <Column>
-            <InputWrapper>
-              <label htmlFor="name">Nome do Time*</label>
-              <input
-                type="text"
-                id="name"
-                defaultValue={tranlatedTeamTemplate.name || ''}
-                value={teamData.name}
-                onChange={(e) => setTeamData({ ...teamData, name: e.target.value })}
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <label htmlFor="email">Email do Time*</label>
-              <input
-                type="email"
-                id="email"
-                disabled={true}
-                defaultValue={tranlatedTeamTemplate.email || ''}
-                value={teamData.email}
-                onChange={(e) => setTeamData({ ...teamData, email: e.target.value })}
-              />
-            </InputWrapper>
+  useEffect(() => {
+    getTeam();
+  }, []);
 
-          </Column>
-          <Column>
-            <InputWrapper>
-              <label htmlFor="cnpj">CNPJ do Time</label>
-              <InputMask
-                mask="99.999.999/9999-99"
-                id="cnpj"
-                type="text"
-                defaultValue={tranlatedTeamTemplate.cnpj || ''}
-                value={teamData.cnpj}
-                onChange={(e) => setTeamData({ ...teamData, cnpj: e.target.value })}
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <label htmlFor="suit">Naipe do Time*</label>
-              <select
-                defaultValue={tranlatedTeamTemplate.suit || 1}
-                value={teamData.suit}
-                onChange={(e) => setTeamData({ ...teamData, suit: Number(e.target.value) })}
-              >
-                {suits.map(suit => (
-                  <option key={suit.type} value={suit.type}>{suit.name}</option>
-                ))}
-              </select>
-            </InputWrapper>
-          </Column>
-        </SettingsFormBox>
-        <Buttons>
-          <button className="save" type="submit">Salvar Alterações</button>
-        </Buttons>
-      </SettingsForm>
-    </Container>
+  const renderTeam = () => {
+    return (
+      <Container>
+        <SettingsForm onSubmit={onSubmit}>
+          <SettingsFormBox>
+            <Column>
+              <InputWrapper>
+                <label htmlFor="name">Nome do Time*</label>
+                <input
+                  type="text"
+                  id="name"
+                  defaultValue={selectedTeamData.name}
+                  value={newTeamData.name}
+                  onChange={(e) => setNewTeamData({ ...newTeamData, name: e.target.value })}
+                />
+              </InputWrapper>
+              <InputWrapper>
+                <label htmlFor="email">Email do Time*</label>
+                <input
+                  type="email"
+                  id="email"
+                  disabled={true}
+                  defaultValue={selectedTeamData.email}
+                  value={newTeamData.email}
+                  onChange={(e) => setNewTeamData({ ...newTeamData, email: e.target.value })}
+                />
+              </InputWrapper>
+
+            </Column>
+            <Column>
+              <InputWrapper>
+                <label htmlFor="cnpj">CNPJ do Time</label>
+                <InputMask
+                  mask="99.999.999/9999-99"
+                  id="cnpj"
+                  type="text"
+                  defaultValue={selectedTeamData.cnpj}
+                  value={newTeamData.cnpj}
+                  onChange={(e) => setNewTeamData({ ...newTeamData, cnpj: e.target.value })}
+                />
+              </InputWrapper>
+              <InputWrapper>
+                <label htmlFor="suit">Naipe do Time*</label>
+                <select
+                  defaultValue={selectedTeamData.suit || 1}
+                  value={newTeamData.suit}
+                  onChange={(e) => setNewTeamData({ ...newTeamData, suit: Number(e.target.value) })}
+                >
+                  {suits.map(suit => (
+                    <option key={suit.type} value={suit.type}>{suit.name}</option>
+                  ))}
+                </select>
+              </InputWrapper>
+            </Column>
+          </SettingsFormBox>
+          <Buttons>
+            <button className="save" type="submit">Salvar Alterações</button>
+          </Buttons>
+        </SettingsForm>
+      </Container>
+    );
+  };
+
+  return (
+    <>
+      {selectedTeamData.id && renderTeam()}
+    </>
   );
 };
 

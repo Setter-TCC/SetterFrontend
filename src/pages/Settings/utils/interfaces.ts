@@ -183,14 +183,24 @@ export const translateTeamFrontData = (data: TeamBackData): TeamData => {
   return translatedData;
 };
 
-
-export const translateEditTeamData = (data: TeamBackData, newData: TeamData): TeamBackData => {
-  const editTeamData = {
-    id: data.id,
-    nome: newData.name ? newData.name : data.nome,
+export const transformTeamData = (data: TeamData, newData: TeamData): TeamData => {
+  const transformedTeamData = {
+    id: data.id || '',
+    name: newData.name ? newData.name : data.name,
     email: newData.email ? newData.email : data.email,
     cnpj: newData.cnpj ? removeSymbols(newData.cnpj) : data.cnpj,
-    naipe: newData.suit ? newData.suit : data.naipe,
+    suit: newData.suit ? newData.suit : data.suit,
+  };
+  return transformedTeamData;
+};
+
+export const translateEditTeamData = (data: TeamData): TeamBackData => {
+  const editTeamData = {
+    id: data.id,
+    nome: data.name,
+    email: data.email,
+    cnpj: data.cnpj || '',
+    naipe: data.suit || 1,
   };
 
   return editTeamData;
