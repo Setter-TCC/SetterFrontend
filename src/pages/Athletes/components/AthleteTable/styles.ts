@@ -6,7 +6,7 @@ interface RowProps {
 
 export const Container = styled.div`
   background: #FAFAFA;
-  min-height: 85vh;
+  min-height: 87vh;
 `;
 
 export const HeaderContent = styled.div`
@@ -19,8 +19,7 @@ export const HeaderContent = styled.div`
 `;
 
 export const TableWrapper = styled.div`
-  height: 100%;
-  max-height: 70vh;
+  max-height: 75vh;
   overflow: auto;
   background: #FAFAFA;
 `;
@@ -29,7 +28,6 @@ export const AthleteTable = styled.table`
   border-collapse: collapse;
   width: 100%;
   border-top: 1px solid #C6C6C6;
-
 `;
 
 export const TableHead = styled.thead`
@@ -115,7 +113,6 @@ export const SearchBox = styled.div`
   border: none;
 
   input {
-    width: 100%;
     border: none;
     background: none;
   }
@@ -136,7 +133,7 @@ export const MoreActionsButton = styled.button`
   }
 `;
 
-export const AthleteButtons = styled.button`
+export const AthleteButtons = styled.div`
   position: absolute;
   right: 1em;
   top: 0;
@@ -185,7 +182,6 @@ export const EmptyTable = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
   padding: 2em;
   font-family: 'Inter';
   font-style: normal;

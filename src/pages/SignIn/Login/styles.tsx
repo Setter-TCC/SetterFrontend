@@ -24,6 +24,7 @@ export const LoginWrapper = styled.div`
 
   input {
     width: 28em;
+    padding-left: 1em;
     background-color: var(--color-background);
     border-radius: 4px;
     border: 1px solid var(--color-primary-white);

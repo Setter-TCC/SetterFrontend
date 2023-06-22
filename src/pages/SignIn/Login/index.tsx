@@ -37,6 +37,7 @@ const LoginForm: React.FC = () => {
           <input
             required
             type="text"
+            defaultValue=''
             value={loginData.username}
             onChange={e => setLoginData({ username: e.target.value, password: loginData.password })}
           />
@@ -44,6 +45,7 @@ const LoginForm: React.FC = () => {
           <input
             required
             type="password"
+            defaultValue=''
             value={loginData.password}
             onChange={e => setLoginData({ username: loginData.username, password: e.target.value })}
           />

@@ -58,6 +58,7 @@ export const InputWrapper = styled.div<InputWrapperProps>`
     border: 1px solid var(--color-primary-white);
     height: 2.5em;
     margin-bottom: 1.5em;
+    padding-left: 1em;
   }
 
   select {

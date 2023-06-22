@@ -21,6 +21,7 @@ export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields
       required
       type="text"
       value={teamName}
+      defaultValue=''
       onChange={e => updateFields({ teamName: e.target.value })}
     />
 
@@ -30,6 +31,7 @@ export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields
       id="cnpj"
       type="text"
       value={teamCnpj}
+      defaultValue=''
       onChange={e => updateFields({ teamCnpj: e.target.value })}
     />
 
@@ -38,11 +40,15 @@ export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields
       required
       type="email"
       value={teamEmail}
+      defaultValue=''
       onChange={e => updateFields({ teamEmail: e.target.value })}
     />
 
     <label>Naipe</label>
-    <select value={teamSuit} onChange={(e) => updateFields({ teamSuit: Number(e.target.value) })}>
+    <select
+      defaultValue={1}
+      value={teamSuit}
+      onChange={(e) => updateFields({ teamSuit: Number(e.target.value) })}>
       {suits.map(suit => (
         <option key={suit.type} value={suit.type}>{suit.name}</option>
       ))}

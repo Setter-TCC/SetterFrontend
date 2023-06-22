@@ -4,6 +4,7 @@ import RefreshTokenHandler from './auth/RefreshTokenHandler';
 import { Global } from './styles/global';
 import { AuthProvider } from './auth/AuthContext';
 import { AthleteProvider } from './hooks/Athlete';
+import { SettingsProvider } from './hooks/Settings';
 
 export default function AppRouter() {
   return (
@@ -13,7 +14,9 @@ export default function AppRouter() {
         <AuthProvider>
           <RefreshTokenHandler>
             <AthleteProvider>
-              <RenderRoutes />
+              <SettingsProvider>
+                <RenderRoutes />
+              </SettingsProvider>
             </AthleteProvider>
           </RefreshTokenHandler>
         </AuthProvider>
