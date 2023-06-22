@@ -20,6 +20,8 @@ export interface AdminData {
   id?: string,
   name: string,
   email: string,
+  phone: string,
+  username?: string,
   oldPassword: string,
   newPassword: string,
 }
@@ -28,8 +30,10 @@ export interface AdminBackData {
   id?: string,
   nome: string,
   email: string,
-  senha_antiga: string,
-  senha_nova: string,
+  telefone: string,
+  nome_usuario?: string,
+  senha: string,
+  nova_senha: string,
 }
 
 export interface CoachData {
@@ -131,13 +135,41 @@ export const translateAdminFrontData = (data: AdminBackData): AdminData => {
     id: data.id || '',
     name: data.nome,
     email: data.email,
-    oldPassword: data.senha_antiga,
+    phone: data.telefone,
+    username: data.nome_usuario,
+    oldPassword: '',
     newPassword: '',
   };
-  console.log(translatedData);
   return translatedData;
 };
 
+export const transformAdminData = (data: AdminData, newData: AdminData): AdminData => {
+  const transformedAdminData = {
+    id: data.id || '',
+    name: newData.name ? newData.name : data.name,
+    email: newData.email ? newData.email : data.email,
+    phone: newData.phone ? removeSymbols(newData.phone) : data.phone,
+    username: data.username,
+    oldPassword: newData.oldPassword || '',
+    newPassword: newData.newPassword || '',
+  };
+
+  return transformedAdminData;
+};
+
+export const translateAdminBackData = (data: AdminData): AdminBackData => {
+  const translatedData: AdminBackData = {
+    id: data.id || '',
+    nome: data.name,
+    email: data.email,
+    telefone: data.phone,
+    nome_usuario: data.username,
+    senha: data.oldPassword,
+    nova_senha: data.newPassword,
+  };
+
+  return translatedData;
+};
 
 export const translateTeamFrontData = (data: TeamBackData): TeamData => {
   const translatedData: TeamData = {
@@ -151,17 +183,6 @@ export const translateTeamFrontData = (data: TeamBackData): TeamData => {
   return translatedData;
 };
 
-export const translateEditAdminData = (data: AdminBackData, newData: AdminData): AdminBackData => {
-  const editAdminData = {
-    id: data.id,
-    nome: newData.name ? newData.name : data.nome,
-    email: newData.email ? newData.email : data.email,
-    senha_antiga: newData.oldPassword ? newData.oldPassword : data.senha_antiga,
-    senha_nova: newData.newPassword ? newData.newPassword : data.senha_nova,
-  };
-
-  return editAdminData;
-};
 
 export const translateEditTeamData = (data: TeamBackData, newData: TeamData): TeamBackData => {
   const editTeamData = {

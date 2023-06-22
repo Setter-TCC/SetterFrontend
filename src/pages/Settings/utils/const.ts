@@ -15,13 +15,6 @@ export const coachDataDefault: CoachData = {
   endDate: '',
 };
 
-export const adminDataDefault: AdminData = {
-  id: '',
-  name: '',
-  email: '',
-  oldPassword: '',
-  newPassword: '',
-};
 
 export const teamDataDefault: TeamData = {
   id: '',
@@ -44,16 +37,6 @@ export const coachDataTemplate: CoachBackData = {
   data_inicio: '2021-01-01',
 };
 
-
-export const adminDataTemplate: AdminBackData = {
-  id: '1',
-  nome: 'Teste',
-  email: 'teste@email.com',
-  senha_antiga: '',
-  senha_nova: '',
-};
-
-export const translatedAdminTemplate = translateAdminFrontData(adminDataTemplate);
 
 export const teamDataTemplate: TeamBackData = {
   id: '1',
