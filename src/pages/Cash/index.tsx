@@ -1,8 +1,7 @@
 import React from 'react';
 import { CashContainer, CashHeader, Container, HeaderTitle } from './styles';
 import Sidebar from '../../components/Sidebar';
-import GenerateCashMonth from './GenerateMonth';
-import FirstMonth from './GenerateMonth/FirstMonth';
+import MonthPicker from '../../components/MonthPicker';
 
 const Cash: React.FC = () => {
   return (
@@ -12,7 +11,7 @@ const Cash: React.FC = () => {
         <CashHeader>
           <HeaderTitle>Fluxo de Caixa</HeaderTitle>
         </CashHeader>
-        <FirstMonth />
+        <MonthPicker />
       </CashContainer>
     </Container>
   );
