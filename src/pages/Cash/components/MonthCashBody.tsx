@@ -1,35 +1,36 @@
 import React from 'react';
 import { ExtractTitle, MonthCashBodyContainer } from './styles';
-import ExtractTable, { Transaction } from './ExtractTable';
+import ExtractTable from './ExtractTable';
+import { Transaction } from '../utils/interfaces';
 
 const transactions: Transaction[] = [
   {
-    data: '01/01/2021',
-    valor: -100,
-    tipo: 'Pagamento do Técnico',
-    origem: 'Salário',
-    destino: 'Conta Corrente',
+    date: '01/01/2021',
+    value: -100,
+    type: 2,
+    origin: 'Salário',
+    destiny: 'Conta Corrente',
   },
   {
-    data: '01/01/2021',
-    valor: 100,
-    tipo: 'Mensalidade',
-    origem: 'Salário',
-    destino: 'Conta Corrente',
+    date: '01/01/2021',
+    value: 100,
+    type: 1,
+    origin: 'Salário',
+    destiny: 'Conta Corrente',
   },
   {
-    data: '01/01/2021',
-    valor: 100,
-    tipo: 'Ganho',
-    origem: 'Salário',
-    destino: 'Conta Corrente',
+    date: '01/01/2021',
+    value: 100,
+    type: 3,
+    origin: 'Salário',
+    destiny: 'Conta Corrente',
   },
   {
-    data: '01/01/2021',
-    valor: 100,
-    tipo: 'Outras Despesas',
-    origem: 'Salário',
-    destino: 'Conta Corrente',
+    date: '01/01/2021',
+    value: 100,
+    type: 4,
+    origin: 'Salário',
+    destiny: 'Conta Corrente',
   },
 ];
 

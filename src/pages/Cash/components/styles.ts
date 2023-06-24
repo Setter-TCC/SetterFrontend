@@ -76,10 +76,9 @@ export const ButtonsWrapper = styled.div`
   }
 `;
 
-
 export const MonthCashBodyContainer = styled.div`
   margin-top: 2em;
-  `;
+`;
 
 export const ExtractTitle = styled.div`
   border-bottom: 1px solid #E5E5E5;
@@ -90,5 +89,5 @@ export const ExtractTitle = styled.div`
     font-weight: 400;
     font-size: 18px;  
     color: var(--color-primary-grey);
-}
+  }
 `;

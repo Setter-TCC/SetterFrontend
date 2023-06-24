@@ -1,17 +1,18 @@
 import React from 'react';
 import { ExtractTableBody, ExtractTableBodyTd, ExtractTableContainer, ExtractTableHeader, RowTypeTransaction, RowValue } from './styles';
-
-export interface Transaction {
-  data: string;
-  valor: number;
-  tipo: string;
-  origem: string;
-  destino: string;
-}
+import { Transaction, transactionTypeText } from '../../utils/interfaces';
 
 interface ExtractTableProps {
   transactions: Transaction[];
 }
+
+const formatCurrency = (value: number) => {
+  const absoluteValue = Math.abs(value);
+  return absoluteValue.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
+};
 
 const ExtractTable: React.FC<ExtractTableProps> = ({ transactions }) => {
   return (
@@ -29,14 +30,16 @@ const ExtractTable: React.FC<ExtractTableProps> = ({ transactions }) => {
       <ExtractTableBody>
         {transactions.map((transaction, index) => (
           <tr key={index}>
-            <ExtractTableBodyTd>{transaction.data}</ExtractTableBodyTd>
-            <RowValue isNegative={transaction.valor < 0}>{`${transaction.valor > 0 ? '+' : '-'} R$ ${transaction.valor}`}</RowValue>
-            <RowTypeTransaction isNegative={transaction.valor < 0}>
-              <div>{transaction.tipo}</div>
+            <ExtractTableBodyTd>{transaction.date}</ExtractTableBodyTd>
+            <RowValue isNegative={transaction.value < 0}>
+              {`${transaction.value > 0 ? '+' : '-'} ${formatCurrency(transaction.value)}`}
+            </RowValue>
+            <RowTypeTransaction isNegative={transaction.value < 0}>
+              <div>{transactionTypeText(transaction.type)}</div>
             </RowTypeTransaction>
-            <ExtractTableBodyTd>{transaction.origem}</ExtractTableBodyTd>
+            <ExtractTableBodyTd>{transaction.origin}</ExtractTableBodyTd>
             <ExtractTableBodyTd> {'--->'} </ExtractTableBodyTd>
-            <ExtractTableBodyTd>{transaction.destino}</ExtractTableBodyTd>
+            <ExtractTableBodyTd>{transaction.destiny}</ExtractTableBodyTd>
           </tr>
         ))}
       </ExtractTableBody>
