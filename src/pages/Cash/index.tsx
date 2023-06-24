@@ -2,7 +2,7 @@ import React from 'react';
 import { CashBody, CashContainer, CashHeader, Container, HeaderTitle } from './styles';
 import Sidebar from '../../components/Sidebar';
 import MonthPicker from '../../components/MonthPicker';
-import MonthCash from './MonthCash';
+import MonthCash from './components/MonthCash';
 
 const Cash: React.FC = () => {
   return (

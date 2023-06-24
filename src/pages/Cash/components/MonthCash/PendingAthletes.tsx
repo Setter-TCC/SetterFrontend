@@ -8,4 +8,3 @@ const PendingAthletes: React.FC = () => {
 };
 
 export default PendingAthletes;
-

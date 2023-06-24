@@ -1,7 +1,7 @@
 import React from 'react';
+import { Transaction } from '../../utils/interfaces';
 import { ExtractTitle, MonthCashBodyContainer } from './styles';
-import ExtractTable from './ExtractTable';
-import { Transaction } from '../utils/interfaces';
+import ExtractTable from '../ExtractTable';
 
 const transactions: Transaction[] = [
   {
@@ -47,4 +47,3 @@ const MonthCashBody: React.FC = () => {
 };
 
 export default MonthCashBody;
-
