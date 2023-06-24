@@ -10,7 +10,7 @@ const MonthCash: React.FC = () => {
     <MonthCashContainerWrapper>
       <MonthCashContainer>
         <MonthCashHeader />
-        {/* <MonthCashBody /> */}
+        <MonthCashBody />
       </MonthCashContainer>
       {/* <PendingAthletes /> */}
     </MonthCashContainerWrapper>

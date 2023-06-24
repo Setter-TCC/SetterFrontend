@@ -10,11 +10,12 @@ export const MonthCashContainerWrapper = styled.div`
   width: 100%;
   min-height: 75vh;
   margin-top: 1.5em;
-`;
+  `;
 
 export const MonthCashContainer = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 78vw;
   padding: 1em 2em;
 `;
 

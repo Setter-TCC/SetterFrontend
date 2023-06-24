@@ -15,6 +15,8 @@ export const CashHeader = styled.div`
 
 export const CashBody = styled.div`
   padding: 0em 2em;
+  width: 100%;
+  min-width: 80vw;
 `;
 
 export const HeaderTitle = styled.h1`

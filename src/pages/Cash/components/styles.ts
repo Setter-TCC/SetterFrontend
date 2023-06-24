@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const MonthCashHeaderContainer = styled.div`
-  width: 73vw;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -26,6 +26,7 @@ export const BalanceMonth = styled.div`
     font-style: normal;
     font-weight: 600;
     font-size: 28px;
+    color: var(--color-primary-black);
   }
   h2 {
     font-family: 'Inter';
@@ -39,6 +40,7 @@ export const BalanceMonth = styled.div`
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
+    color: var(--color-primary-black);
   }
   h4 {
     font-family: 'Inter';
@@ -72,4 +74,21 @@ export const ButtonsWrapper = styled.div`
       font-weight: 600;
     }
   }
+`;
+
+
+export const MonthCashBodyContainer = styled.div`
+  margin-top: 2em;
+  `;
+
+export const ExtractTitle = styled.div`
+  border-bottom: 1px solid #E5E5E5;
+  margin-bottom: 1em;
+  h3 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;  
+    color: var(--color-primary-grey);
+}
 `;
