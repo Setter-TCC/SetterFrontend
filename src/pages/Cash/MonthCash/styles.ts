@@ -1,20 +1,25 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  height: 100%;
+export const MonthCashContainerWrapper = styled.div`
   display: flex;
+  flex-direction: row;
+  border: 1px solid #E5E5E5;
+  border-bottom: none;
+  border-radius: 10px 10px 0px 0px;
+  
+  width: 100%;
+  min-height: 75vh;
+  margin-top: 1.5em;
 `;
 
-export const CashContainer = styled.div`
-  width: 100vw;
+export const MonthCashContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 1em 2em;
 `;
 
 export const CashHeader = styled.div`
   padding: 2em 2em 1em;
-`;
-
-export const CashBody = styled.div`
-  padding: 0em 2em;
 `;
 
 export const HeaderTitle = styled.h1`
