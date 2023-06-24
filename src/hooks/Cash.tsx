@@ -90,7 +90,7 @@ const CashProvider = ({ children }: any): JSX.Element => {
 
   const setMonthlyPayment = () => {
     setCashAction({
-      type: CashActionType.COACH_PAYMENT,
+      type: CashActionType.MONTHLY_PAYMENT,
       payload: {},
     });
   };
