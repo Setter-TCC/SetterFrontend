@@ -4,6 +4,27 @@ interface RowProps {
   isNegative: boolean;
 }
 
+export const EmptyExtract = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2em;
+
+  img {
+    width: 15em;
+    height: 15em;
+  }
+
+  h3 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--color-primary-grey);
+  }
+`;
+
 export const ExtractTableContainer = styled.table`
   width: 100%;
   border-collapse: collapse;
