@@ -51,6 +51,15 @@ export const InputWrapper = styled.div`
     margin-bottom: 1em;
     background-color: var(--color-primary-white);
   }
+
+  .description {
+    width: 23em;
+    height: 4em;
+    border: 1px solid #4E3C3C;
+    border-radius: 0.3em;
+    padding-left: 1em;
+    margin-bottom: 1em;
+  }
 `;
 
 export const ImgWrapper = styled.div`

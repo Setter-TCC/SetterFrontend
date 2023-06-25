@@ -5,7 +5,7 @@ import { useCash } from '../../../../hooks/Cash';
 
 
 const MonthCashHeader: React.FC = () => {
-  const { setCashIn, setCashOut, setCoachPayment, setMonthlyPayment } = useCash();
+  const { setCashIn, setCashOut, setCoachPayment, setSelectAthlete } = useCash();
 
   const [showOptions, setShowOptions] = useState(false);
 
@@ -36,7 +36,7 @@ const MonthCashHeader: React.FC = () => {
         {showOptions && (
           <OptionsButtons>
             <button
-              onClick={setMonthlyPayment}>
+              onClick={setSelectAthlete}>
               {transactionTypeText(TransactionType.monthlyPayment)}
             </button>
             <button

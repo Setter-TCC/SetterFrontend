@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useContext, useReducer, useState } from 'react';
+import { AthleteData } from '../pages/Athletes/components/utils/interfaces';
 
 interface CashContextData {
+  selectedAthlete: AthleteData,
+  setSelectedAthlete(athlete: AthleteData): void,
   searchValue: string,
   setSearchValue(searchValue: string): void,
   cashAction: CashAction,
   setCoachPayment(): void,
   setMonthlyPayment(): void,
+  setSelectAthlete(): void,
   setCashIn(): void,
   setCashOut(): void,
   setResetActions(): void,
@@ -17,6 +21,7 @@ interface CashContextData {
 export enum CashActionType {
   DEFAULT = 'DEFAULT',
   COACH_PAYMENT = 'COACH_PAYMENT',
+  SELECT_ATHELETE = 'SELECT_ATHELETE',
   MONTHLY_PAYMENT = 'MONTHLY_PAYMENT',
   CASH_IN = 'CASH_IN',
   CASH_OUT = 'CASH_OUT',
@@ -43,7 +48,11 @@ const cashReducer = (state: CashAction, action: any) => {
       ...state,
       showAction: 'coachPayment',
     };
-
+  case CashActionType.SELECT_ATHELETE:
+    return {
+      ...state,
+      showAction: 'selectAthlete',
+    };
   case CashActionType.MONTHLY_PAYMENT:
     return {
       ...state,
@@ -74,6 +83,7 @@ const { Provider } = CashContext;
 const CashProvider = ({ children }: any): JSX.Element => {
 
   const [searchValue, setSearchValue] = useState('');
+  const [selectedAthlete, setSelectedAthlete] = useState<AthleteData>({} as AthleteData);
 
   const [cashAction, setCashAction] = useReducer(
     cashReducer,
@@ -84,6 +94,13 @@ const CashProvider = ({ children }: any): JSX.Element => {
   const setCoachPayment = () => {
     setCashAction({
       type: CashActionType.COACH_PAYMENT,
+      payload: {},
+    });
+  };
+
+  const setSelectAthlete = () => {
+    setCashAction({
+      type: CashActionType.SELECT_ATHELETE,
       payload: {},
     });
   };
@@ -121,6 +138,7 @@ const CashProvider = ({ children }: any): JSX.Element => {
   const contextValues = {
     cashAction,
     setCoachPayment,
+    setSelectAthlete,
     setMonthlyPayment,
     setCashIn,
     setCashOut,
@@ -129,6 +147,8 @@ const CashProvider = ({ children }: any): JSX.Element => {
     setActionModalInfo,
     searchValue,
     setSearchValue,
+    selectedAthlete,
+    setSelectedAthlete,
   };
 
   return <Provider value={contextValues}>{children}</Provider>;

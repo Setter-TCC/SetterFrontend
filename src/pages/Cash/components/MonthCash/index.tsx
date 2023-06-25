@@ -8,6 +8,7 @@ import CashIn from '../TransactionActions/CashIn';
 import CashOut from '../TransactionActions/CashOut';
 import { useCash } from '../../../../hooks/Cash';
 import InfoModal from '../../../../components/InfoModal';
+import SelectAthlete from '../TransactionActions/SelectAthlete';
 
 interface RenderConfigOptions {
   [key: string]: React.ReactElement;
@@ -17,6 +18,7 @@ const MonthCash: React.FC = () => {
   const { cashAction, actionModalInfo } = useCash();
 
   const renderConfigs: RenderConfigOptions = {
+    selectAthlete: <SelectAthlete />,
     monthlyPayment: <MonthlyPayment />,
     coachPayment: <CoachPayment />,
     cashIn: <CashIn />,
