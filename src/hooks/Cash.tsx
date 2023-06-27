@@ -3,6 +3,8 @@ import { createContext, useContext, useReducer, useState } from 'react';
 import { AthleteData } from '../pages/Athletes/components/utils/interfaces';
 
 interface CashContextData {
+  selectedMonth: MonthCash,
+  setSelectedMonth(month: MonthCash): void,
   selectedAthlete: AthleteData,
   setSelectedAthlete(athlete: AthleteData): void,
   searchValue: string,
@@ -28,6 +30,10 @@ export enum CashActionType {
   RESET_ACTION = 'RESET_ACTION',
 }
 
+interface MonthCash {
+  month: number,
+  year: number,
+}
 
 interface CashAction {
   showAction: string,
@@ -83,6 +89,11 @@ const { Provider } = CashContext;
 const CashProvider = ({ children }: any): JSX.Element => {
 
   const [searchValue, setSearchValue] = useState('');
+  const [selectedMonth, setSelectedMonth] = useState<MonthCash>({
+    month: new Date().getMonth() + 1,
+    year: new Date().getFullYear(),
+  } as MonthCash);
+
   const [selectedAthlete, setSelectedAthlete] = useState<AthleteData>({} as AthleteData);
 
   const [cashAction, setCashAction] = useReducer(
@@ -136,6 +147,8 @@ const CashProvider = ({ children }: any): JSX.Element => {
 
 
   const contextValues = {
+    selectedMonth,
+    setSelectedMonth,
     cashAction,
     setCoachPayment,
     setSelectAthlete,

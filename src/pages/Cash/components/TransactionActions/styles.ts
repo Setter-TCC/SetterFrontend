@@ -110,7 +110,7 @@ export const AthleteRow = styled.div<AthleteProps>`
   }
 `;
 
-export const FormBox = styled.form`
+export const FormBox = styled.div`
   display: flex;
   flex-direction: column;
   height: 34em;

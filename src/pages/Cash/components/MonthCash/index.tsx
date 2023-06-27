@@ -7,8 +7,8 @@ import CoachPayment from '../TransactionActions/CoachPayment';
 import CashIn from '../TransactionActions/CashIn';
 import CashOut from '../TransactionActions/CashOut';
 import { useCash } from '../../../../hooks/Cash';
-import InfoModal from '../../../../components/InfoModal';
 import SelectAthlete from '../TransactionActions/SelectAthlete';
+import CashInfoModal from '../../../../components/CashModalInfo';
 
 interface RenderConfigOptions {
   [key: string]: React.ReactElement;
@@ -29,7 +29,7 @@ const MonthCash: React.FC = () => {
   return (
     <MonthCashContainerWrapper>
       {cashAction && renderConfigs[cashAction.showAction]}
-      {actionModalInfo && <InfoModal text={actionModalInfo.text} />}
+      {actionModalInfo && <CashInfoModal text={actionModalInfo.text} />}
       <MonthCashContainer>
         <MonthCashHeader />
         <MonthCashBody />

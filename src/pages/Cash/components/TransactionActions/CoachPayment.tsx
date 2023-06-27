@@ -6,6 +6,9 @@ import { CoachData, translateCoachFrontData } from '../../../Settings/utils/inte
 import { FormDrawerWrapper } from '../../../../components/FormWrapper';
 import { BackButton, Buttons, ConfirmBox, Container, ContainerBackground, ContainerBox, FormBox, NotFoundCoach, SelectButton } from './styles';
 import api from '../../../../services/api';
+import { Transaction, TransactionType, translateTransactionToBackData } from '../../utils/interfaces';
+import { AxiosError } from 'axios';
+import { mascaraMoeda, removeCurrencySymbols } from '../../../../utils/format';
 
 const headers = {
   Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -13,13 +16,19 @@ const headers = {
 
 
 const CoachPayment: React.FC = () => {
-  const { setResetActions } = useCash();
+  const { setResetActions, setActionModalInfo } = useCash();
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  const [coachPaymentData, setCoachPaymentData] = useState<Transaction>({} as Transaction);
   const [selectedCoachData, setSelectedCoachData] = useState<CoachData | null>(null);
   const { admin } = useAuth();
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsCheckboxChecked(event.target.checked);
+  };
+
+  const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    mascaraMoeda(event);
+    setCoachPaymentData({ ...coachPaymentData, value: Number(removeCurrencySymbols(event.target.value)) });
   };
 
   const getActiveCoach = async () => {
@@ -38,8 +47,32 @@ const CoachPayment: React.FC = () => {
     getActiveCoach();
   }, []);
 
-  const onSubmit = () => {
-    console.log('submit');
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const backData = translateTransactionToBackData({
+      ...coachPaymentData,
+      teamId: admin.teamId,
+      personId: selectedCoachData?.id,
+      type: TransactionType.coachPayment,
+    });
+
+    console.log(backData);
+
+    try {
+      await api.post('/api/transaction/create', backData, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      setActionModalInfo({
+        text: 'Pagamento do Técnico adicionado com sucesso!',
+      });
+    } catch (err: AxiosError | any) {
+      console.log(err);
+      setActionModalInfo({
+        text: err?.response?.data?.message || 'Erro ao adicionar Pagamento do Técnico!',
+      });
+    }
   };
   return (
     <ContainerBackground>
@@ -52,11 +85,24 @@ const CoachPayment: React.FC = () => {
                   <>
                     <FormBox>
                       <label>Técnico*</label>
-                      <input type="text" value={selectedCoachData?.name} disabled required />
+                      <input
+                        type="text"
+                        value={selectedCoachData?.name}
+                        disabled
+                        required />
                       <label>Data do Pagamento*</label>
-                      <input type='date' required />
+                      <input
+                        type='date'
+                        required
+                        value={coachPaymentData.date}
+                        onChange={(e) => setCoachPaymentData({ ...coachPaymentData, date: e.target.value })}
+                      />
                       <label>Valor Pago*</label>
-                      <input type="text" required />
+                      <input
+                        type="text"
+                        required
+                        onChange={(e) => handleValueChange(e)}
+                      />
                     </FormBox>
                     <ConfirmBox>
                       <input className='checkbox' type="checkbox" onChange={handleCheckboxChange} />

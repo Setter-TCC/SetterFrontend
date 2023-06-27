@@ -12,7 +12,7 @@ export const MonthCashContainerWrapper = styled.div`
   border-radius: 10px 10px 0px 0px;
   
   width: 100%;
-  min-height: 80vh;
+  min-height: 75vh;
   margin-top: 1.5em;
   `;
 
@@ -155,6 +155,8 @@ export const OptionsButtons = styled.div`
 
 export const MonthCashBodyContainer = styled.div`
   margin-top: 2em;
+  max-height: 60vh;
+  overflow: auto;
 `;
 
 export const ExtractTitle = styled.div`

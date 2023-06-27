@@ -2,18 +2,12 @@ import React from 'react';
 import { EmptyExtract, ExtractTableBody, ExtractTableBodyTd, ExtractTableContainer, ExtractTableHeader, RowTypeTransaction, RowValue } from './styles';
 import cashImg from '../../../../assets/images/generateCash.svg';
 import { Transaction, transactionTypeText } from '../../utils/interfaces';
+import { formatCurrency } from '../../../../utils/format';
 
 interface ExtractTableProps {
   transactions: Transaction[];
 }
 
-const formatCurrency = (value: number) => {
-  const absoluteValue = Math.abs(value);
-  return absoluteValue.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  });
-};
 
 const ExtractTable: React.FC<ExtractTableProps> = ({ transactions }) => {
   return (
