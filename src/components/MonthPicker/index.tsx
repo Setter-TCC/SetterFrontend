@@ -13,8 +13,6 @@ const MonthPicker: React.FC = () => {
 
   const handleSelect = (date: Date) => {
     setSelectedDate(date);
-    console.log(date);
-    console.log({ month: date.getMonth() + 1, year: date.getFullYear() });
     setSelectedMonth({ month: date.getMonth() + 1, year: date.getFullYear() });
   };
 

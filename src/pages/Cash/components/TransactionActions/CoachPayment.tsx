@@ -56,8 +56,6 @@ const CoachPayment: React.FC = () => {
       type: TransactionType.coachPayment,
     });
 
-    console.log(backData);
-
     try {
       await api.post('/api/transaction/create', backData, {
         headers: {

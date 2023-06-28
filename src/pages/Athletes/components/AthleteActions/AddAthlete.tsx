@@ -38,7 +38,7 @@ const AddAthlete: React.FC = () => {
               <img src={addUser} />
               <input type="file" accept="image/*" name="imageInput" id="imageInput" />
             </ImgWrapper> */}
-            <label>Nome</label>
+            <label>Nome*</label>
             <input
               required
               type="text"
@@ -46,13 +46,13 @@ const AddAthlete: React.FC = () => {
               defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, name: e.target.value })}
             />
-            <label>Posição</label>
+            <label>Posição*</label>
             <select value={athleteData.position} onChange={e => setAthleteData({ ...athleteData, position: e.target.value.toString() })}>
               {athletePositions.map(position => (
                 <option key={position.type} value={position.type}>{position.value}</option>
               ))}
             </select>
-            <label>Telefone</label>
+            <label>Telefone*</label>
             <InputMask
               mask="(99) 99999-9999"
               id="phone"
@@ -79,7 +79,7 @@ const AddAthlete: React.FC = () => {
               defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, cpf: e.target.value })}
             />
-            <label>Data de Nascimento</label>
+            <label>Data de Nascimento*</label>
             <input
               required
               type="date"
@@ -87,7 +87,7 @@ const AddAthlete: React.FC = () => {
               defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, birth: e.target.value })}
             />
-            <label>Email</label>
+            <label>Email*</label>
             <input
               required
               type="email"
