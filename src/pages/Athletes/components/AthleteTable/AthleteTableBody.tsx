@@ -34,7 +34,9 @@ const AthletesTableBody: React.FC = () => {
         })
         .catch((err) => {
           console.log(err);
-          alert('Erro ao carregar lista de atletas');
+          if (err.response.status === 404) {
+            setAthletes([]);
+          }
         });
     } catch (err) {
       console.log(err);

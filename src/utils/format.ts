@@ -1,4 +1,6 @@
+/* eslint-disable no-useless-escape */
 import { zonedTimeToUtc, format } from 'date-fns-tz';
+import { ChangeEvent } from 'react';
 const timeZone = 'America/Sao_Paulo';
 
 export const formatDateTimezone = (date: string) => {
@@ -33,4 +35,34 @@ export function formatPhone(phone: string) {
 
 export function formatEditDate(date: string) {
   return formatDateTimezone(convertToISODate(date));
+}
+
+export const formatCurrency = (value: number) => {
+  const absoluteValue = Math.abs(value);
+  return absoluteValue.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
+};
+
+export function brazilCurrencyMask(event: ChangeEvent<HTMLInputElement>) {
+  const onlyDigits = event.target.value
+    .split('')
+    .filter((s) => /\d/.test(s))
+    .join('')
+    .padStart(3, '0');
+  const digitsFloat = onlyDigits.slice(0, -2) + '.' + onlyDigits.slice(-2);
+  event.target.value = maskCurrency(digitsFloat);
+}
+
+export function maskCurrency(valor: string, locale = 'pt-BR', currency = 'BRL') {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency,
+  }).format(parseFloat(valor));
+}
+
+
+export function removeCurrencySymbols(str: string): number {
+  return Number(removeSymbols(str)) / 100;
 }

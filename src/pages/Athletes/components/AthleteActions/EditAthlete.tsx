@@ -42,7 +42,7 @@ const EditAthlete: React.FC = () => {
               <RoundedImage src={selectedAthlete?.img} />
               <input type="file" accept="image/*" name="imageInput" id="imageInput" />
             </ImgWrapper> */}
-            <label>Nome</label>
+            <label>Nome*</label>
             <input
               required
               defaultValue={selectedAthlete?.name}
@@ -50,14 +50,14 @@ const EditAthlete: React.FC = () => {
               value={newAthleteData.name}
               onChange={e => setNewAthleteData({ ...newAthleteData, name: e.target.value })}
             />
-            <label>Posição</label>
+            <label>Posição*</label>
             <select defaultValue={selectedAthlete?.position}
               value={newAthleteData.position} onChange={e => setNewAthleteData({ ...newAthleteData, position: e.target.value })}>
               {athletePositions.map(position => (
                 <option key={position.type} value={position.type}>{position.value}</option>
               ))}
             </select>
-            <label>Telefone</label>
+            <label>Telefone*</label>
             <InputMask
               mask="(99) 99999-9999"
               id="phone"
@@ -84,7 +84,7 @@ const EditAthlete: React.FC = () => {
               defaultValue={selectedAthlete?.cpf}
               onChange={e => setNewAthleteData({ ...newAthleteData, cpf: e.target.value })}
             />
-            <label>Data de Nascimento</label>
+            <label>Data de Nascimento*</label>
             <input
               required
               type="date"
@@ -92,7 +92,7 @@ const EditAthlete: React.FC = () => {
               value={newAthleteData.birth}
               onChange={e => setNewAthleteData({ ...newAthleteData, birth: e.target.value })}
             />
-            <label>Email</label>
+            <label>Email*</label>
             <input
               required
               type="email"
