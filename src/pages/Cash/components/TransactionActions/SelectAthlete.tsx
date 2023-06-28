@@ -31,7 +31,7 @@ const SelectAthlete: React.FC = () => {
 
   function loadAthletes() {
     try {
-      api.get(`/api/athlete?team_id=${admin.teamId}`, {
+      api.get(`/api/athlete/active-athletes?team_id=${admin.teamId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -53,9 +53,7 @@ const SelectAthlete: React.FC = () => {
   }
 
   useEffect(() => {
-    if (athletes.length === 0) {
-      loadAthletes();
-    }
+    loadAthletes();
   }, []);
 
   return (
