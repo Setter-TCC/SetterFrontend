@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { useCash } from '../../../../hooks/Cash';
 import { useAuth } from '../../../../auth/AuthContext';
 import ExtractTable from '../ExtractTable';
 import { Transaction, translateTransactionToFrontData } from '../../utils/interfaces';
 import { ExtractTitle, MonthCashBodyContainer } from './styles';
-import { AxiosError } from 'axios';
 import api from '../../../../services/api';
 
 
@@ -21,7 +21,7 @@ const MonthCashBody: React.FC = () => {
 
       const frontTransactions = translateTransactionToFrontData(data.value);
       setTransactions(frontTransactions);
-    } catch (error: AxiosError | any) {
+    } catch (error: any) {
       if (error.response.status === 404) {
         setTransactions([]);
       }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 
 import { useCash } from '../../../../hooks/Cash';
@@ -5,10 +6,9 @@ import { useAuth } from '../../../../auth/AuthContext';
 import { CoachData, translateCoachFrontData } from '../../../Settings/utils/interfaces';
 import { FormDrawerWrapper } from '../../../../components/FormWrapper';
 import { BackButton, Buttons, ConfirmBox, Container, ContainerBackground, ContainerBox, FormBox, NotFoundCoach, SelectButton } from './styles';
-import api from '../../../../services/api';
+import { brazilCurrencyMask, removeCurrencySymbols } from '../../../../utils/format';
 import { Transaction, TransactionType, translateTransactionToBackData } from '../../utils/interfaces';
-import { AxiosError } from 'axios';
-import { mascaraMoeda, removeCurrencySymbols } from '../../../../utils/format';
+import api from '../../../../services/api';
 
 const headers = {
   Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -27,7 +27,7 @@ const CoachPayment: React.FC = () => {
   };
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    mascaraMoeda(event);
+    brazilCurrencyMask(event);
     setCoachPaymentData({ ...coachPaymentData, value: Number(removeCurrencySymbols(event.target.value)) });
   };
 
@@ -67,7 +67,7 @@ const CoachPayment: React.FC = () => {
       setActionModalInfo({
         text: 'Pagamento do Técnico adicionado com sucesso!',
       });
-    } catch (err: AxiosError | any) {
+    } catch (err: any) {
       console.log(err);
       setActionModalInfo({
         text: err?.response?.data?.message || 'Erro ao adicionar Pagamento do Técnico!',

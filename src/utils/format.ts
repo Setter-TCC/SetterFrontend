@@ -45,7 +45,7 @@ export const formatCurrency = (value: number) => {
   });
 };
 
-export function mascaraMoeda(event: ChangeEvent<HTMLInputElement>) {
+export function brazilCurrencyMask(event: ChangeEvent<HTMLInputElement>) {
   const onlyDigits = event.target.value
     .split('')
     .filter((s) => /\d/.test(s))

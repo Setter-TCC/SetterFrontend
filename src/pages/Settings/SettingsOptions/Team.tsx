@@ -29,7 +29,6 @@ const TeamSettings: React.FC = () => {
     try {
       const teamData = transformTeamData(selectedTeamData, newTeamData);
       const teamDataBack = translateEditTeamData(teamData);
-      console.log(teamDataBack);
 
       await api.put('/api/team/update', teamDataBack, {
         headers: {

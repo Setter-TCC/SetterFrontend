@@ -1,13 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
-
 import { BackButton, Buttons, ConfirmBox, Container, ContainerBackground, ContainerBox, FormBox, SelectButton } from './styles';
 import { useCash } from '../../../../hooks/Cash';
 import { FormDrawerWrapper } from '../../../../components/FormWrapper';
 import { Transaction, TransactionType, translateTransactionToBackData } from '../../utils/interfaces';
 import { useAuth } from '../../../../auth/AuthContext';
 import api from '../../../../services/api';
-import { AxiosError } from 'axios';
-import { mascaraMoeda, removeCurrencySymbols } from '../../../../utils/format';
+import { brazilCurrencyMask, removeCurrencySymbols } from '../../../../utils/format';
 
 const MonthlyPayment: React.FC = () => {
   const { admin } = useAuth();
@@ -20,7 +19,7 @@ const MonthlyPayment: React.FC = () => {
   };
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    mascaraMoeda(event);
+    brazilCurrencyMask(event);
     setMonthlyPaymentData({ ...monthlyPaymentData, value: Number(removeCurrencySymbols(event.target.value)) });
   };
 
@@ -34,8 +33,6 @@ const MonthlyPayment: React.FC = () => {
       type: TransactionType.monthlyPayment,
     });
 
-    console.log(backData);
-
     try {
       await api.post('/api/transaction/create', backData, {
         headers: {
@@ -45,7 +42,7 @@ const MonthlyPayment: React.FC = () => {
       setActionModalInfo({
         text: 'Mensalidade adicionada com sucesso!',
       });
-    } catch (err: AxiosError | any) {
+    } catch (err: any) {
       console.log(err);
       setActionModalInfo({
         text: err?.response?.data?.message || 'Erro ao adicionar Mensalidade!',

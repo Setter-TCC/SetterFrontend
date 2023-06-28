@@ -1,14 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
-
 import { BackButton, Buttons, ConfirmBox, Container, ContainerBackground, ContainerBox, FormBox, SelectButton } from './styles';
 import { useCash } from '../../../../hooks/Cash';
 import { FormDrawerWrapper } from '../../../../components/FormWrapper';
 import { Transaction, TransactionType, translateTransactionToBackData } from '../../utils/interfaces';
 import { useAuth } from '../../../../auth/AuthContext';
-import { AxiosError } from 'axios';
+import { brazilCurrencyMask, removeCurrencySymbols } from '../../../../utils/format';
 import api from '../../../../services/api';
-import InputMask from 'react-input-mask';
-import { mascaraMoeda, removeCurrencySymbols } from '../../../../utils/format';
 
 const CashIn: React.FC = () => {
   const { admin } = useAuth();
@@ -20,7 +18,7 @@ const CashIn: React.FC = () => {
   };
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    mascaraMoeda(event);
+    brazilCurrencyMask(event);
     setCashOutData({ ...cashOutData, value: Number(removeCurrencySymbols(event.target.value)) });
   };
 
@@ -42,7 +40,7 @@ const CashIn: React.FC = () => {
         text: 'Saída de Caixa adicionada com sucesso!',
       });
       setResetActions();
-    } catch (err: AxiosError | any) {
+    } catch (err: any) {
       console.log(err);
       setActionModalInfo({
         text: err?.response?.data?.message || 'Erro ao adicionar Saída de Caixa!',

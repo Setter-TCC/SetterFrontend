@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
+import { useAuth } from '../../../../auth/AuthContext';
+import { useCash } from '../../../../hooks/Cash';
 import { BalanceMonth, BalanceMonthWrapper, ButtonsWrapper, MonthCashHeaderContainer, OptionsButtons } from './styles';
 import { TransactionType, transactionTypeText } from '../../utils/interfaces';
-import { useCash } from '../../../../hooks/Cash';
-import api from '../../../../services/api';
-import { useAuth } from '../../../../auth/AuthContext';
-import { AxiosError } from 'axios';
 import { formatCurrency } from '../../../../utils/format';
+import api from '../../../../services/api';
 
 
 const MonthCashHeader: React.FC = () => {
@@ -17,13 +17,12 @@ const MonthCashHeader: React.FC = () => {
 
   const getMonthBalance = async () => {
     try {
-      console.log(selectedMonth);
       const { data } = await api.get(`/api/transaction/balance?team_id=${admin.teamId}&month=${selectedMonth?.month}&year=${selectedMonth?.year}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setTotalBalance(data.value.totalBalance);
       setLastBalance(data.value.lastBalance);
-    } catch (error: AxiosError | any) {
+    } catch (error: any) {
       if (error.response.status === 404) {
         return;
       }
