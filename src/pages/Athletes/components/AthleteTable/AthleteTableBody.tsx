@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { AthleteTable, TableHead, TableBody, TableHeaderCell, RoundedImage, TableWrapper, MoreActionsButton, AthleteButtons, TableBodyRow, EmptyTable } from './styles';
+import { AthleteTable, TableHead, TableBody, TableHeaderCell, RoundedImage, TableWrapper, MoreActionsButton, AthleteButtons, TableBodyRow, EmptyTable, Loading } from './styles';
 import moreActions from '../../../../assets/icons/moreActions.svg';
 import { useAthlete } from '../../../../hooks/Athlete';
 import { tableColumns } from '../../utils/const';
 import userImg from '../../../../assets/icons/ball.svg';
 import api from '../../../../services/api';
+import loadingImg from '../../../../assets/icons/loading.svg';
 import { useAuth } from '../../../../auth/AuthContext';
 import { AthleteData, getPositionText, translateAthleteFrontData } from '../utils/interfaces';
 import { formatCPF, formatPhone, formatRG } from '../../../../utils/format';
@@ -16,6 +17,7 @@ interface RowButtonsState {
 const AthletesTableBody: React.FC = () => {
   const [showMoreActions, setShowMoreActions] = useState({} as RowButtonsState);
   const { actionModalInfo, searchValue, athletes, setAthletes, setEditAthlete, setDeactivateAthlete, setActivateAthlete } = useAthlete();
+  const [loading, setLoading] = useState(false);
   const { admin } = useAuth();
 
   const filteredAthletes = athletes.filter((athlete) =>
@@ -23,6 +25,7 @@ const AthletesTableBody: React.FC = () => {
   );
   function loadAthletes() {
     try {
+      setLoading(true);
       api.get(`/api/athlete?team_id=${admin.teamId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -33,12 +36,14 @@ const AthletesTableBody: React.FC = () => {
           setAthletes(frontAthletes);
         })
         .catch((err) => {
-          console.log(err);
+          setLoading(false);
           if (err.response.status === 404) {
             setAthletes([]);
           }
         });
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       console.log(err);
       alert('Erro ao carregar lista de atletas');
     }
@@ -71,67 +76,76 @@ const AthletesTableBody: React.FC = () => {
   }, [actionModalInfo]);
 
   return (
-    <TableWrapper>
-      {
-        athletes.length > 0 ? (
-          <AthleteTable>
-            <TableHead>
-              <tr>
-                {tableColumns.map((column) =>
-                  <TableHeaderCell key={column}>{column}</TableHeaderCell>
-                )}
-              </tr>
-            </TableHead>
-            <TableBody>
-              {filteredAthletes.map(athlete => (
-                <TableBodyRow key={athlete.id}
-                  onClick={() => handleRowClick(athlete.id)}
-                  isActive={athlete.isActive}
-                >
-                  <td className='first-cell'><RoundedImage
-                    src={userImg} isActive={athlete.isActive} />
-                  </td>
-                  <td>{athlete.name}</td>
-                  <td>{getPositionText(athlete.position)}</td>
-                  <td>{formatPhone(athlete.phone)}</td>
-                  <td>{formatRG(athlete.rg)}</td>
-                  <td>{formatCPF(athlete.cpf)}</td>
-                  <td>{athlete.birth}</td>
-                  <td>{athlete.email}</td>
-                  <td>
-                    {showMoreActions[athlete.id] ? (
-                      <AthleteButtons>
-                        {athlete.isActive ? (
-                          <>
-                            <button
-                              className='edit'
-                              onClick={() => setEditAthlete(athlete)}>Editar</button>
-                            <button
-                              className='deactivate'
-                              onClick={() => setDeactivateAthlete(athlete)}>Desativar</button>
-                          </>
-                        ) : (
-                          <button
-                            className='activate'
-                            onClick={() => setActivateAthlete(athlete)}>Reativar</button>
-                        )}
+    <>
+      {loading ?
+        <Loading>
+          <img src={loadingImg} alt="loading" />
+        </Loading> : (
+          <TableWrapper>
+            {
+              athletes.length > 0 ? (
+                <AthleteTable>
+                  <TableHead>
+                    <tr>
+                      {tableColumns.map((column) =>
+                        <TableHeaderCell key={column}>{column}</TableHeaderCell>
+                      )}
+                    </tr>
+                  </TableHead>
+                  <TableBody>
+                    {filteredAthletes.map(athlete => (
+                      <TableBodyRow key={athlete.id}
+                        onClick={() => handleRowClick(athlete.id)}
+                        isActive={athlete.isActive}
+                      >
+                        <td className='first-cell'><RoundedImage
+                          src={userImg} isActive={athlete.isActive} />
+                        </td>
+                        <td>{athlete.name}</td>
+                        <td>{getPositionText(athlete.position)}</td>
+                        <td>{formatPhone(athlete.phone)}</td>
+                        <td>{formatRG(athlete.rg)}</td>
+                        <td>{formatCPF(athlete.cpf)}</td>
+                        <td>{athlete.birth}</td>
+                        <td>{athlete.email}</td>
+                        <td>
+                          {showMoreActions[athlete.id] ? (
+                            <AthleteButtons>
+                              {athlete.isActive ? (
+                                <>
+                                  <button
+                                    className='edit'
+                                    onClick={() => setEditAthlete(athlete)}>Editar</button>
+                                  <button
+                                    className='deactivate'
+                                    onClick={() => setDeactivateAthlete(athlete)}>Desativar</button>
+                                </>
+                              ) : (
+                                <button
+                                  className='activate'
+                                  onClick={() => setActivateAthlete(athlete)}>Reativar</button>
+                              )}
 
-                      </AthleteButtons>
-                    ) : (
-                      <MoreActionsButton onClick={() => handleClick(athlete.id)}><img src={moreActions} /></MoreActionsButton>
-                    )}
-                  </td>
-                </TableBodyRow>
-              ))}
-            </TableBody>
-          </AthleteTable>
-        ) : (
-          <EmptyTable>
-            <h4>Não há atletas registados</h4>
-          </EmptyTable>
+                            </AthleteButtons>
+                          ) : (
+                            <MoreActionsButton onClick={() => handleClick(athlete.id)}><img src={moreActions} /></MoreActionsButton>
+                          )}
+                        </td>
+                      </TableBodyRow>
+                    ))}
+                  </TableBody>
+                </AthleteTable>
+              ) : (
+                <EmptyTable>
+                  <h4>Não há atletas registados</h4>
+                </EmptyTable>
+              )
+            }
+          </TableWrapper>
         )
       }
-    </TableWrapper>
+
+    </>
   );
 
 };

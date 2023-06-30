@@ -3,6 +3,13 @@ interface AthleteProps {
   isSelected: boolean;
 }
 
+export const Loading = styled.div`
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const ContainerBackground = styled.div`
  position: fixed;
   top: 0;

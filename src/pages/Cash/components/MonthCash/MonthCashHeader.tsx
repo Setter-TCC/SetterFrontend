@@ -26,7 +26,6 @@ const MonthCashHeader: React.FC = () => {
       if (error.response.status === 404) {
         return;
       }
-      console.log(error.response.data);
     }
   };
 
@@ -44,11 +43,11 @@ const MonthCashHeader: React.FC = () => {
       <BalanceMonthWrapper>
         <BalanceMonth>
           <h3>Saldo Atual</h3>
-          <h1>{totalBalance > 0 ? '' : '-'} {formatCurrency(totalBalance)}</h1>
+          <h1>{totalBalance >= 0 ? '' : '-'} {formatCurrency(totalBalance)}</h1>
         </BalanceMonth>
         <BalanceMonth>
           <h4>Saldo Anterior</h4>
-          <h2>{lastBalance > 0 ? '' : '-'} {formatCurrency(lastBalance)}</h2>
+          <h2>{lastBalance >= 0 ? '' : '-'} {formatCurrency(lastBalance)}</h2>
         </BalanceMonth>
       </BalanceMonthWrapper>
       <ButtonsWrapper isClicked={showOptions}>

@@ -4,6 +4,13 @@ interface RowProps {
   isActive: boolean;
 }
 
+export const Loading = styled.div`
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Container = styled.div`
   background: #FAFAFA;
   min-height: 87vh;

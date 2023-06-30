@@ -4,9 +4,10 @@ import InputMask from 'react-input-mask';
 import { useAuth } from '../../../auth/AuthContext';
 import { useSettings } from '../../../hooks/Settings';
 import { CoachData, translateCoachBackData, translateCoachFrontData, transformCoachData } from '../utils/interfaces';
-import { Container, Column, InputWrapper, SettingsForm, Buttons, SettingsFormBox, NotFoundContainer, NotFoundText, AddCoachButton } from './styles';
+import { Container, Column, InputWrapper, SettingsForm, Buttons, SettingsFormBox, NotFoundContainer, NotFoundText, AddCoachButton, Loading } from './styles';
 import notFoundImg from '../../../assets/images/notFound.svg';
 import api from '../../../services/api';
+import loadingImg from '../../../assets/icons/loading.svg';
 
 const today = new Date().toISOString().split('T')[0];
 const headers = {
@@ -18,14 +19,18 @@ const CoachSettings: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [selectedCoachData, setSelectedCoachData] = useState<CoachData>({} as CoachData);
   const [newCoachData, setNewCoachData] = useState<CoachData>({} as CoachData);
+  const [loading, setLoading] = useState(false);
   const { admin } = useAuth();
 
   const getActiveCoach = async () => {
     try {
+      setLoading(true);
       const { data } = await api.get(`/api/coach/?team_id=${admin.teamId}`, { headers });
       const formattedCoach = translateCoachFrontData(data.value, admin.teamId);
       setSelectedCoachData(formattedCoach);
+      setLoading(false);
     } catch (error: any) {
+      setLoading(false);
       if (error.response.status === 404) {
         return null;
       }
@@ -181,21 +186,31 @@ const CoachSettings: React.FC = () => {
 
   return (
     <>
-      {selectedCoachData.isActive || showForm ? (
-        <>
-          {renderCoachForm()}
-        </>
+      {loading ? (
+        <Loading>
+          <img src={loadingImg} alt="loading" />
+        </Loading>
+
       ) : (
-        <NotFoundContainer>
-          <img src={notFoundImg} alt="Não há técnicos ativos no time" />
-          <NotFoundText>Não há técnicos ativos no time!</NotFoundText>
-          <AddCoachButton type="button"
-            onClick={() => setShowForm(true)}
-          >Adicionar Técnico</AddCoachButton>
-        </NotFoundContainer>
+        <>
+          {selectedCoachData.isActive || showForm ? (
+            <>
+              {renderCoachForm()}
+            </>
+          ) : (
+            <NotFoundContainer>
+              <img src={notFoundImg} alt="Não há técnicos ativos no time" />
+              <NotFoundText>Não há técnicos ativos no time!</NotFoundText>
+              <AddCoachButton type="button"
+                onClick={() => setShowForm(true)}
+              >Adicionar Técnico</AddCoachButton>
+            </NotFoundContainer>
+          )}
+        </>
       )}
     </>
   );
 };
+
 
 export default CoachSettings;
