@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 
+export const Loading = styled.div`
+  display: flex;
+  height: 100%;
+  margin-top: 20%;
+  /* margin-left: 10%; */
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Container = styled.div`
   /* height: 80%; */
   display: flex;

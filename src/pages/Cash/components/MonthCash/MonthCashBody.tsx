@@ -25,7 +25,6 @@ const MonthCashBody: React.FC = () => {
       if (error.response.status === 404) {
         setTransactions([]);
       }
-      console.log(error.response.data);
     }
   };
 
