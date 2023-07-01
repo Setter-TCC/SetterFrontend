@@ -50,7 +50,7 @@ export function translateFormData(formData: FormInputData): BackendData {
     time: {
       nome: formData.teamName,
       naipe: Number(formData.teamSuit) || 1,
-      cnpj: removeSymbols(formData.teamCnpj) || '',
+      cnpj: removeSymbols(formData.teamCnpj || ''),
       email: formData.teamEmail,
     },
   };
