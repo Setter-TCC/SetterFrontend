@@ -73,13 +73,14 @@ export const translateAthleteBackData = (data: AthleteData): AthleteBackData => 
   const translatedData: AthleteBackData = {
     nome: data.name,
     email: data.email,
-    cpf: removeSymbols(data.cpf) || '',
-    rg: removeSymbols(data.rg) || '',
+    cpf: removeSymbols(data.cpf ?? ''),
+    rg: removeSymbols(data.rg ?? ''),
     data_nascimento: formatDateTimezone(data.birth),
-    telefone: removeSymbols(data.phone) || '',
+    telefone: removeSymbols(data.phone ?? ''),
     posicao: data.position ? data.position.toString() : AthletePositionEnum.outsideHitter.toString(),
     time_id: data.teamId || '',
   };
+
 
   return translatedData;
 };
