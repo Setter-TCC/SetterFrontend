@@ -9,18 +9,18 @@ import notFoundImg from '../../../assets/images/notFound.svg';
 import api from '../../../services/api';
 import loadingImg from '../../../assets/icons/loading.svg';
 
-const today = new Date().toISOString().split('T')[0];
-const headers = {
-  Authorization: `Bearer ${localStorage.getItem('token')}`,
-};
 
 const CoachSettings: React.FC = () => {
+  const today = new Date().toISOString().split('T')[0];
   const { setDeactivateCoach, setActionModalInfo, setResetToEditCoach } = useSettings();
   const [showForm, setShowForm] = useState(false);
   const [selectedCoachData, setSelectedCoachData] = useState<CoachData>({} as CoachData);
   const [newCoachData, setNewCoachData] = useState<CoachData>({} as CoachData);
   const [loading, setLoading] = useState(false);
   const { admin } = useAuth();
+  const headers = {
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  };
 
   const getActiveCoach = async () => {
     try {

@@ -8,7 +8,9 @@ import { useAuth } from '../../../../auth/AuthContext';
 import api from '../../../../services/api';
 import { brazilCurrencyMask, removeCurrencySymbols } from '../../../../utils/format';
 
+
 const MonthlyPayment: React.FC = () => {
+  const today = new Date().toISOString().split('T')[0];
   const { admin } = useAuth();
   const { selectedAthlete, setSelectAthlete, setActionModalInfo } = useCash();
   const [monthlyPaymentData, setMonthlyPaymentData] = useState<Transaction>({} as Transaction);
@@ -60,6 +62,7 @@ const MonthlyPayment: React.FC = () => {
                 <input type="text" value={selectedAthlete.name} disabled />
                 <label>Data do Pagamento*</label>
                 <input
+                  max={today}
                   type='date'
                   required
                   value={monthlyPaymentData?.date}
