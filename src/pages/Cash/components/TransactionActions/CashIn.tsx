@@ -8,7 +8,9 @@ import { Transaction, TransactionType, translateTransactionToBackData } from '..
 import { brazilCurrencyMask, removeCurrencySymbols } from '../../../../utils/format';
 import api from '../../../../services/api';
 
+
 const CashIn: React.FC = () => {
+  const today = new Date().toISOString().split('T')[0];
   const { admin } = useAuth();
   const { setActionModalInfo, setResetActions } = useCash();
 
@@ -65,6 +67,7 @@ const CashIn: React.FC = () => {
                 <input
                   type='date'
                   required
+                  max={today}
                   value={cashInData?.date}
                   onChange={(e) => setCashInData({ ...cashInData, date: e.target.value })} />
                 <label>Valor Recebido*</label>

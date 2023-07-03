@@ -11,18 +11,18 @@ import { brazilCurrencyMask, removeCurrencySymbols } from '../../../../utils/for
 import { Transaction, TransactionType, translateTransactionToBackData } from '../../utils/interfaces';
 import api from '../../../../services/api';
 
-const headers = {
-  Authorization: `Bearer ${localStorage.getItem('token')}`,
-};
-
 
 const CoachPayment: React.FC = () => {
+  const today = new Date().toISOString().split('T')[0];
   const { setResetActions, setActionModalInfo } = useCash();
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [coachPaymentData, setCoachPaymentData] = useState<Transaction>({} as Transaction);
   const [loading, setLoading] = useState(false);
   const [selectedCoachData, setSelectedCoachData] = useState<CoachData | null>(null);
   const { admin } = useAuth();
+  const headers = {
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsCheckboxChecked(event.target.checked);
@@ -104,6 +104,7 @@ const CoachPayment: React.FC = () => {
                             <input
                               type='date'
                               required
+                              max={today}
                               value={coachPaymentData.date}
                               onChange={(e) => setCoachPaymentData({ ...coachPaymentData, date: e.target.value })}
                             />

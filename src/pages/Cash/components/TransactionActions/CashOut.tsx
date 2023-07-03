@@ -8,7 +8,9 @@ import { useAuth } from '../../../../auth/AuthContext';
 import { brazilCurrencyMask, removeCurrencySymbols } from '../../../../utils/format';
 import api from '../../../../services/api';
 
+
 const CashIn: React.FC = () => {
+  const today = new Date().toISOString().split('T')[0];
   const { admin } = useAuth();
   const { setResetActions, setActionModalInfo } = useCash();
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
@@ -64,6 +66,7 @@ const CashIn: React.FC = () => {
                 <input
                   type='date'
                   required
+                  max={today}
                   value={cashOutData?.date}
                   onChange={(e) => setCashOutData({ ...cashOutData, date: e.target.value })} />
                 <label>Valor Pago*</label>
