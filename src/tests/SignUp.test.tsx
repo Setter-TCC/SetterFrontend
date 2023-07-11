@@ -1,13 +1,11 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { useNavigate, NavigateFunction } from 'react-router-dom';
+import { fireEvent, render } from '@testing-library/react';
 import SignUpCall from '../pages/SignUp/SignUpCall';
-import { AdminForm } from '../pages/SignUp/Register/Forms/AdminForm';
-
-const FormWrapper = ({ children }: { children: React.ReactNode }) => {
-  return <form>{children}</form>;
-};
+import { FormWrapper } from '../components/SignUpFormWrapper';
+import AccountCreated from '../pages/AccountCreated';
 
 jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
   useNavigate: jest.fn(),
 }));
 
@@ -22,42 +20,48 @@ describe('Sign Up Tests', () => {
 });
 
 
-describe('AdminForm', () => {
-  it('should update fields on input change', () => {
-    const updateFieldsMock = jest.fn();
+describe('FormWrapper', () => {
+  it('should render form wrapper component correctly', () => {
+    const step = 'Etapa 1';
+    const title = 'Crie uma conta de administrador';
+    const inputBackgroundColor = 'var(--color-primary-white)';
+    const children = <div>Conteúdo do formulário</div>;
 
-    const { getByLabelText } = render(
-      <AdminForm
-        adminName=""
-        adminEmail=""
-        adminPhone=""
-        adminUsername=""
-        adminPassword=""
-        updateFields={updateFieldsMock}
-      />,
-      {
-        wrapper: FormWrapper,
-      }
+    const { getByText } = render(
+      <FormWrapper
+        step={step}
+        title={title}
+        inputBackgroundColor={inputBackgroundColor}
+      >
+        {children}
+      </FormWrapper>
     );
 
-    const nameInput = getByLabelText('Nome') as HTMLInputElement;
-    const emailInput = getByLabelText('Email') as HTMLInputElement;
-    const phoneInput = getByLabelText('Telefone') as HTMLInputElement;
-    const usernameInput = getByLabelText('Nome do usuário') as HTMLInputElement;
-    const passwordInput = getByLabelText('Senha') as HTMLInputElement;
+    const stepElement = getByText(step);
+    expect(stepElement).toBeInTheDocument();
 
-    fireEvent.change(nameInput, { target: { value: 'John Doe' } });
-    fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
-    fireEvent.change(phoneInput, { target: { value: '(123) 456-7890' } });
-    fireEvent.change(usernameInput, { target: { value: 'johndoe' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    const titleElement = getByText(title);
+    expect(titleElement).toBeInTheDocument();
+  });
+});
 
-    expect(updateFieldsMock).toHaveBeenCalledWith({
-      adminName: 'John Doe',
-      adminEmail: 'john@example.com',
-      adminPhone: '(123) 456-7890',
-      adminUsername: 'johndoe',
-      adminPassword: 'password123',
-    });
+
+
+describe('AccountCreated', () => {
+  it('deve exibir corretamente o texto, estilos e comportamento do botão de acesso', () => {
+    const navigateMock = jest.fn();
+    (useNavigate as jest.Mock<NavigateFunction>).mockImplementation(() => navigateMock);
+
+    const { getByText } = render(<AccountCreated />);
+
+    const titleElement = getByText('Conta criada com sucesso!');
+    expect(titleElement).toBeInTheDocument();
+
+    const accessButton = getByText('Acessar Time');
+    expect(accessButton).toBeInTheDocument();
+    expect(accessButton).toHaveStyle('background-color: var(--color-primary-blue)');
+    expect(accessButton).toHaveStyle('color: var(--color-primary-white)');
+    fireEvent.click(accessButton);
+    expect(navigateMock).toHaveBeenCalledWith('/athletes');
   });
 });
