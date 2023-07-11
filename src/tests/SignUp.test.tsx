@@ -48,7 +48,7 @@ describe('FormWrapper', () => {
 
 
 describe('AccountCreated', () => {
-  it('deve exibir corretamente o texto, estilos e comportamento do botão de acesso', () => {
+  it('should correctly display the text, styles and behavior of button', () => {
     const navigateMock = jest.fn();
     (useNavigate as jest.Mock<NavigateFunction>).mockImplementation(() => navigateMock);
 

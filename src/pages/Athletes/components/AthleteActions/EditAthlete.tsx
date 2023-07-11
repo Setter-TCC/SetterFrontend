@@ -10,7 +10,16 @@ import { convertToISODate } from '../../../../utils/format';
 
 
 const EditAthlete: React.FC = () => {
-  const [newAthleteData, setNewAthleteData] = useState<AthleteData>({} as AthleteData);
+  const [newAthleteData, setNewAthleteData] = useState<AthleteData>({
+    name: '',
+    position: '',
+    phone: '',
+    rg: '',
+    cpf: '',
+    birth: '',
+    email: '',
+    teamId: '',
+  } as AthleteData);
   const { athleteAction, setResetActions, setActionModalInfo } = useAthlete();
   const { admin } = useAuth();
 
