@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 interface RowProps {
   isActive: boolean;
+  isWhiteRow?: boolean;
 }
 
 export const Loading = styled.div`
@@ -12,7 +13,7 @@ export const Loading = styled.div`
 `;
 
 export const Container = styled.div`
-  background: #FAFAFA;
+  background: var(--color-primary-white);
   min-height: 87vh;
 `;
 
@@ -28,7 +29,6 @@ export const HeaderContent = styled.div`
 export const TableWrapper = styled.div`
   max-height: 75vh;
   overflow: auto;
-  background: #FAFAFA;
 `;
 
 export const AthleteTable = styled.table`
@@ -63,6 +63,7 @@ export const TableBodyRow = styled.tr<RowProps>`
   position: relative;
   z-index: 1;
   color: ${props => (props.isActive ? '#4D4D4D' : 'rgba(77, 77, 77, 0.5)')};
+  background-color: ${props => (props.isWhiteRow ? '#f1f1f1' : '#ffffff')};
  
  td {
   &.first-cell {

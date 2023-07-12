@@ -93,8 +93,10 @@ const AthletesTableBody: React.FC = () => {
                     </tr>
                   </TableHead>
                   <TableBody>
-                    {filteredAthletes.map(athlete => (
-                      <TableBodyRow key={athlete.id}
+                    {filteredAthletes.map((athlete, i) => (
+                      <TableBodyRow
+                        isWhiteRow={i % 2 === 0}
+                        key={athlete.id}
                         onClick={() => handleRowClick(athlete.id)}
                         isActive={athlete.isActive}
                       >
