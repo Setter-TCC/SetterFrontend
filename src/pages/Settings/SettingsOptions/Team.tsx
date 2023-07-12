@@ -65,7 +65,6 @@ const TeamSettings: React.FC = () => {
                   type="text"
                   id="name"
                   defaultValue={selectedTeamData.name}
-                  value={newTeamData.name}
                   onChange={(e) => setNewTeamData({ ...newTeamData, name: e.target.value })}
                 />
               </InputWrapper>
@@ -76,7 +75,6 @@ const TeamSettings: React.FC = () => {
                   id="email"
                   disabled={true}
                   defaultValue={selectedTeamData.email}
-                  value={newTeamData.email}
                   onChange={(e) => setNewTeamData({ ...newTeamData, email: e.target.value })}
                 />
               </InputWrapper>
@@ -90,7 +88,6 @@ const TeamSettings: React.FC = () => {
                   id="cnpj"
                   type="text"
                   defaultValue={selectedTeamData.cnpj}
-                  value={newTeamData.cnpj}
                   onChange={(e) => setNewTeamData({ ...newTeamData, cnpj: e.target.value })}
                 />
               </InputWrapper>
@@ -98,7 +95,6 @@ const TeamSettings: React.FC = () => {
                 <label htmlFor="suit">Naipe do Time*</label>
                 <select
                   defaultValue={selectedTeamData.suit || 1}
-                  value={newTeamData.suit}
                   onChange={(e) => setNewTeamData({ ...newTeamData, suit: Number(e.target.value) })}
                 >
                   {suits.map(suit => (
