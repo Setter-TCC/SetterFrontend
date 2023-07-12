@@ -8,7 +8,7 @@ import api from '../../../../services/api';
 import loadingImg from '../../../../assets/icons/loading.svg';
 import { useAuth } from '../../../../auth/AuthContext';
 import { AthleteData, getPositionText, translateAthleteFrontData } from '../utils/interfaces';
-import { formatCPF, formatPhone, formatRG } from '../../../../utils/format';
+import { formatCPF, formatPhone } from '../../../../utils/format';
 
 interface RowButtonsState {
   [key: string]: boolean;
@@ -104,7 +104,7 @@ const AthletesTableBody: React.FC = () => {
                         <td>{athlete.name}</td>
                         <td>{getPositionText(athlete.position)}</td>
                         <td>{formatPhone(athlete.phone)}</td>
-                        <td>{formatRG(athlete.rg)}</td>
+                        <td>{athlete.rg}</td>
                         <td>{formatCPF(athlete.cpf)}</td>
                         <td>{athlete.birth}</td>
                         <td>{athlete.email}</td>

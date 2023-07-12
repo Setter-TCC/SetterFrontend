@@ -8,6 +8,8 @@ import { FormDrawerWrapper } from '../../../../components/FormWrapper';
 import api from '../../../../services/api';
 
 const AddAthlete: React.FC = () => {
+  const { admin } = useAuth();
+  const { setResetActions, setActionModalInfo } = useAthlete();
   const [athleteData, setAthleteData] = useState<AthleteData>({
     name: '',
     position: '',
@@ -18,8 +20,7 @@ const AddAthlete: React.FC = () => {
     email: '',
     teamId: '',
   } as AthleteData);
-  const { setResetActions, setActionModalInfo } = useAthlete();
-  const { admin } = useAuth();
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const backAddAtheleteData = translateAthleteBackData({ ...athleteData, teamId: admin.teamId });
@@ -70,9 +71,8 @@ const AddAthlete: React.FC = () => {
               onChange={e => setAthleteData({ ...athleteData, phone: e.target.value })}
             />
             <label htmlFor='rg'>RG</label>
-            <InputMask
-              mask="99.999.999-9"
-              id="rg"
+            <input
+              id='rg'
               type="text"
               value={athleteData.rg}
               onChange={e => setAthleteData({ ...athleteData, rg: e.target.value })}
@@ -110,7 +110,6 @@ const AddAthlete: React.FC = () => {
       </Container>
     </ContainerBackground>
   );
-
 };
 
 export default AddAthlete;
