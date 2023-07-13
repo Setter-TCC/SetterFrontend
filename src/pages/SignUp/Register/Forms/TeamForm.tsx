@@ -13,7 +13,7 @@ type TeamFormProps = TeamData & {
   updateFields: (fields: Partial<TeamData>) => void,
 }
 
-export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields }: TeamFormProps) => {
+export const TeamForm = ({ teamName = '', teamEmail = '', teamCnpj = '', teamSuit = 1, updateFields }: TeamFormProps) => {
   return <FormWrapper step="Etapa 2" title='Crie uma conta para seu time' inputBackgroundColor='var(--color-primary-white)'>
     <label>Nome</label>
     <input
@@ -21,7 +21,6 @@ export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields
       required
       type="text"
       value={teamName}
-      defaultValue=''
       onChange={e => updateFields({ teamName: e.target.value })}
     />
 
@@ -31,7 +30,6 @@ export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields
       id="cnpj"
       type="text"
       value={teamCnpj}
-      defaultValue=''
       onChange={e => updateFields({ teamCnpj: e.target.value })}
     />
 
@@ -40,13 +38,11 @@ export const TeamForm = ({ teamName, teamEmail, teamCnpj, teamSuit, updateFields
       required
       type="email"
       value={teamEmail}
-      defaultValue=''
       onChange={e => updateFields({ teamEmail: e.target.value })}
     />
 
     <label>Naipe</label>
     <select
-      defaultValue={1}
       value={teamSuit}
       onChange={(e) => updateFields({ teamSuit: Number(e.target.value) })}>
       {suits.map(suit => (

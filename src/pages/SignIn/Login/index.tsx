@@ -8,7 +8,10 @@ import api from '../../../services/api';
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
-  const [loginData, setLoginData] = useState({} as LoginData);
+  const [loginData, setLoginData] = useState({
+    username: '',
+    password: ''
+  } as LoginData);
   const { logIn } = useAuth();
 
   async function onSubmit(e: FormEvent) {
@@ -33,19 +36,19 @@ const LoginForm: React.FC = () => {
     <Container>
       <form onSubmit={onSubmit}>
         <LoginWrapper>
-          <label>Nome do usuário</label>
+          <label htmlFor="username">Nome do usuário</label>
           <input
+            id="username"
             required
             type="text"
-            defaultValue=''
             value={loginData.username}
             onChange={e => setLoginData({ username: e.target.value, password: loginData.password })}
           />
-          <label>Senha</label>
+          <label htmlFor="password">Senha</label>
           <input
+            id="password"
             required
             type="password"
-            defaultValue=''
             value={loginData.password}
             onChange={e => setLoginData({ username: loginData.username, password: e.target.value })}
           />

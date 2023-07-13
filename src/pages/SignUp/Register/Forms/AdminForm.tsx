@@ -13,7 +13,7 @@ type AdminFormProps = AdminData & {
   updateFields: (fields: Partial<AdminData>) => void,
 }
 
-export const AdminForm = ({ adminName, adminEmail, adminPhone, adminUsername, adminPassword, updateFields }: AdminFormProps) => {
+export const AdminForm = ({ adminName = '', adminEmail = '', adminPhone = '', adminUsername = '', adminPassword = '', updateFields }: AdminFormProps) => {
 
   return <FormWrapper step="Etapa 1" title="Crie uma conta de administrador" inputBackgroundColor='var(--color-primary-white)'>
     <label>Nome</label>
@@ -22,14 +22,12 @@ export const AdminForm = ({ adminName, adminEmail, adminPhone, adminUsername, ad
       required
       type="text"
       value={adminName}
-      defaultValue=''
       onChange={e => updateFields({ adminName: e.target.value })} />
     <label>Email</label>
     <input
       required
       type="email"
       value={adminEmail}
-      defaultValue=''
       onChange={e => updateFields({ adminEmail: e.target.value })}
     />
     <label>Telefone</label>
@@ -38,7 +36,6 @@ export const AdminForm = ({ adminName, adminEmail, adminPhone, adminUsername, ad
       id="phone"
       type="text"
       value={adminPhone}
-      defaultValue=''
       onChange={e => updateFields({ adminPhone: e.target.value })}
     />
     <label>Nome do usuário</label>
@@ -47,14 +44,12 @@ export const AdminForm = ({ adminName, adminEmail, adminPhone, adminUsername, ad
       required
       type="text"
       value={adminUsername}
-      defaultValue=''
       onChange={e => updateFields({ adminUsername: e.target.value })} />
     <label>Senha</label>
     <input
       required
       type="password"
       value={adminPassword}
-      defaultValue=''
       onChange={e => updateFields({ adminPassword: e.target.value })}
     />
   </FormWrapper>;
