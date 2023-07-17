@@ -79,7 +79,6 @@ const AdminSettings: React.FC = () => {
                 <input
                   type="text"
                   defaultValue={selectedAdmin.name}
-                  value={newAdminData.name}
                   onChange={(e) => setNewAdminData({ ...newAdminData, name: e.target.value })}
                 />
               </InputWrapper>
@@ -89,7 +88,6 @@ const AdminSettings: React.FC = () => {
                   disabled={true}
                   type="text"
                   defaultValue={selectedAdmin.username || ''}
-                  value={newAdminData.username}
                   onChange={(e) => setNewAdminData({ ...newAdminData, name: e.target.value })}
                 />
               </InputWrapper>
@@ -98,7 +96,6 @@ const AdminSettings: React.FC = () => {
                 <input
                   type="password"
                   defaultValue={selectedAdmin.oldPassword || ''}
-                  value={newAdminData.oldPassword}
                   onChange={(e) => setNewAdminData({ ...newAdminData, oldPassword: e.target.value })}
                 />
               </InputWrapper>
@@ -110,7 +107,6 @@ const AdminSettings: React.FC = () => {
                   type="email"
                   disabled={true}
                   defaultValue={selectedAdmin.email || ''}
-                  value={newAdminData.email}
                   onChange={(e) => setNewAdminData({ ...newAdminData, email: e.target.value })}
                 />
               </InputWrapper>
@@ -120,7 +116,6 @@ const AdminSettings: React.FC = () => {
                   mask="(99) 99999-9999"
                   type="text"
                   defaultValue={selectedAdmin.phone}
-                  value={newAdminData.phone}
                   onChange={(e) => setNewAdminData({ ...newAdminData, phone: e.target.value })}
                 />
               </InputWrapper>
@@ -129,7 +124,6 @@ const AdminSettings: React.FC = () => {
                 <input
                   type="password"
                   defaultValue={selectedAdmin.newPassword || ''}
-                  value={newAdminData.newPassword}
                   onChange={(e) => setNewAdminData({ ...newAdminData, newPassword: e.target.value })}
                 />
               </InputWrapper>

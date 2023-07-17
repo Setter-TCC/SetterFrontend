@@ -10,7 +10,16 @@ import { convertToISODate } from '../../../../utils/format';
 
 
 const EditAthlete: React.FC = () => {
-  const [newAthleteData, setNewAthleteData] = useState<AthleteData>({} as AthleteData);
+  const [newAthleteData, setNewAthleteData] = useState<AthleteData>({
+    name: '',
+    position: '',
+    phone: '',
+    rg: '',
+    cpf: '',
+    birth: '',
+    email: '',
+    teamId: '',
+  } as AthleteData);
   const { athleteAction, setResetActions, setActionModalInfo } = useAthlete();
   const { admin } = useAuth();
 
@@ -47,7 +56,7 @@ const EditAthlete: React.FC = () => {
               required
               defaultValue={selectedAthlete?.name}
               type="text"
-              value={newAthleteData.name}
+              // value={newAthleteData.name}
               onChange={e => setNewAthleteData({ ...newAthleteData, name: e.target.value })}
             />
             <label>Posição*</label>
@@ -62,16 +71,13 @@ const EditAthlete: React.FC = () => {
               mask="(99) 99999-9999"
               id="phone"
               type="text"
-              value={newAthleteData.phone}
               defaultValue={selectedAthlete?.phone}
               onChange={e => setNewAthleteData({ ...newAthleteData, phone: e.target.value })}
             />
             <label>RG</label>
-            <InputMask
-              mask="99.999.999-9"
-              id="rg"
+            <input
+              id='rg'
               type="text"
-              value={newAthleteData.rg}
               defaultValue={selectedAthlete?.rg}
               onChange={e => setNewAthleteData({ ...newAthleteData, rg: e.target.value })}
             />
@@ -80,7 +86,6 @@ const EditAthlete: React.FC = () => {
               mask="999.999.999-99"
               id="cpf"
               type="text"
-              value={newAthleteData.cpf}
               defaultValue={selectedAthlete?.cpf}
               onChange={e => setNewAthleteData({ ...newAthleteData, cpf: e.target.value })}
             />
@@ -89,7 +94,6 @@ const EditAthlete: React.FC = () => {
               required
               type="date"
               defaultValue={convertToISODate(selectedAthlete?.birth || '')}
-              value={newAthleteData.birth}
               onChange={e => setNewAthleteData({ ...newAthleteData, birth: e.target.value })}
             />
             <label>Email*</label>
@@ -97,7 +101,6 @@ const EditAthlete: React.FC = () => {
               required
               type="email"
               defaultValue={selectedAthlete?.email}
-              value={newAthleteData.email}
               onChange={e => setNewAthleteData({ ...newAthleteData, email: e.target.value })}
             />
           </FormDrawerWrapper>

@@ -8,9 +8,19 @@ import { FormDrawerWrapper } from '../../../../components/FormWrapper';
 import api from '../../../../services/api';
 
 const AddAthlete: React.FC = () => {
-  const [athleteData, setAthleteData] = useState<AthleteData>({} as AthleteData);
-  const { setResetActions, setActionModalInfo } = useAthlete();
   const { admin } = useAuth();
+  const { setResetActions, setActionModalInfo } = useAthlete();
+  const [athleteData, setAthleteData] = useState<AthleteData>({
+    name: '',
+    position: '',
+    phone: '',
+    rg: '',
+    cpf: '',
+    birth: '',
+    email: '',
+    teamId: '',
+  } as AthleteData);
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const backAddAtheleteData = translateAthleteBackData({ ...athleteData, teamId: admin.teamId });
@@ -38,61 +48,57 @@ const AddAthlete: React.FC = () => {
               <img src={addUser} />
               <input type="file" accept="image/*" name="imageInput" id="imageInput" />
             </ImgWrapper> */}
-            <label>Nome*</label>
+            <label htmlFor='name'>Nome*</label>
             <input
+              id='name'
               required
               type="text"
               value={athleteData.name}
-              defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, name: e.target.value })}
             />
-            <label>Posição*</label>
-            <select value={athleteData.position} onChange={e => setAthleteData({ ...athleteData, position: e.target.value.toString() })}>
+            <label htmlFor='position'>Posição*</label>
+            <select id='position' value={athleteData.position} onChange={e => setAthleteData({ ...athleteData, position: e.target.value.toString() })}>
               {athletePositions.map(position => (
-                <option key={position.type} value={position.type}>{position.value}</option>
+                <option id='position' key={position.type} value={position.type}>{position.value}</option>
               ))}
             </select>
-            <label>Telefone*</label>
+            <label htmlFor='phone'>Telefone*</label>
             <InputMask
               mask="(99) 99999-9999"
               id="phone"
               type="text"
               value={athleteData.phone}
-              defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, phone: e.target.value })}
             />
-            <label>RG</label>
-            <InputMask
-              mask="99.999.999-9"
-              id="rg"
+            <label htmlFor='rg'>RG</label>
+            <input
+              id='rg'
               type="text"
               value={athleteData.rg}
-              defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, rg: e.target.value })}
             />
-            <label>CPF</label>
+            <label htmlFor='cpf'>CPF</label>
             <InputMask
               mask="999.999.999-99"
               id="cpf"
               type="text"
               value={athleteData.cpf}
-              defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, cpf: e.target.value })}
             />
-            <label>Data de Nascimento*</label>
+            <label htmlFor='birth'>Data de Nascimento*</label>
             <input
+              id='birth'
               required
               type="date"
               value={athleteData.birth}
-              defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, birth: e.target.value })}
             />
-            <label>Email*</label>
+            <label htmlFor='email'>Email*</label>
             <input
+              id='email'
               required
               type="email"
               value={athleteData.email}
-              defaultValue=''
               onChange={e => setAthleteData({ ...athleteData, email: e.target.value })}
             />
           </FormDrawerWrapper>
@@ -104,7 +110,6 @@ const AddAthlete: React.FC = () => {
       </Container>
     </ContainerBackground>
   );
-
 };
 
 export default AddAthlete;
