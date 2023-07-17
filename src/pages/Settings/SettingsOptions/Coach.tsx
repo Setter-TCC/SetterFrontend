@@ -72,8 +72,6 @@ const CoachSettings: React.FC = () => {
         }
       }
     }
-
-
   };
 
   useEffect(() => {
@@ -93,7 +91,6 @@ const CoachSettings: React.FC = () => {
                   type="text"
                   id="name"
                   defaultValue={selectedCoachData.name || ''}
-                  value={newCoachData.name}
                   onChange={(e) => setNewCoachData({ ...newCoachData, name: e.target.value })}
                 />
               </InputWrapper>
@@ -104,7 +101,6 @@ const CoachSettings: React.FC = () => {
                   required
                   disabled={selectedCoachData.email ? true : false}
                   defaultValue={selectedCoachData.email}
-                  value={newCoachData.email}
                   onChange={(e) => setNewCoachData({ ...newCoachData, email: e.target.value })}
                 />
               </InputWrapper>
@@ -115,7 +111,6 @@ const CoachSettings: React.FC = () => {
                   id="phone"
                   type="text"
                   defaultValue={selectedCoachData.phone}
-                  value={newCoachData.phone}
                   onChange={(e) => setNewCoachData({ ...newCoachData, phone: e.target.value })}
                 />
               </InputWrapper>
@@ -125,7 +120,6 @@ const CoachSettings: React.FC = () => {
                   required
                   type="date"
                   defaultValue={selectedCoachData.startDate}
-                  value={newCoachData.startDate}
                   max={today}
                   onChange={(e) => setNewCoachData({ ...newCoachData, startDate: e.target.value })}
                 />
@@ -139,7 +133,6 @@ const CoachSettings: React.FC = () => {
                   id="rg"
                   type="text"
                   defaultValue={selectedCoachData.rg}
-                  value={newCoachData.rg}
                   onChange={(e) => setNewCoachData({ ...newCoachData, rg: e.target.value })}
                 />
               </InputWrapper>
@@ -150,7 +143,6 @@ const CoachSettings: React.FC = () => {
                   id="cpf"
                   type="text"
                   defaultValue={selectedCoachData.cpf}
-                  value={newCoachData.cpf}
                   onChange={(e) => setNewCoachData({ ...newCoachData, cpf: e.target.value })}
                 />
               </InputWrapper>
@@ -160,7 +152,6 @@ const CoachSettings: React.FC = () => {
                 <input
                   type="text"
                   defaultValue={selectedCoachData.cref}
-                  value={newCoachData.cref}
                   onChange={(e) => setNewCoachData({ ...newCoachData, cref: e.target.value })}
                 />
               </InputWrapper>
@@ -169,7 +160,6 @@ const CoachSettings: React.FC = () => {
                 <input
                   type="date"
                   defaultValue={selectedCoachData.endDate || ''}
-                  value={newCoachData.endDate}
                   max={today}
                   onChange={(e) => setNewCoachData({ ...newCoachData, endDate: e.target.value })}
                 />
