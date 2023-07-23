@@ -6,6 +6,7 @@ import { AuthProvider } from './auth/AuthContext';
 import { AthleteProvider } from './hooks/Athlete';
 import { SettingsProvider } from './hooks/Settings';
 import { CashProvider } from './hooks/Cash';
+import { EventsProvider } from './hooks/Event';
 
 export default function AppRouter() {
   return (
@@ -17,7 +18,9 @@ export default function AppRouter() {
             <AthleteProvider>
               <SettingsProvider>
                 <CashProvider>
-                  <RenderRoutes />
+                  <EventsProvider>
+                    <RenderRoutes />
+                  </EventsProvider>
                 </CashProvider>
               </SettingsProvider>
             </AthleteProvider>

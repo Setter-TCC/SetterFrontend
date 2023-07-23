@@ -6,7 +6,7 @@ import AccountCreated from '../pages/AccountCreated';
 import Cash from '../pages/Cash';
 import Settings from '../pages/Settings';
 import SignUp from '../pages/SignUp';
-import Presence from '../pages/Presence';
+import Events from '../pages/Events';
 
 interface NavItem {
   path: string;
@@ -23,5 +23,5 @@ export const navigation: NavItem[] = [
   { path: '/athletes', element: <Athletes />, name: 'Athletes', isPrivate: true },
   { path: '/cash', element: <Cash />, name: 'Cash', isPrivate: true },
   { path: '/settings', element: <Settings />, name: 'Settings', isPrivate: true },
-  { path: '/presence', element: <Presence />, name: 'Presence', isPrivate: true },
+  { path: '/events', element: <Events />, name: 'Presence', isPrivate: true },
 ];

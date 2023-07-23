@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Container, EventsOption, EventSelect, PresenceHeaderContainer, OptionsButtons, ButtonsWrapper } from './styles';
 import { useSettings } from '../../../hooks/Settings';
 import { EventType, eventTypeText } from '../utils/interfaces';
+import { set } from 'date-fns';
+import { useEvent } from '../../../hooks/Event';
 
 interface RenderConfigOptions {
   [key: string]: React.ReactElement;
@@ -14,31 +16,26 @@ interface RenderConfigOptions {
 //   deactivateCoach: <DeactivateCoach />,
 // };
 
-const PresenceHeader: React.FC = () => {
-  const {
-    settingsAction,
-    actionModalInfo,
-    setEditAdmin,
-    setEditCoach,
-    setEditTeam,
-  } = useSettings();
-
+const EventsHeader: React.FC = () => {
+  const { setListEvents, setFilterTrainning, setFilterGame,
+    setFilterOther, setAddTrainning, setAddGame, setAddOther } = useEvent();
   const [selected, setSelected] = useState('');
   const [showOptions, setShowOptions] = useState(false);
 
   const handleClick = (key: string) => {
     setSelected(key);
 
-    // const actionMapping: { [key: string]: () => void } = {
-    //   editTeam: setEditTeam,
-    //   editAdmin: setEditAdmin,
-    //   editCoach: setEditCoach,
-    // };
+    const actionMapping: { [key: string]: () => void } = {
+      listEvents: setListEvents,
+      filterOther: setFilterOther,
+      filterGame: setFilterGame,
+      filterTrainning: setFilterTrainning,
+    };
 
-    // const selectedAction = actionMapping[key];
-    // if (selectedAction) {
-    //   selectedAction();
-    // }
+    const selectedAction = actionMapping[key];
+    if (selectedAction) {
+      selectedAction();
+    }
   };
 
   const eventsOptions = [
@@ -51,9 +48,9 @@ const PresenceHeader: React.FC = () => {
     setShowOptions(!showOptions);
   };
 
-  // useEffect(() => {
-  //   setEditTeam();
-  // }, []);
+  useEffect(() => {
+    setListEvents();
+  }, []);
 
   return (
     <Container>
@@ -79,19 +76,13 @@ const PresenceHeader: React.FC = () => {
           </button>
           {showOptions && (
             <OptionsButtons>
-              <button
-              // onClick={setSelectAthlete}
-              >
+              <button onClick={setAddTrainning}>
                 {eventTypeText(EventType.trainning)}
               </button>
-              <button
-              // onClick={setCoachPayment}
-              >
+              <button onClick={setAddGame} >
                 {eventTypeText(EventType.game)}
               </button>
-              <button
-              // onClick={setCashIn}
-              >
+              <button onClick={setAddOther} >
                 {eventTypeText(EventType.other)}
               </button>
             </OptionsButtons>
@@ -104,4 +95,4 @@ const PresenceHeader: React.FC = () => {
   );
 };
 
-export default PresenceHeader;
+export default EventsHeader;

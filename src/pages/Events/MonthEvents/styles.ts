@@ -10,7 +10,7 @@ interface ButtonProps {
 
 export const Container = styled.div`
   display: flex;
-  padding: 2em 10em 2em 2em;
+  /* padding: 2em 10em 2em 2em; */
   flex-direction: column;
   justify-content: flex-start;
 `;
@@ -112,5 +112,69 @@ export const OptionsButtons = styled.div`
     &:hover {
       font-weight: 600;
     }
+  }
+`;
+
+
+export const MonthEventContainerWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid #E5E5E5;
+  border-bottom: none;
+  border-radius: 10px 10px 0px 0px; */
+  
+  width: 100%;
+  min-height: 75vh;
+  margin-top: 1.5em;
+  `;
+
+export const MonthEventContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  padding: 1em 2em;
+`;
+
+export const EventHeader = styled.div`
+  padding: 2em 2em 1em;
+`;
+
+export const HeaderTitle = styled.h1`
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 45px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+
+  color: #4E3C3C;
+`;
+
+export const MonthEventHeaderContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2.5em;
+`;
+
+export const MonthEventBodyContainer = styled.div`
+  margin-top: 2em;
+  max-height: 60vh;
+  overflow: auto;
+`;
+
+export const ExtractTitle = styled.div`
+  border-bottom: 1px solid #E5E5E5;
+  margin-bottom: 1em;
+  h3 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;  
+    color: var(--color-primary-grey);
   }
 `;

@@ -5,15 +5,15 @@ export const Container = styled.div`
   display: flex;
 `;
 
-export const PresenceContainer = styled.div`
+export const EventContainer = styled.div`
   width: 100vw;
 `;
 
-export const PresenceContainerHeader = styled.div`
+export const EventContainerHeader = styled.div`
   padding: 2em 2em 1em;
 `;
 
-export const PresenceBody = styled.div`
+export const EventBody = styled.div`
   padding: 0em 2em;
   width: 100%;
   min-width: 80vw;
