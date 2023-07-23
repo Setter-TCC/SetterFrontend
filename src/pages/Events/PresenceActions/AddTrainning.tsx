@@ -6,7 +6,7 @@ import { useEvent } from '../../../hooks/Event';
 
 const AddTrainning: React.FC = () => {
   const today = new Date().toISOString().split('T')[0];
-  const { setResetActions, presenceAthletes } = useEvent();
+  const { setResetActions, presenceAthletes, selectedEvent } = useEvent();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ const AddTrainning: React.FC = () => {
       <ContainerBox>
         <form onSubmit={onSubmit}>
           <Container>
-            <h2>Adicionar Treino</h2>
+            <h2>{selectedEvent ? 'Treino' : 'Adicionar Treino'}</h2>
             <EventFormBox>
               <Column>
                 <InputWrapper>
@@ -24,6 +24,7 @@ const AddTrainning: React.FC = () => {
                   <input
                     type="date"
                     max={today}
+                    defaultValue={selectedEvent?.date}
                   />
                 </InputWrapper>
               </Column>
@@ -32,6 +33,7 @@ const AddTrainning: React.FC = () => {
                   <label htmlFor="local">Local</label>
                   <input
                     type="text"
+                    defaultValue={selectedEvent?.local}
                   />
                 </InputWrapper>
               </Column>
@@ -45,6 +47,7 @@ const AddTrainning: React.FC = () => {
                 <input
                   className='observation'
                   type="text"
+                  defaultValue={selectedEvent?.observation}
                 />
               </InputWrapper>
             </FormBox>

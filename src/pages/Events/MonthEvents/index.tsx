@@ -6,6 +6,7 @@ import AddGame from '../PresenceActions/AddGame';
 import AddOther from '../PresenceActions/AddOther';
 import EventsHeader from './MonthEventsHeader';
 import MonthCashBody from '../../Cash/components/MonthCash/MonthCashBody';
+import MonthEventsBody from './MonthEventsBody';
 // import CashInfoModal from '../../../../components/CashModalInfo';
 
 interface RenderConfigOptions {
@@ -28,7 +29,7 @@ const MonthEvents: React.FC = () => {
         {presenceAction && renderConfigs[presenceAction.showAction]}
         {/* {actionModalInfo && <CashInfoModal text={actionModalInfo.text} />} */}
         <EventsHeader />
-        {/* <MonthCashBody /> */}
+        <MonthEventsBody />
       </MonthEventContainer>
     </MonthEventContainerWrapper>
   );

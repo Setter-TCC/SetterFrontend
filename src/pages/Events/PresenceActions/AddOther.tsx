@@ -6,7 +6,7 @@ import { useEvent } from '../../../hooks/Event';
 
 const AddOther: React.FC = () => {
   const today = new Date().toISOString().split('T')[0];
-  const { setResetActions, presenceAthletes } = useEvent();
+  const { setResetActions, presenceAthletes, selectedEvent } = useEvent();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,12 +16,13 @@ const AddOther: React.FC = () => {
       <ContainerBox>
         <form onSubmit={onSubmit}>
           <Container>
-            <h2>Adicionar Outro Evento</h2>
+            <h2>{selectedEvent ? 'Evento' : 'Adicionar Evento'}</h2>
             <EventFormBox>
               <Column>
                 <InputWrapper>
                   <label htmlFor="name">Nome do Evento</label>
                   <input
+                    defaultValue={selectedEvent?.name}
                     type="text"
                   />
                 </InputWrapper>
@@ -32,6 +33,7 @@ const AddOther: React.FC = () => {
                   <input
                     type="date"
                     max={today}
+                    defaultValue={selectedEvent?.date}
                   />
                 </InputWrapper>
               </Column>
@@ -43,6 +45,7 @@ const AddOther: React.FC = () => {
               <InputWrapper>
                 <label htmlFor="value">Observações</label>
                 <input
+                  defaultValue={selectedEvent?.observation}
                   className='observation'
                   type="text"
                 />

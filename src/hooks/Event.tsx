@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useContext, useReducer, useState } from 'react';
 import { AthleteData } from '../pages/Athletes/components/utils/interfaces';
+import { EventData } from '../pages/Events/utils/interfaces';
 
 interface EventContextData {
+  selectedEvent?: EventData,
+  setSelectedEvent(event: EventData): void,
   selectedMonth: MonthEvents,
   setSelectedMonth(month: MonthEvents): void,
   presenceAthletes: AthleteData[],
@@ -109,6 +112,7 @@ const EventsProvider = ({ children }: any): JSX.Element => {
   } as MonthEvents);
 
   const [presenceAthletes, setPresenceAthletes] = useState<AthleteData[]>([] as AthleteData[]);
+  const [selectedEvent, setSelectedEvent] = useState<EventData | undefined>(undefined as EventData | undefined);
 
   const [presenceAction, setCashAction] = useReducer(
     presenceReducer,
@@ -190,6 +194,8 @@ const EventsProvider = ({ children }: any): JSX.Element => {
     setActionModalInfo,
     presenceAthletes,
     setPresenceAthletes,
+    selectedEvent,
+    setSelectedEvent,
     // searchValue,
     // setSearchValue,
     // selectedAthlete,

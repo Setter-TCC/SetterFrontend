@@ -119,9 +119,6 @@ export const OptionsButtons = styled.div`
 export const MonthEventContainerWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  /* border: 1px solid #E5E5E5;
-  border-bottom: none;
-  border-radius: 10px 10px 0px 0px; */
   
   width: 100%;
   min-height: 75vh;
@@ -165,6 +162,10 @@ export const MonthEventBodyContainer = styled.div`
   margin-top: 2em;
   max-height: 60vh;
   overflow: auto;
+
+  border: 1px solid #E5E5E5;
+  border-bottom: none;
+  border-radius: 10px 10px 0px 0px;
 `;
 
 export const ExtractTitle = styled.div`

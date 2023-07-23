@@ -1,3 +1,27 @@
+export interface PresenceListAthlete {
+  athleteId: string;
+  athleteName: string;
+  athletePresence: boolean;
+  athleteFault: boolean;
+  athleteJustifiedFault: boolean;
+  athleteJustification?: string;
+}
+
+export interface EventData {
+  id: number;
+  name?: string;
+  type: EventType;
+  date: string;
+  local?: string;
+  presences: number;
+  faults: number;
+  justifiedFaults: number;
+  opponent?: string;
+  championship?: string;
+  observation?: string;
+  listAthletes?: PresenceListAthlete[];
+}
+
 export enum EventType {
   trainning = 1,
   game = 2,

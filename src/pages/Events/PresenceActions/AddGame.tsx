@@ -2,11 +2,11 @@ import React from 'react';
 import { BackButton, Buttons, Column, Container, ContainerBackground, ContainerBox, FormBox, InputWrapper, SelectButton, EventFormBox } from './styles';
 import ListaAtletas from '../PresenceList';
 import { useEvent } from '../../../hooks/Event';
-
+import { EventData } from '../utils/interfaces';
 
 const AddGame: React.FC = () => {
   const today = new Date().toISOString().split('T')[0];
-  const { setResetActions, presenceAthletes } = useEvent();
+  const { setResetActions, presenceAthletes, selectedEvent } = useEvent();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,12 +16,13 @@ const AddGame: React.FC = () => {
       <ContainerBox>
         <form onSubmit={onSubmit}>
           <Container>
-            <h2>Adicionar Jogo</h2>
+            <h2>{selectedEvent ? 'Jogo' : 'Adicionar Jogo'}</h2>
             <EventFormBox>
               <Column>
                 <InputWrapper>
                   <label htmlFor="date">Data*</label>
                   <input
+                    defaultValue={selectedEvent?.date}
                     type="date"
                     max={today}
                   />
@@ -29,6 +30,7 @@ const AddGame: React.FC = () => {
                 <InputWrapper>
                   <label htmlFor="oponnent">Adversário</label>
                   <input
+                    defaultValue={selectedEvent?.opponent}
                     type="text"
                   />
                 </InputWrapper>
@@ -37,6 +39,7 @@ const AddGame: React.FC = () => {
                 <InputWrapper>
                   <label htmlFor="local">Local</label>
                   <input
+                    defaultValue={selectedEvent?.local}
                     type="text"
                   />
                 </InputWrapper>
@@ -44,6 +47,7 @@ const AddGame: React.FC = () => {
                 <InputWrapper>
                   <label htmlFor="championship">Campeonato</label>
                   <input
+                    defaultValue={selectedEvent?.championship}
                     type="text"
                   />
                 </InputWrapper>
@@ -56,6 +60,7 @@ const AddGame: React.FC = () => {
               <InputWrapper>
                 <label htmlFor="value">Observações</label>
                 <input
+                  defaultValue={selectedEvent?.observation}
                   className='observation'
                   type="text"
                 />

@@ -54,7 +54,6 @@ const Events: React.FC = () => {
         <EventBody>
           <MonthPicker />
           <MonthEvents />
-          {/* <MonthCash /> */}
         </EventBody>
       </EventContainer>
     </Container>
