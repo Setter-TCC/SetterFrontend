@@ -2,7 +2,6 @@ import React from 'react';
 import { BackButton, Buttons, Column, Container, ContainerBackground, ContainerBox, FormBox, InputWrapper, SelectButton, EventFormBox } from './styles';
 import ListaAtletas from '../PresenceList';
 import { useEvent } from '../../../hooks/Event';
-import { EventData } from '../utils/interfaces';
 
 const AddGame: React.FC = () => {
   const today = new Date().toISOString().split('T')[0];

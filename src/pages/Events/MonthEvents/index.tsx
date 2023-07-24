@@ -5,7 +5,6 @@ import AddTrainning from '../PresenceActions/AddTrainning';
 import AddGame from '../PresenceActions/AddGame';
 import AddOther from '../PresenceActions/AddOther';
 import EventsHeader from './MonthEventsHeader';
-import MonthCashBody from '../../Cash/components/MonthCash/MonthCashBody';
 import MonthEventsBody from './MonthEventsBody';
 // import CashInfoModal from '../../../../components/CashModalInfo';
 

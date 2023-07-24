@@ -25,7 +25,7 @@ const events: EventData[] = [
     justifiedFaults: 1,
   },
   {
-    id: 1,
+    id: 3,
     type: EventType.game,
     date: '2021-09-01',
     presences: 10,
@@ -40,7 +40,7 @@ const events: EventData[] = [
 
 const MonthEventsBody: React.FC = () => {
   const { admin } = useAuth();
-  const { selectedMonth, actionModalInfo } = useEvent();
+  const { listEvents, setListEvents, setFilteredEvents, selectedMonth, actionModalInfo } = useEvent();
 
   const getMonthEvents = async () => {
     // try {
@@ -55,16 +55,17 @@ const MonthEventsBody: React.FC = () => {
     //     setTransactions([]);
     //   }
     // }
-    return events;
+    setListEvents(events);
+    setFilteredEvents(events);
   };
 
   useEffect(() => {
     getMonthEvents();
-  }, [selectedMonth, actionModalInfo]);
+  }, [listEvents, selectedMonth, actionModalInfo]);
 
   return (
     <MonthEventBodyContainer>
-      <EventsTable events={events} />
+      <EventsTable />
     </MonthEventBodyContainer>
   );
 };

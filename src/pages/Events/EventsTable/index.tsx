@@ -4,12 +4,8 @@ import { Table, TableWrapper } from './styles';
 import { formatEventName } from '../utils/format';
 import { useEvent } from '../../../hooks/Event';
 
-interface EventsTableProps {
-  events: EventData[];
-}
-
-const EventsTable: React.FC<EventsTableProps> = ({ events }) => {
-  const { setSelectedEvent, setAddGame, setAddOther, setAddTrainning } = useEvent();
+const EventsTable: React.FC = () => {
+  const { filteredEvents, setSelectedEvent, setAddGame, setAddOther, setAddTrainning } = useEvent();
 
   const handleEventClick = (event: EventData) => {
     setSelectedEvent(event);
@@ -40,7 +36,7 @@ const EventsTable: React.FC<EventsTableProps> = ({ events }) => {
           </tr>
         </thead>
         <tbody>
-          {events.map((event: EventData) => (
+          {filteredEvents?.map((event: EventData) => (
             <tr
               key={event.id}
               onClick={() => handleEventClick(event)}>

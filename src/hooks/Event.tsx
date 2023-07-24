@@ -4,6 +4,10 @@ import { AthleteData } from '../pages/Athletes/components/utils/interfaces';
 import { EventData } from '../pages/Events/utils/interfaces';
 
 interface EventContextData {
+  listEvents: EventData[],
+  setListEvents(events: EventData[]): void,
+  filteredEvents?: EventData[],
+  setFilteredEvents(events: EventData[]): void,
   selectedEvent?: EventData,
   setSelectedEvent(event: EventData): void,
   selectedMonth: MonthEvents,
@@ -13,10 +17,6 @@ interface EventContextData {
   // searchValue: string,
   // setSearchValue(searchValue: string): void,
   presenceAction: EventAction,
-  setListEvents(): void,
-  setFilterTrainning(): void,
-  setFilterGame(): void,
-  setFilterOther(): void,
   setAddTrainning(): void,
   setAddGame(): void,
   setAddOther(): void,
@@ -26,11 +26,7 @@ interface EventContextData {
 }
 
 export enum EventActionType {
-  LIST_EVENTS = 'LIST_EVENTS',
   DEFAULT = 'DEFAULT',
-  FILTER_TRAINNING = 'FILTER_TRAINNING',
-  FILTER_GAME = 'FILTER_GAME',
-  FILTER_OTHER = 'FILTER_OTHER',
   ADD_TRAINNING = 'ADD_TRAINNING',
   ADD_GAME = 'ADD_GAME',
   ADD_OTHER = 'ADD_OTHER',
@@ -56,26 +52,6 @@ const athleteActionInitialState: EventAction = {
 
 const presenceReducer = (state: EventAction, action: any) => {
   switch (action.type) {
-  case EventActionType.LIST_EVENTS:
-    return {
-      ...state,
-      showAction: 'listEvents',
-    };
-  case EventActionType.FILTER_TRAINNING:
-    return {
-      ...state,
-      showAction: 'filterTrainning',
-    };
-  case EventActionType.FILTER_GAME:
-    return {
-      ...state,
-      showAction: 'filterGame',
-    };
-  case EventActionType.FILTER_OTHER:
-    return {
-      ...state,
-      showAction: 'filterOther',
-    };
   case EventActionType.ADD_TRAINNING:
     return {
       ...state,
@@ -112,6 +88,8 @@ const EventsProvider = ({ children }: any): JSX.Element => {
   } as MonthEvents);
 
   const [presenceAthletes, setPresenceAthletes] = useState<AthleteData[]>([] as AthleteData[]);
+  const [listEvents, setListEvents] = useState<EventData[]>([] as EventData[]);
+  const [filteredEvents, setFilteredEvents] = useState<EventData[]>([] as EventData[]);
   const [selectedEvent, setSelectedEvent] = useState<EventData | undefined>(undefined as EventData | undefined);
 
   const [presenceAction, setCashAction] = useReducer(
@@ -119,34 +97,6 @@ const EventsProvider = ({ children }: any): JSX.Element => {
     athleteActionInitialState,
   );
   const [actionModalInfo, setActionModalInfo] = useState<ActionModalInfo | null>(null);
-
-  const setListEvents = () => {
-    setCashAction({
-      type: EventActionType.LIST_EVENTS,
-      payload: {},
-    });
-  };
-
-  const setFilterTrainning = () => {
-    setCashAction({
-      type: EventActionType.FILTER_TRAINNING,
-      payload: {},
-    });
-  };
-
-  const setFilterGame = () => {
-    setCashAction({
-      type: EventActionType.FILTER_GAME,
-      payload: {},
-    });
-  };
-
-  const setFilterOther = () => {
-    setCashAction({
-      type: EventActionType.FILTER_OTHER,
-      payload: {},
-    });
-  };
 
   const setAddTrainning = () => {
     setCashAction({
@@ -182,10 +132,10 @@ const EventsProvider = ({ children }: any): JSX.Element => {
     selectedMonth,
     setSelectedMonth,
     presenceAction,
+    listEvents,
     setListEvents,
-    setFilterTrainning,
-    setFilterGame,
-    setFilterOther,
+    filteredEvents,
+    setFilteredEvents,
     setAddTrainning,
     setAddGame,
     setAddOther,

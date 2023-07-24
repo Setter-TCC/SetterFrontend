@@ -1,56 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Container, EventsOption, EventSelect, PresenceHeaderContainer, OptionsButtons, ButtonsWrapper } from './styles';
-import { useSettings } from '../../../hooks/Settings';
-import { EventType, eventTypeText } from '../utils/interfaces';
-import { set } from 'date-fns';
+import { EventData, EventType, eventTypeText } from '../utils/interfaces';
 import { useEvent } from '../../../hooks/Event';
 
-interface RenderConfigOptions {
-  [key: string]: React.ReactElement;
-}
-
-// const renderConfigs: RenderConfigOptions = {
-//   editTeam: <TeamSettings />,
-//   editAdmin: <AdminSettings />,
-//   editCoach: <CoachSettings />,
-//   deactivateCoach: <DeactivateCoach />,
-// };
 
 const EventsHeader: React.FC = () => {
-  const { setListEvents, setFilterTrainning, setFilterGame,
-    setFilterOther, setAddTrainning, setAddGame, setAddOther } = useEvent();
-  const [selected, setSelected] = useState('');
+  const { listEvents, setFilteredEvents, setAddTrainning, setAddGame, setAddOther } = useEvent();
+  const [selected, setSelected] = useState('allEvents');
   const [showOptions, setShowOptions] = useState(false);
 
   const handleClick = (key: string) => {
     setSelected(key);
 
-    const actionMapping: { [key: string]: () => void } = {
-      listEvents: setListEvents,
-      filterOther: setFilterOther,
-      filterGame: setFilterGame,
-      filterTrainning: setFilterTrainning,
+    const actionMapping: { [key: string]: EventData[] } = {
+      allEvents: listEvents,
+      filterOther: listEvents.filter((event) => event.type === EventType.other),
+      filterGame: listEvents.filter((event) => event.type === EventType.game),
+      filterTraining: listEvents.filter((event) => event.type === EventType.trainning),
     };
 
     const selectedAction = actionMapping[key];
     if (selectedAction) {
-      selectedAction();
+      setFilteredEvents(selectedAction);
     }
   };
 
   const eventsOptions = [
+    { label: 'Todos', key: 'allEvents' },
     { label: 'Treinos', key: 'filterTraining' },
-    { label: 'Jogos', key: 'filterGames' },
-    { label: 'Outros', key: 'filterOthers' },
+    { label: 'Jogos', key: 'filterGame' },
+    { label: 'Outros', key: 'filterOther' },
   ];
 
   const handleButtonClick = () => {
     setShowOptions(!showOptions);
   };
-
-  useEffect(() => {
-    setListEvents();
-  }, []);
 
   return (
     <Container>
