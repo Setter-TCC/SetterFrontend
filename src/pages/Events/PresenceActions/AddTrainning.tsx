@@ -1,6 +1,6 @@
 import React from 'react';
 import { BackButton, Buttons, Column, Container, ContainerBackground, ContainerBox, FormBox, InputWrapper, SelectButton, EventFormBox } from './styles';
-import ListaAtletas from '../PresenceList';
+import AthletesList from '../PresenceList';
 import { useEvent } from '../../../hooks/Event';
 
 
@@ -39,7 +39,7 @@ const AddTrainning: React.FC = () => {
               </Column>
             </EventFormBox>
 
-            <ListaAtletas athletes={presenceAthletes} />
+            <AthletesList athletes={presenceAthletes} />
 
             <FormBox>
               <InputWrapper>

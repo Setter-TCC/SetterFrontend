@@ -3,7 +3,7 @@ import { useAuth } from '../../../auth/AuthContext';
 import { MonthEventBodyContainer } from './styles';
 import { useEvent } from '../../../hooks/Event';
 import EventsTable from '../EventsTable';
-import { EventData, EventType } from '../utils/interfaces';
+import { AthleteStateEnum, EventData, EventType } from '../utils/interfaces';
 
 const events: EventData[] = [
   {
@@ -14,6 +14,15 @@ const events: EventData[] = [
     faults: 2,
     justifiedFaults: 1,
     local: 'CO',
+    listAthletes: [
+      {
+        id: '4',
+        name: 'João',
+        state: AthleteStateEnum.justified,
+        justification: 'gripada.',
+      }
+      // athleteJustification?: string;
+    ]
   },
   {
     id: 2,
@@ -23,6 +32,15 @@ const events: EventData[] = [
     presences: 10,
     faults: 2,
     justifiedFaults: 1,
+    listAthletes: [
+      {
+        id: '4',
+        name: 'João',
+        state: AthleteStateEnum.justified,
+        justification: 'gripada.',
+      }
+      // athleteJustification?: string;
+    ]
   },
   {
     id: 3,

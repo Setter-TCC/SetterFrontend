@@ -11,6 +11,8 @@ export interface AthleteData {
   position: string,
   teamId?: string,
   isActive: boolean,
+  state?: AthletePositionEnum,
+  justification?: string,
 }
 
 export interface AthleteBackData {

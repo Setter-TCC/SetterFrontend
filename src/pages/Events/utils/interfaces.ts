@@ -1,10 +1,8 @@
-export interface PresenceListAthlete {
-  athleteId: string;
-  athleteName: string;
-  athletePresence: boolean;
-  athleteFault: boolean;
-  athleteJustifiedFault: boolean;
-  athleteJustification?: string;
+export interface AthletePresence {
+  id: string;
+  name: string;
+  state: AthleteStateEnum;
+  justification?: string;
 }
 
 export interface EventData {
@@ -19,7 +17,17 @@ export interface EventData {
   opponent?: string;
   championship?: string;
   observation?: string;
-  listAthletes?: PresenceListAthlete[];
+  listAthletes?: AthletePresence[];
+}
+
+export interface AthleteState {
+  [nome: string]: 'presence' | 'fault' | 'justified';
+}
+
+export enum AthleteStateEnum {
+  presence = 'presence',
+  fault = 'fault',
+  justified = 'justified',
 }
 
 export enum EventType {
