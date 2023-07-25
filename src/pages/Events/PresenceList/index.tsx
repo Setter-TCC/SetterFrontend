@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { AthleteName, JustificativaInput, PresenceListContainer, RadioInput, PresenceTable, PresenceTableWrapper } from './styles';
-import { AthleteData } from '../../Athletes/components/utils/interfaces';
 import { AthleteState, AthletePresence, AthleteStateEnum } from '../utils/interfaces';
+import { useEvent } from '../../../hooks/Event';
 
 
-interface AthletesListProps {
-  athletes?: AthleteData[];
-  presenceList?: AthletePresence[];
-}
-
-const ListaAtletas: React.FC<AthletesListProps> = ({ athletes, presenceList }) => {
+const AthletesList: React.FC = () => {
+  const { activeAthletes, selectedEvent, setAthletesPresenceList, athletesPresenceList } = useEvent();
   const [athleteState, setAthleteState] = useState<AthleteState>({});
   const [justification, setJustification] = useState<{ [nome: string]: string }>({});
-  const [list, setList] = useState<AthletePresence[] | AthleteData[]>([]);
 
   const handleRadioChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -23,24 +18,57 @@ const ListaAtletas: React.FC<AthletesListProps> = ({ athletes, presenceList }) =
       ...prevState,
       [athleteName]: value,
     }));
+
+    if (athletesPresenceList) {
+
+      const updatedList: AthletePresence[] = athletesPresenceList.map((athlete) => {
+        if (athlete.name === athleteName) {
+          return {
+            ...athlete,
+            state: value,
+          };
+        }
+        return athlete;
+      });
+      setAthletesPresenceList(updatedList);
+    }
+
   };
 
   const handleJustificativaChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    nomeAtleta: string
+    athleteName: string
   ) => {
     const justificativa = event.target.value;
     setJustification((prevJustification) => ({
       ...prevJustification,
-      [nomeAtleta]: justificativa,
+      [athleteName]: justificativa,
     }));
+
+    if (athletesPresenceList) {
+
+      const updatedList: AthletePresence[] = athletesPresenceList.map((athlete) => {
+        if (athlete.name === athleteName) {
+          return {
+            ...athlete,
+            justification: event.target.value,
+          };
+        }
+        return athlete;
+      });
+      setAthletesPresenceList(updatedList);
+    }
   };
 
   useEffect(() => {
-    if (presenceList) {
-      setList(presenceList);
-    } else if (athletes) {
-      setList(athletes);
+    if (selectedEvent?.listAthletes) {
+      setAthletesPresenceList(selectedEvent.listAthletes);
+    } else if (activeAthletes) {
+      const presenceAthletes = activeAthletes.map((athlete) => ({
+        ...athlete,
+        state: AthleteStateEnum.presence,
+      }));
+      setAthletesPresenceList(presenceAthletes);
     }
   }, []);
 
@@ -58,7 +86,7 @@ const ListaAtletas: React.FC<AthletesListProps> = ({ athletes, presenceList }) =
             </tr>
           </thead>
           <tbody>
-            {list?.map((athlete) => (
+            {athletesPresenceList?.map((athlete) => (
               <tr key={athlete.name}>
                 <td className='default'>
                   <AthleteName>{athlete.name}</AthleteName>
@@ -68,8 +96,8 @@ const ListaAtletas: React.FC<AthletesListProps> = ({ athletes, presenceList }) =
                     <RadioInput
                       type="radio"
                       name={`radio-${athlete.name}`}
-                      value="presence"
-                      checked={athleteState[athlete.name] === 'presence' || athlete.state === 'presence'}
+                      value="1"
+                      checked={athleteState[athlete.name] === AthleteStateEnum.presence || athlete.state === AthleteStateEnum.presence}
                       onChange={(e) => handleRadioChange(e, athlete.name)}
                     />
                   </label>
@@ -79,8 +107,8 @@ const ListaAtletas: React.FC<AthletesListProps> = ({ athletes, presenceList }) =
                     <RadioInput
                       type="radio"
                       name={`radio-${athlete.name}`}
-                      value="fault"
-                      checked={athleteState[athlete.name] === 'fault' || athlete.state === 'fault'}
+                      value="2"
+                      checked={athleteState[athlete.name] === AthleteStateEnum.fault || athlete.state === AthleteStateEnum.fault}
                       onChange={(e) => handleRadioChange(e, athlete.name)}
                     />
                   </label>
@@ -90,8 +118,8 @@ const ListaAtletas: React.FC<AthletesListProps> = ({ athletes, presenceList }) =
                     <RadioInput
                       type="radio"
                       name={`radio-${athlete.name}`}
-                      value="justified"
-                      checked={athleteState[athlete.name] === 'justified' || athlete.state === 'justified'}
+                      value="3"
+                      checked={athleteState[athlete.name] === AthleteStateEnum.justified || athlete.state === AthleteStateEnum.justified}
                       onChange={(e) => handleRadioChange(e, athlete.name)}
                     />
                   </label>
@@ -99,7 +127,7 @@ const ListaAtletas: React.FC<AthletesListProps> = ({ athletes, presenceList }) =
                 <td className='default'>
                   <JustificativaInput
                     type="text"
-                    disabled={athleteState[athlete.name] !== 'justified' && athlete.state !== 'justified'}
+                    disabled={athleteState[athlete.name] !== AthleteStateEnum.justified && athlete.state !== AthleteStateEnum.justified}
                     value={justification[athlete.name] || athlete.justification || ''}
                     onChange={(e) => handleJustificativaChange(e, athlete.name)}
                   />
@@ -113,4 +141,4 @@ const ListaAtletas: React.FC<AthletesListProps> = ({ athletes, presenceList }) =
   );
 };
 
-export default ListaAtletas;
+export default AthletesList;

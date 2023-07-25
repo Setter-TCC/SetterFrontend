@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { EventBody, EventContainer, EventContainerHeader, Container, HeaderTitle } from './styles';
 import Sidebar from '../../components/Sidebar';
 import MonthPicker from '../../components/MonthPicker';
@@ -10,7 +10,7 @@ import MonthEvents from './MonthEvents';
 
 const Events: React.FC = () => {
   const { admin } = useAuth();
-  const { setPresenceAthletes } = useEvent();
+  const { setActiveAthletes: setPresenceAthletes, setAthletesPresenceList } = useEvent();
   // const [loading, setLoading] = useState(false);
 
 

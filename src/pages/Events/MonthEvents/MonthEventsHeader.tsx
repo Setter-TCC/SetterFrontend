@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Container, EventsOption, EventSelect, PresenceHeaderContainer, OptionsButtons, ButtonsWrapper } from './styles';
 import { EventData, EventType, eventTypeText } from '../utils/interfaces';
 import { useEvent } from '../../../hooks/Event';
+import EventsInfoModal from '../../../components/EventsInfoModal';
 
 
 const EventsHeader: React.FC = () => {
-  const { listEvents, setFilteredEvents, setAddTrainning, setAddGame, setAddOther } = useEvent();
+  const { actionModalInfo, listEvents, setFilteredEvents, setAddTrainning, setAddGame, setAddOther } = useEvent();
   const [selected, setSelected] = useState('allEvents');
   const [showOptions, setShowOptions] = useState(false);
 
@@ -73,8 +74,7 @@ const EventsHeader: React.FC = () => {
           )}
         </ButtonsWrapper>
       </PresenceHeaderContainer>
-      {/* {actionModalInfo && <SettingsInfoModal text={actionModalInfo.text} setResetActions={actionModalInfo.setResetActions} />}
-      {!actionModalInfo && settingsAction && renderConfigs[settingsAction.showAction]} */}
+      {actionModalInfo && <EventsInfoModal text={actionModalInfo.text} setResetActions={actionModalInfo.setResetActions} />}
     </Container>
   );
 };

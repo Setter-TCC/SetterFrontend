@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BackButton, Buttons, Column, Container, ContainerBackground, ContainerBox, FormBox, InputWrapper, SelectButton, EventFormBox } from './styles';
 import AthletesList from '../PresenceList';
 import { useEvent } from '../../../hooks/Event';
+import { useAuth } from '../../../auth/AuthContext';
+import { EventData, EventType, translateEventToBackData } from '../utils/interfaces';
+import api from '../../../services/api';
 
 
 const AddOther: React.FC = () => {
+  const { admin } = useAuth();
   const today = new Date().toISOString().split('T')[0];
-  const { setResetActions, presenceAthletes, selectedEvent } = useEvent();
+  const [newOther, setNewOther] = useState({} as EventData);
+  const { setActionModalInfo, setResetActions, selectedEvent, athletesPresenceList } = useEvent();
+
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const addGameData: EventData = ({ ...newOther, type: EventType.other, listAthletes: athletesPresenceList || [], teamId: admin.teamId });
+    const addGameBackData = translateEventToBackData(addGameData);
+    try {
+      await api.post('/api/event/create', addGameBackData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      setActionModalInfo({ text: 'Evento criado com sucesso!', setResetActions });
+    } catch (err) {
+      setActionModalInfo({ text: 'Erro ao criar evento!', setResetActions });
+    }
   };
   return (
     <ContainerBackground>
@@ -22,8 +40,10 @@ const AddOther: React.FC = () => {
                 <InputWrapper>
                   <label htmlFor="name">Nome do Evento</label>
                   <input
+                    required
                     defaultValue={selectedEvent?.name}
                     type="text"
+                    onChange={(e) => setNewOther({ ...newOther, name: e.target.value })}
                   />
                 </InputWrapper>
               </Column>
@@ -31,15 +51,17 @@ const AddOther: React.FC = () => {
                 <InputWrapper>
                   <label htmlFor="date">Data*</label>
                   <input
+                    required
                     type="date"
                     max={today}
                     defaultValue={selectedEvent?.date}
+                    onChange={(e) => setNewOther({ ...newOther, date: e.target.value })}
                   />
                 </InputWrapper>
               </Column>
             </EventFormBox>
 
-            <AthletesList athletes={presenceAthletes} presenceList={selectedEvent?.listAthletes} />
+            <AthletesList />
 
             <FormBox>
               <InputWrapper>
@@ -48,6 +70,7 @@ const AddOther: React.FC = () => {
                   defaultValue={selectedEvent?.observation}
                   className='observation'
                   type="text"
+                  onChange={(e) => setNewOther({ ...newOther, observation: e.target.value })}
                 />
               </InputWrapper>
             </FormBox>

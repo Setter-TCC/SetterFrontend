@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BackButton, Buttons, Column, Container, ContainerBackground, ContainerBox, FormBox, InputWrapper, SelectButton, EventFormBox } from './styles';
 import AthletesList from '../PresenceList';
 import { useEvent } from '../../../hooks/Event';
+import { useAuth } from '../../../auth/AuthContext';
+import { EventData, EventType, translateEventToBackData } from '../utils/interfaces';
+import api from '../../../services/api';
 
 
 const AddTrainning: React.FC = () => {
+  const { admin } = useAuth();
   const today = new Date().toISOString().split('T')[0];
-  const { setResetActions, presenceAthletes, selectedEvent } = useEvent();
+  const [newTrainning, setNewTrainning] = useState({} as EventData);
+  const { setActionModalInfo, setResetActions, selectedEvent, athletesPresenceList } = useEvent();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const addGameData: EventData = ({ ...newTrainning, type: EventType.trainning, listAthletes: athletesPresenceList || [], teamId: admin.teamId });
+    const addGameBackData = translateEventToBackData(addGameData);
+    try {
+      await api.post('/api/event/create', addGameBackData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      setActionModalInfo({ text: 'Treino criado com sucesso!', setResetActions });
+    } catch (err) {
+      setActionModalInfo({ text: 'Erro ao criar treino!', setResetActions });
+    }
   };
   return (
     <ContainerBackground>
@@ -22,9 +39,11 @@ const AddTrainning: React.FC = () => {
                 <InputWrapper>
                   <label htmlFor="date">Data*</label>
                   <input
+                    required
                     type="date"
                     max={today}
                     defaultValue={selectedEvent?.date}
+                    onChange={(e) => setNewTrainning({ ...newTrainning, date: e.target.value })}
                   />
                 </InputWrapper>
               </Column>
@@ -34,12 +53,13 @@ const AddTrainning: React.FC = () => {
                   <input
                     type="text"
                     defaultValue={selectedEvent?.local}
+                    onChange={(e) => setNewTrainning({ ...newTrainning, local: e.target.value })}
                   />
                 </InputWrapper>
               </Column>
             </EventFormBox>
 
-            <AthletesList athletes={presenceAthletes} />
+            <AthletesList />
 
             <FormBox>
               <InputWrapper>
@@ -48,6 +68,7 @@ const AddTrainning: React.FC = () => {
                   className='observation'
                   type="text"
                   defaultValue={selectedEvent?.observation}
+                  onChange={(e) => setNewTrainning({ ...newTrainning, observation: e.target.value })}
                 />
               </InputWrapper>
             </FormBox>

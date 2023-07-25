@@ -7,7 +7,8 @@ import { AthleteStateEnum, EventData, EventType } from '../utils/interfaces';
 
 const events: EventData[] = [
   {
-    id: 1,
+    id: '11',
+    teamId: '1',
     type: EventType.trainning,
     date: '2021-09-01',
     presences: 10,
@@ -25,7 +26,8 @@ const events: EventData[] = [
     ]
   },
   {
-    id: 2,
+    id: '22',
+    teamId: '1',
     name: 'Amistoso',
     type: EventType.other,
     date: '2021-09-01',
@@ -43,7 +45,8 @@ const events: EventData[] = [
     ]
   },
   {
-    id: 3,
+    id: '33',
+    teamId: '1',
     type: EventType.game,
     date: '2021-09-01',
     presences: 10,
@@ -52,6 +55,15 @@ const events: EventData[] = [
     local: 'CO',
     championship: 'Copa do Brasil',
     opponent: 'São Paulo',
+    listAthletes: [
+      {
+        id: '4',
+        name: 'João',
+        state: AthleteStateEnum.justified,
+        justification: 'gripada.',
+      }
+      // athleteJustification?: string;
+    ]
   },
 ];
 

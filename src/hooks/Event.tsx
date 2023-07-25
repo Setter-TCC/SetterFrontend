@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useContext, useReducer, useState } from 'react';
 import { AthleteData } from '../pages/Athletes/components/utils/interfaces';
-import { EventData } from '../pages/Events/utils/interfaces';
+import { AthletePresence, EventData } from '../pages/Events/utils/interfaces';
 
 interface EventContextData {
+  athletesPresenceList?: AthletePresence[],
+  setAthletesPresenceList(athletesPresenceList: AthletePresence[]): void,
   listEvents: EventData[],
   setListEvents(events: EventData[]): void,
   filteredEvents?: EventData[],
@@ -12,10 +14,8 @@ interface EventContextData {
   setSelectedEvent(event: EventData): void,
   selectedMonth: MonthEvents,
   setSelectedMonth(month: MonthEvents): void,
-  presenceAthletes: AthleteData[],
-  setPresenceAthletes(athletes: AthleteData[]): void,
-  // searchValue: string,
-  // setSearchValue(searchValue: string): void,
+  activeAthletes: AthleteData[],
+  setActiveAthletes(athletes: AthleteData[]): void,
   presenceAction: EventAction,
   setAddTrainning(): void,
   setAddGame(): void,
@@ -44,6 +44,7 @@ interface EventAction {
 
 interface ActionModalInfo {
   text: string,
+  setResetActions(): void,
 }
 
 const athleteActionInitialState: EventAction = {
@@ -87,7 +88,8 @@ const EventsProvider = ({ children }: any): JSX.Element => {
     year: new Date().getFullYear(),
   } as MonthEvents);
 
-  const [presenceAthletes, setPresenceAthletes] = useState<AthleteData[]>([] as AthleteData[]);
+  const [activeAthletes, setActiveAthletes] = useState<AthleteData[]>([] as AthleteData[]);
+  const [athletesPresenceList, setAthletesPresenceList] = useState<AthletePresence[]>([] as AthletePresence[]);
   const [listEvents, setListEvents] = useState<EventData[]>([] as EventData[]);
   const [filteredEvents, setFilteredEvents] = useState<EventData[]>([] as EventData[]);
   const [selectedEvent, setSelectedEvent] = useState<EventData | undefined>(undefined as EventData | undefined);
@@ -125,6 +127,7 @@ const EventsProvider = ({ children }: any): JSX.Element => {
       type: EventActionType.RESET_ACTION,
       payload: {},
     });
+    setSelectedEvent(undefined);
   };
 
 
@@ -142,14 +145,12 @@ const EventsProvider = ({ children }: any): JSX.Element => {
     setResetActions,
     actionModalInfo,
     setActionModalInfo,
-    presenceAthletes,
-    setPresenceAthletes,
+    activeAthletes,
+    setActiveAthletes,
     selectedEvent,
     setSelectedEvent,
-    // searchValue,
-    // setSearchValue,
-    // selectedAthlete,
-    // setSelectedAthlete,
+    athletesPresenceList,
+    setAthletesPresenceList,
   };
 
   return <Provider value={contextValues}>{children}</Provider>;
