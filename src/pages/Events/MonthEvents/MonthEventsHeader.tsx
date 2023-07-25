@@ -61,13 +61,13 @@ const EventsHeader: React.FC = () => {
           </button>
           {showOptions && (
             <OptionsButtons>
-              <button onClick={setAddTrainning}>
+              <button onClick={() => setAddTrainning(false)}>
                 {eventTypeText(EventType.trainning)}
               </button>
-              <button onClick={setAddGame} >
+              <button onClick={() => setAddGame(false)} >
                 {eventTypeText(EventType.game)}
               </button>
-              <button onClick={setAddOther} >
+              <button onClick={() => setAddOther(false)} >
                 {eventTypeText(EventType.other)}
               </button>
             </OptionsButtons>

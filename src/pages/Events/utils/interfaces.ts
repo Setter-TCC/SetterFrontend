@@ -17,7 +17,7 @@ export interface AthletePresenceBack {
 
 export interface EventData {
   id?: string;
-  teamId: string,
+  teamId?: string,
   name?: string;
   type: EventType;
   date: string;
@@ -33,15 +33,18 @@ export interface EventData {
 
 export interface EventDataBack {
   id?: string;
-  time_id: string;
-  tipo_evento: EventType;
+  time_id?: string;
+  tipo_evento: number;
   data: string;
   local?: string;
+  nome?: string;
   adversario?: string;
   campeonato?: string;
   observacao?: string;
+  presencas?: number;
+  faltas?: number;
+  justificados?: number;
   lista_de_atletas: AthletePresenceBack[];
-
 }
 
 export interface AthleteState {
@@ -85,12 +88,13 @@ export const convertAthletesDataToAthletesPresenceList = (data: AthleteData[]): 
 export const translateEventToBackData = (data: EventData): EventDataBack => {
   const event: EventDataBack = {
     time_id: data.teamId,
-    tipo_evento: data.type,
+    tipo_evento: data.type || EventType.other,
     data: formatDateTimezone(data.date) || '',
     local: data.local || '',
     adversario: data.opponent || '',
     campeonato: data.championship || '',
     observacao: data.observation || '',
+    nome: data.name || '',
     lista_de_atletas: data.listAthletes.map((athlete) => {
       return {
         id_atleta: athlete.id,
@@ -104,17 +108,41 @@ export const translateEventToBackData = (data: EventData): EventDataBack => {
   return event;
 };
 
-export const translateEventToFrontData = (data: EventDataBack[]): EventData[] => {
-  const events: EventData[] = data.map((event) => {
+export const translateEventsToFrontData = (data: EventDataBack[]): EventData[] => {
+  const events: EventData[] = data.map((event: EventDataBack) => {
     return {
       id: event.id,
-      teamId: event.time_id,
+      name: event.nome,
       type: event.tipo_evento,
       date: event.data,
       local: event.local || '-',
       opponent: event.adversario || '-',
       championship: event.campeonato || '-',
       observation: event.observacao || '-',
+      presences: event.presencas || 0,
+      faults: event.faltas || 0,
+      justifiedFaults: event.justificados || 0,
+      listAthletes: [],
+    };
+  });
+
+  return events;
+};
+
+export const translateSelectedEventToFrontData = (data: EventDataBack[]): EventData[] => {
+  const events: EventData[] = data.map((event: EventDataBack) => {
+    return {
+      id: event.id,
+      name: event.nome,
+      type: event.tipo_evento,
+      date: event.data,
+      local: event.local || '-',
+      opponent: event.adversario || '-',
+      championship: event.campeonato || '-',
+      observation: event.observacao || '-',
+      presences: event.presencas || 0,
+      faults: event.faltas || 0,
+      justifiedFaults: event.justificados || 0,
       listAthletes: event.lista_de_atletas.map((athlete) => {
         return {
           id: athlete.id_atleta,

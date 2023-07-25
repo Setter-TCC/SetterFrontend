@@ -3,95 +3,41 @@ import { useAuth } from '../../../auth/AuthContext';
 import { MonthEventBodyContainer } from './styles';
 import { useEvent } from '../../../hooks/Event';
 import EventsTable from '../EventsTable';
-import { AthleteStateEnum, EventData, EventType } from '../utils/interfaces';
-
-const events: EventData[] = [
-  {
-    id: '11',
-    teamId: '1',
-    type: EventType.trainning,
-    date: '2021-09-01',
-    presences: 10,
-    faults: 2,
-    justifiedFaults: 1,
-    local: 'CO',
-    listAthletes: [
-      {
-        id: '4',
-        name: 'João',
-        state: AthleteStateEnum.justified,
-        justification: 'gripada.',
-      }
-      // athleteJustification?: string;
-    ]
-  },
-  {
-    id: '22',
-    teamId: '1',
-    name: 'Amistoso',
-    type: EventType.other,
-    date: '2021-09-01',
-    presences: 10,
-    faults: 2,
-    justifiedFaults: 1,
-    listAthletes: [
-      {
-        id: '4',
-        name: 'João',
-        state: AthleteStateEnum.justified,
-        justification: 'gripada.',
-      }
-      // athleteJustification?: string;
-    ]
-  },
-  {
-    id: '33',
-    teamId: '1',
-    type: EventType.game,
-    date: '2021-09-01',
-    presences: 10,
-    faults: 2,
-    justifiedFaults: 1,
-    local: 'CO',
-    championship: 'Copa do Brasil',
-    opponent: 'São Paulo',
-    listAthletes: [
-      {
-        id: '4',
-        name: 'João',
-        state: AthleteStateEnum.justified,
-        justification: 'gripada.',
-      }
-      // athleteJustification?: string;
-    ]
-  },
-];
+import { translateEventsToFrontData } from '../utils/interfaces';
+import api from '../../../services/api';
+import { useCash } from '../../../hooks/Cash';
+import { set } from 'date-fns';
 
 
 const MonthEventsBody: React.FC = () => {
   const { admin } = useAuth();
-  const { listEvents, setListEvents, setFilteredEvents, selectedMonth, actionModalInfo } = useEvent();
+  const { selectedMonth } = useCash();
+  const { setListEvents, setFilteredEvents, actionModalInfo } = useEvent();
 
   const getMonthEvents = async () => {
-    // try {
-    //   const { data } = await api.get(`/api/transaction/month?team_id=${admin.teamId}&month=${selectedMonth?.month}&year=${selectedMonth?.year}`, {
-    //     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-    //   });
-
-    //   const frontTransactions = translateTransactionToFrontData(data.value);
-    //   setTransactions(frontTransactions);
-    // } catch (error: any) {
-    //   if (error.response.status === 404) {
-    //     setTransactions([]);
-    //   }
-    // }
-    setListEvents(events);
-    setFilteredEvents(events);
+    try {
+      const { data } = await api.get(`/api/event/month?team_id=${admin.teamId}&month=${selectedMonth?.month}&year=${selectedMonth?.year}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      });
+      console.log(data.value);
+      const frontEvents = translateEventsToFrontData(data.value);
+      setListEvents(frontEvents);
+      setFilteredEvents(frontEvents);
+    } catch (error: any) {
+      if (error?.response?.status === 404) {
+        setListEvents([]);
+        setFilteredEvents([]);
+      }
+      else {
+        setListEvents([]);
+        setFilteredEvents([]);
+      }
+    }
   };
 
   useEffect(() => {
     getMonthEvents();
-  }, [listEvents, selectedMonth, actionModalInfo]);
+  }, [selectedMonth, actionModalInfo]);
 
   return (
     <MonthEventBodyContainer>

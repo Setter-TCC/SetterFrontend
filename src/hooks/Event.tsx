@@ -12,14 +12,12 @@ interface EventContextData {
   setFilteredEvents(events: EventData[]): void,
   selectedEvent?: EventData,
   setSelectedEvent(event: EventData): void,
-  selectedMonth: MonthEvents,
-  setSelectedMonth(month: MonthEvents): void,
   activeAthletes: AthleteData[],
   setActiveAthletes(athletes: AthleteData[]): void,
   presenceAction: EventAction,
-  setAddTrainning(): void,
-  setAddGame(): void,
-  setAddOther(): void,
+  setAddTrainning(isSelected: boolean): void,
+  setAddGame(isSelected: boolean): void,
+  setAddOther(isSelected: boolean): void,
   setResetActions(): void,
   actionModalInfo: ActionModalInfo | null,
   setActionModalInfo(info: ActionModalInfo | null): void,
@@ -81,18 +79,11 @@ const EventContext = createContext({} as EventContextData);
 const { Provider } = EventContext;
 
 const EventsProvider = ({ children }: any): JSX.Element => {
-
-  // const [searchValue, setSearchValue] = useState('');
-  const [selectedMonth, setSelectedMonth] = useState<MonthEvents>({
-    month: new Date().getMonth() + 1,
-    year: new Date().getFullYear(),
-  } as MonthEvents);
-
   const [activeAthletes, setActiveAthletes] = useState<AthleteData[]>([] as AthleteData[]);
   const [athletesPresenceList, setAthletesPresenceList] = useState<AthletePresence[]>([] as AthletePresence[]);
   const [listEvents, setListEvents] = useState<EventData[]>([] as EventData[]);
   const [filteredEvents, setFilteredEvents] = useState<EventData[]>([] as EventData[]);
-  const [selectedEvent, setSelectedEvent] = useState<EventData | undefined>(undefined as EventData | undefined);
+  const [selectedEvent, setSelectedEvent] = useState<EventData | undefined>(undefined);
 
   const [presenceAction, setCashAction] = useReducer(
     presenceReducer,
@@ -100,7 +91,10 @@ const EventsProvider = ({ children }: any): JSX.Element => {
   );
   const [actionModalInfo, setActionModalInfo] = useState<ActionModalInfo | null>(null);
 
-  const setAddTrainning = () => {
+  const setAddTrainning = (isSelected = false) => {
+    if (!isSelected) {
+      setSelectedEvent(undefined);
+    }
     setCashAction({
       type: EventActionType.ADD_TRAINNING,
       payload: {},
@@ -108,14 +102,20 @@ const EventsProvider = ({ children }: any): JSX.Element => {
   };
 
 
-  const setAddGame = () => {
+  const setAddGame = (isSelected = false) => {
+    if (!isSelected) {
+      setSelectedEvent(undefined);
+    }
     setCashAction({
       type: EventActionType.ADD_GAME,
       payload: {},
     });
   };
 
-  const setAddOther = () => {
+  const setAddOther = (isSelected = false) => {
+    if (!isSelected) {
+      setSelectedEvent(undefined);
+    }
     setCashAction({
       type: EventActionType.ADD_OTHER,
       payload: {},
@@ -132,8 +132,6 @@ const EventsProvider = ({ children }: any): JSX.Element => {
 
 
   const contextValues = {
-    selectedMonth,
-    setSelectedMonth,
     presenceAction,
     listEvents,
     setListEvents,

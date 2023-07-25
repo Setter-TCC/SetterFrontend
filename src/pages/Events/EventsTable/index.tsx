@@ -5,14 +5,14 @@ import { formatEventName } from '../utils/format';
 import { useEvent } from '../../../hooks/Event';
 
 const EventsTable: React.FC = () => {
-  const { filteredEvents, setSelectedEvent, setAddGame, setAddOther, setAddTrainning } = useEvent();
+  const { selectedEvent, filteredEvents, setSelectedEvent, setAddGame, setAddOther, setAddTrainning } = useEvent();
 
   const handleEventClick = (event: EventData) => {
     setSelectedEvent(event);
     const eventActionMap: { [key in EventType]: () => void } = {
-      [EventType.game]: setAddGame,
-      [EventType.other]: setAddOther,
-      [EventType.trainning]: setAddTrainning,
+      [EventType.game]: () => setAddGame(true),
+      [EventType.other]: () => setAddOther(true),
+      [EventType.trainning]: () => setAddTrainning(true),
     };
 
     const actionFunction = eventActionMap[event.type];
@@ -20,6 +20,7 @@ const EventsTable: React.FC = () => {
       actionFunction();
     }
   };
+  console.log(selectedEvent);
   return (
     <TableWrapper>
       <Table>

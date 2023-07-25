@@ -10,7 +10,7 @@ import MonthEvents from './MonthEvents';
 
 const Events: React.FC = () => {
   const { admin } = useAuth();
-  const { setActiveAthletes: setPresenceAthletes, setAthletesPresenceList } = useEvent();
+  const { setActiveAthletes } = useEvent();
   // const [loading, setLoading] = useState(false);
 
 
@@ -24,12 +24,12 @@ const Events: React.FC = () => {
       })
         .then(({ data }) => {
           const frontAthletes: AthleteData[] = translateAthleteFrontData(data.value);
-          setPresenceAthletes(frontAthletes);
+          setActiveAthletes(frontAthletes);
         })
         .catch((err) => {
           // setLoading(false);
-          if (err.response.status === 404) {
-            setPresenceAthletes([]);
+          if (err?.response?.status === 404) {
+            setActiveAthletes([]);
           }
         });
       // setLoading(false);
