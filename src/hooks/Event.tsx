@@ -31,11 +31,6 @@ export enum EventActionType {
   RESET_ACTION = 'RESET_ACTION',
 }
 
-interface MonthEvents {
-  month: number,
-  year: number,
-}
-
 interface EventAction {
   showAction: string,
 }

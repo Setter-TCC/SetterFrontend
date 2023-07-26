@@ -41,6 +41,7 @@ const EditAthlete: React.FC = () => {
       setActionModalInfo({ text: 'Erro ao editar atleta!' });
     }
   };
+  console.log(selectedAthlete?.birth);
 
   return (
     <ContainerBackground>

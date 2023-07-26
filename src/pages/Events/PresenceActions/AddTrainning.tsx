@@ -38,19 +38,28 @@ const AddTrainning: React.FC = () => {
               <Column>
                 <InputWrapper>
                   <label htmlFor="date">Data*</label>
-                  <input
-                    required
-                    type="date"
-                    max={today}
-                    defaultValue={selectedEvent?.date}
-                    onChange={(e) => setNewTrainning({ ...newTrainning, date: e.target.value })}
-                  />
+                  {
+                    selectedEvent ? (
+                      <input
+                        defaultValue={selectedEvent.date}
+                        readOnly
+                        type="text" />
+                    ) : (
+                      <input
+                        required
+                        type="date"
+                        max={today}
+                        onChange={(e) => setNewTrainning({ ...newTrainning, date: e.target.value })}
+                      />
+                    )
+                  }
                 </InputWrapper>
               </Column>
               <Column>
                 <InputWrapper>
                   <label htmlFor="local">Local</label>
                   <input
+                    readOnly={selectedEvent !== undefined}
                     type="text"
                     defaultValue={selectedEvent?.local}
                     onChange={(e) => setNewTrainning({ ...newTrainning, local: e.target.value })}
@@ -65,6 +74,7 @@ const AddTrainning: React.FC = () => {
               <InputWrapper>
                 <label htmlFor="value">Observações</label>
                 <input
+                  readOnly={selectedEvent !== undefined}
                   className='observation'
                   type="text"
                   defaultValue={selectedEvent?.observation}
@@ -74,7 +84,10 @@ const AddTrainning: React.FC = () => {
             </FormBox>
             <Buttons>
               <BackButton onClick={setResetActions}>Voltar</BackButton>
-              <SelectButton type="submit">Adicionar</SelectButton>
+              {
+                !selectedEvent &&
+                <SelectButton type="submit">Adicionar</SelectButton>
+              }
             </Buttons>
           </Container>
         </form>

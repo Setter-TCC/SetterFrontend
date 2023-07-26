@@ -24,6 +24,7 @@ const AddGame: React.FC = () => {
       });
       setActionModalInfo({ text: 'Jogo criado com sucesso!', setResetActions });
     } catch (err) {
+      console.log(err);
       setActionModalInfo({ text: 'Erro ao criar jogo!', setResetActions });
     }
   };
@@ -37,17 +38,27 @@ const AddGame: React.FC = () => {
               <Column>
                 <InputWrapper>
                   <label htmlFor="date">Data*</label>
-                  <input
-                    required
-                    defaultValue={selectedEvent?.date}
-                    type="date"
-                    max={today}
-                    onChange={(e) => setNewGame({ ...newGame, date: e.target.value })}
-                  />
+                  {
+                    selectedEvent ? (
+                      <input
+                        defaultValue={selectedEvent.date}
+                        readOnly
+                        type="text" />
+                    ) : (
+                      <input
+                        required
+                        type="date"
+                        max={today}
+                        // value={}
+                        onChange={(e) => setNewGame({ ...newGame, date: e.target.value })}
+                      />
+                    )
+                  }
                 </InputWrapper>
                 <InputWrapper>
                   <label htmlFor="oponnent">Adversário</label>
                   <input
+                    readOnly={selectedEvent !== undefined}
                     defaultValue={selectedEvent?.opponent}
                     type="text"
                     onChange={(e) => setNewGame({ ...newGame, opponent: e.target.value })}
@@ -58,6 +69,7 @@ const AddGame: React.FC = () => {
                 <InputWrapper>
                   <label htmlFor="local">Local</label>
                   <input
+                    readOnly={selectedEvent !== undefined}
                     defaultValue={selectedEvent?.local}
                     type="text"
                     onChange={(e) => setNewGame({ ...newGame, local: e.target.value })}
@@ -67,6 +79,7 @@ const AddGame: React.FC = () => {
                 <InputWrapper>
                   <label htmlFor="championship">Campeonato</label>
                   <input
+                    readOnly={selectedEvent !== undefined}
                     defaultValue={selectedEvent?.championship}
                     type="text"
                     onChange={(e) => setNewGame({ ...newGame, championship: e.target.value })}
@@ -81,6 +94,7 @@ const AddGame: React.FC = () => {
               <InputWrapper>
                 <label htmlFor="value">Observações</label>
                 <input
+                  readOnly={selectedEvent !== undefined}
                   defaultValue={selectedEvent?.observation}
                   className='observation'
                   type="text"
@@ -90,7 +104,10 @@ const AddGame: React.FC = () => {
             </FormBox>
             <Buttons>
               <BackButton onClick={setResetActions}>Voltar</BackButton>
-              <SelectButton type="submit">Adicionar</SelectButton>
+              {
+                !selectedEvent &&
+                <SelectButton type="submit">Adicionar</SelectButton>
+              }
             </Buttons>
           </Container>
         </form>

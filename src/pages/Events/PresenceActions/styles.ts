@@ -148,7 +148,7 @@ export const Buttons = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 2em;
 `;
 

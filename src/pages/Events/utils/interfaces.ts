@@ -44,7 +44,7 @@ export interface EventDataBack {
   presencas?: number;
   faltas?: number;
   justificados?: number;
-  lista_de_atletas: AthletePresenceBack[];
+  lista_de_presenca: AthletePresenceBack[];
 }
 
 export interface AthleteState {
@@ -95,7 +95,7 @@ export const translateEventToBackData = (data: EventData): EventDataBack => {
     campeonato: data.championship || '',
     observacao: data.observation || '',
     nome: data.name || '',
-    lista_de_atletas: data.listAthletes.map((athlete) => {
+    lista_de_presenca: data.listAthletes.map((athlete) => {
       return {
         id_atleta: athlete.id,
         nome: athlete.name,
@@ -129,30 +129,27 @@ export const translateEventsToFrontData = (data: EventDataBack[]): EventData[] =
   return events;
 };
 
-export const translateSelectedEventToFrontData = (data: EventDataBack[]): EventData[] => {
-  const events: EventData[] = data.map((event: EventDataBack) => {
-    return {
-      id: event.id,
-      name: event.nome,
-      type: event.tipo_evento,
-      date: event.data,
-      local: event.local || '-',
-      opponent: event.adversario || '-',
-      championship: event.campeonato || '-',
-      observation: event.observacao || '-',
-      presences: event.presencas || 0,
-      faults: event.faltas || 0,
-      justifiedFaults: event.justificados || 0,
-      listAthletes: event.lista_de_atletas.map((athlete) => {
-        return {
-          id: athlete.id_atleta,
-          name: athlete.nome,
-          state: athlete.estado.toString() as AthleteStateEnum,
-          justification: athlete.justificativa || '',
-        };
-      }),
-    };
-  });
-
-  return events;
+export const translateSelectedEventToFrontData = (data: EventDataBack): EventData => {
+  const event: EventData = {
+    id: data.id,
+    name: data.nome,
+    type: data.tipo_evento,
+    date: data.data,
+    local: data.local || '-',
+    opponent: data.adversario || '-',
+    championship: data.campeonato || '-',
+    observation: data.observacao || '-',
+    presences: data.presencas || 0,
+    faults: data.faltas || 0,
+    justifiedFaults: data.justificados || 0,
+    listAthletes: data.lista_de_presenca.map((athlete) => {
+      return {
+        id: athlete.id_atleta,
+        name: athlete.nome,
+        state: athlete.estado.toString() as AthleteStateEnum,
+        justification: athlete.justificativa || '',
+      };
+    }),
+  };
+  return event;
 };

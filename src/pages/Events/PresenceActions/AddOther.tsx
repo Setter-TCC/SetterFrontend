@@ -29,6 +29,7 @@ const AddOther: React.FC = () => {
       setActionModalInfo({ text: 'Erro ao criar evento!', setResetActions });
     }
   };
+  console.log(selectedEvent?.date);
   return (
     <ContainerBackground>
       <ContainerBox>
@@ -40,6 +41,7 @@ const AddOther: React.FC = () => {
                 <InputWrapper>
                   <label htmlFor="name">Nome do Evento</label>
                   <input
+                    readOnly={selectedEvent !== undefined}
                     required
                     defaultValue={selectedEvent?.name}
                     type="text"
@@ -50,13 +52,19 @@ const AddOther: React.FC = () => {
               <Column>
                 <InputWrapper>
                   <label htmlFor="date">Data*</label>
-                  <input
-                    required
-                    type="date"
-                    max={today}
-                    defaultValue={selectedEvent?.date}
-                    onChange={(e) => setNewOther({ ...newOther, date: e.target.value })}
-                  />
+                  {selectedEvent ? (
+                    <input
+                      defaultValue={selectedEvent.date}
+                      readOnly
+                      type="text" />
+                  ) : (
+                    <input
+                      required
+                      type="date"
+                      max={today}
+                      onChange={(e) => setNewOther({ ...newOther, date: e.target.value })}
+                    />
+                  )}
                 </InputWrapper>
               </Column>
             </EventFormBox>
@@ -67,6 +75,7 @@ const AddOther: React.FC = () => {
               <InputWrapper>
                 <label htmlFor="value">Observações</label>
                 <input
+                  readOnly={selectedEvent !== undefined}
                   defaultValue={selectedEvent?.observation}
                   className='observation'
                   type="text"
@@ -76,7 +85,10 @@ const AddOther: React.FC = () => {
             </FormBox>
             <Buttons>
               <BackButton onClick={setResetActions}>Voltar</BackButton>
-              <SelectButton type="submit">Adicionar</SelectButton>
+              {
+                !selectedEvent &&
+                <SelectButton type="submit">Adicionar</SelectButton>
+              }
             </Buttons>
           </Container>
         </form>

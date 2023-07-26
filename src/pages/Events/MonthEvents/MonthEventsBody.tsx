@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from 'react';
 import { useAuth } from '../../../auth/AuthContext';
 import { MonthEventBodyContainer } from './styles';
@@ -6,7 +7,6 @@ import EventsTable from '../EventsTable';
 import { translateEventsToFrontData } from '../utils/interfaces';
 import api from '../../../services/api';
 import { useCash } from '../../../hooks/Cash';
-import { set } from 'date-fns';
 
 
 const MonthEventsBody: React.FC = () => {
@@ -19,7 +19,6 @@ const MonthEventsBody: React.FC = () => {
       const { data } = await api.get(`/api/event/month?team_id=${admin.teamId}&month=${selectedMonth?.month}&year=${selectedMonth?.year}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
-      console.log(data.value);
       const frontEvents = translateEventsToFrontData(data.value);
       setListEvents(frontEvents);
       setFilteredEvents(frontEvents);
